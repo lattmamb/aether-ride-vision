@@ -24,4 +24,20 @@ export default defineConfig(({ mode }) => ({
   optimizeDeps: {
     exclude: ['three-globe'],
   },
+  build: {
+    commonjsOptions: {
+      // This will prevent the WebGPU module from being required
+      ignoreDynamicRequires: ['three-globe'],
+    },
+    rollupOptions: {
+      // Add an override to handle the missing WebGPU module
+      onwarn(warning, warn) {
+        if (warning.code === 'MODULE_LEVEL_DIRECTIVE' || 
+            warning.message?.includes('three/webgpu')) {
+          return;
+        }
+        warn(warning);
+      }
+    }
+  },
 }));
