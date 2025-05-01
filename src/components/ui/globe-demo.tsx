@@ -2,7 +2,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { World } from "@/components/ui/globe";
-import { ChargingStation } from "@/types";
+import { ChargingStation } from "@/types/";
+import { Position } from "@/types/globe";
 
 interface GlobeDemoProps {
   stations?: ChargingStation[];
@@ -16,7 +17,7 @@ export default function GlobeDemo({ stations = [], className = "" }: GlobeDemoPr
   const generateArcs = () => {
     if (!stations || stations.length === 0) return sampleArcs;
     
-    const arcs = [];
+    const arcs: Position[] = [];
     // Create connections between charging stations
     for (let i = 0; i < stations.length; i++) {
       for (let j = i + 1; j < stations.length; j++) {
@@ -81,7 +82,7 @@ export default function GlobeDemo({ stations = [], className = "" }: GlobeDemoPr
 }
 
 // Sample arcs for when no stations are provided
-const sampleArcs = [
+const sampleArcs: Position[] = [
   {
     order: 1,
     startLat: 37.7749,
