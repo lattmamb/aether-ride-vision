@@ -26,8 +26,8 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     commonjsOptions: {
-      // This will prevent the WebGPU module from being required
-      ignoreDynamicRequires: ['three-globe'],
+      // Fix TypeScript error by setting this to true instead of an array
+      ignoreDynamicRequires: true,
     },
     rollupOptions: {
       // Add an override to handle the missing WebGPU module
