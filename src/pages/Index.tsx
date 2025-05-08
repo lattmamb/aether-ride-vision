@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import Hero from '@/components/Hero';
 import FeaturesSection from '@/components/FeaturesSection';
-import { vehicles } from '@/data/vehicles';
+import { vehicles } from '@/data/index';
 import TeslaVehiclesParallax from '@/components/TeslaVehiclesParallax';
 import { SparklesPreviewTesla } from '@/components/ui/sparkles-demo';
 import TeslaCardCarousel from '@/components/TeslaCardCarousel';
