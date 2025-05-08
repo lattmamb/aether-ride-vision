@@ -18,6 +18,8 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Add an alias for the problematic WebGPU module
+      "three/webgpu": false
     },
   },
   optimizeDeps: {
@@ -35,6 +37,7 @@ export default defineConfig(({ mode }) => ({
       external: [
         /three\/examples\/jsm\/libs\/draco\/.+\.wasm/,
         /three\/examples\/jsm\/libs\/basis\/.+\.wasm/,
+        /three\/webgpu/,  // Explicitly exclude webgpu module
       ],
     },
   },
