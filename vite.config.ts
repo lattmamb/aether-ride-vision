@@ -18,8 +18,9 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Add an alias for the problematic WebGPU module
-      "three/webgpu": false
+      // Fix the problematic WebGPU module with a proper string path
+      // Use an empty module instead of boolean false
+      "three/webgpu": path.resolve(__dirname, "./src/utils/empty-module.ts")
     },
   },
   optimizeDeps: {
@@ -38,6 +39,7 @@ export default defineConfig(({ mode }) => ({
         /three\/examples\/jsm\/libs\/draco\/.+\.wasm/,
         /three\/examples\/jsm\/libs\/basis\/.+\.wasm/,
         /three\/webgpu/,  // Explicitly exclude webgpu module
+        /three\/tsl/,     // Also exclude tsl module that's causing an error
       ],
     },
   },

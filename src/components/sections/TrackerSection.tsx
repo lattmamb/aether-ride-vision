@@ -1,9 +1,25 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GlobeDemo from '@/components/ui/globe-demo';
 import { chargingStations } from '@/data';
+import { AlertTriangle } from 'lucide-react';
 
 const TrackerSection: React.FC = () => {
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    // Check if WebGL is supported
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (!gl) {
+        setHasError(true);
+      }
+    } catch (e) {
+      setHasError(true);
+    }
+  }, []);
+
   return (
     <section className="py-16 bg-tesla-dark-80">
       <div className="container mx-auto px-4">
@@ -14,7 +30,18 @@ const TrackerSection: React.FC = () => {
           </p>
         </div>
         
-        <GlobeDemo stations={chargingStations} className="w-full h-[500px]" />
+        {hasError ? (
+          <div className="glass-card p-6 rounded-xl flex flex-col items-center justify-center h-[500px]">
+            <AlertTriangle className="h-12 w-12 text-yellow-500 mb-4" />
+            <h3 className="text-2xl font-bold mb-2">3D Visualization Unavailable</h3>
+            <p className="text-white/70 text-center max-w-lg">
+              Your browser doesn't support WebGL, which is required for our 3D globe visualization.
+              Please try using a modern browser like Chrome, Firefox, or Edge.
+            </p>
+          </div>
+        ) : (
+          <GlobeDemo stations={chargingStations} className="w-full h-[500px]" />
+        )}
       </div>
     </section>
   );
