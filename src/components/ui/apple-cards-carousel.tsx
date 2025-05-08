@@ -12,9 +12,11 @@ interface CardProps {
     content: React.ReactNode;
   };
   index: number;
+  // Updated to use setActiveIndex instead of onExpand
+  setActiveIndex?: (index: number) => void;
 }
 
-export const Card: React.FC<CardProps> = ({ card, index }) => {
+export const Card: React.FC<CardProps> = ({ card, index, setActiveIndex }) => {
   const [expanded, setExpanded] = useState(false);
   const [bodyHeight, setBodyHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -24,6 +26,13 @@ export const Card: React.FC<CardProps> = ({ card, index }) => {
       setBodyHeight(expanded ? contentRef.current.scrollHeight : 0);
     }
   }, [expanded]);
+
+  // Notify parent component when this card is expanded
+  useEffect(() => {
+    if (expanded && setActiveIndex) {
+      setActiveIndex(index);
+    }
+  }, [expanded, index, setActiveIndex]);
 
   return (
     <motion.div

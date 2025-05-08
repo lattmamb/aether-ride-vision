@@ -162,7 +162,8 @@ export function TeslaCardCarousel() {
                   />
         }} 
         index={index}
-        onExpand={() => setActiveIndex(index)}
+        // Remove the onExpand prop since it doesn't exist in CardProps
+        setActiveIndex={(idx) => setActiveIndex(idx)}
       />
     );
   });
