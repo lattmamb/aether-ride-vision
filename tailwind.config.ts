@@ -53,33 +53,33 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				// New theme colors
+				aether: {
+					blue: {
+						DEFAULT: "#0A84FF",
+						light: "#65b8ff",
+						dark: "#065ca8",
+						glow: "#0A84FF"
+					},
+					dark: {
+						DEFAULT: "#050914",
+						50: "rgba(5, 9, 20, 0.5)",
+						80: "rgba(5, 9, 20, 0.8)",
+						90: "rgba(5, 9, 20, 0.9)"
+					},
+					panel: {
+						DEFAULT: "#0a1023",
+						light: "#101a30"
+					}
 				},
-        // Custom colors for our app
-        tesla: {
-          blue: "#0A84FF",
-          purple: "#5E5CE6",
-          red: "#FF3B30",
-          green: "#34C759",
-          dark: {
-            DEFAULT: "#121212",
-            50: "rgba(18, 18, 18, 0.5)",
-            80: "rgba(18, 18, 18, 0.8)",
-          }
-        },
-        glass: {
-          DEFAULT: "rgba(255, 255, 255, 0.05)",
-          border: "rgba(255, 255, 255, 0.1)",
-          highlight: "rgba(255, 255, 255, 0.2)",
-        }
+				neon: {
+					glow: "rgba(10, 132, 255, 0.6)"
+				},
+				glass: {
+					DEFAULT: "rgba(255, 255, 255, 0.05)",
+					border: "rgba(255, 255, 255, 0.08)",
+					highlight: "rgba(255, 255, 255, 0.1)",
+				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -95,35 +95,59 @@ export default {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to: { height: '0' }
 				},
-        'float': {
-          '0%, 100%': { 
-            transform: 'translateY(0)' 
-          },
-          '50%': { 
-            transform: 'translateY(-10px)' 
-          },
-        },
-        'pulse-glow': {
-          '0%, 100%': {
-            opacity: '0.8',
-            transform: 'scale(1)',
-          },
-          '50%': {
-            opacity: '1',
-            transform: 'scale(1.03)',
-          },
-        },
-        'shine': {
-          '0%': { backgroundPosition: '200% 0' },
-          '100%': { backgroundPosition: '-200% 0' },
-        }
+				'float': {
+					'0%, 100%': { 
+						transform: 'translateY(0)' 
+					},
+					'50%': { 
+						transform: 'translateY(-10px)' 
+					},
+				},
+				'pulse-glow': {
+					'0%, 100%': {
+						opacity: '0.8',
+						filter: 'brightness(1)',
+					},
+					'50%': {
+						opacity: '1',
+						filter: 'brightness(1.2)',
+					},
+				},
+				'shine': {
+					'0%': { backgroundPosition: '200% 0' },
+					'100%': { backgroundPosition: '-200% 0' },
+				},
+				'neon-pulse': {
+					'0%, 100%': { 
+						boxShadow: '0 0 5px rgba(10, 132, 255, 0.6), 0 0 10px rgba(10, 132, 255, 0.4)'
+					},
+					'50%': { 
+						boxShadow: '0 0 15px rgba(10, 132, 255, 0.8), 0 0 20px rgba(10, 132, 255, 0.6)'
+					}
+				},
+				'glow-line': {
+					'0%': { 
+						width: '0%',
+						opacity: '0.7',
+					},
+					'100%': { 
+						width: '100%',
+						opacity: '1',
+					}
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
-        'shine': 'shine 8s linear infinite',
+				'float': 'float 6s ease-in-out infinite',
+				'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+				'shine': 'shine 8s linear infinite',
+				'neon-pulse': 'neon-pulse 3s ease-in-out infinite',
+				'glow-line': 'glow-line 0.6s ease-out forwards'
+			},
+			boxShadow: {
+				'neon-blue': '0 0 5px rgba(10, 132, 255, 0.6), 0 0 10px rgba(10, 132, 255, 0.4)',
+				'neon-blue-strong': '0 0 10px rgba(10, 132, 255, 0.8), 0 0 20px rgba(10, 132, 255, 0.6)',
 			}
 		}
 	},

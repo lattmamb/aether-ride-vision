@@ -5,37 +5,37 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 220 43% 5%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 100% 52%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 224 76% 48%;
     --radius: 0.75rem;
   }
 }
 
 @layer base {
   * {
-    @apply border-border selection:bg-tesla-blue/20 selection:text-white;
+    @apply border-border selection:bg-aether-blue/20 selection:text-white;
   }
   
   body {
-    @apply bg-black text-foreground antialiased overflow-x-hidden font-sans;
-    background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #0a0a0a 100%);
+    @apply bg-aether-dark text-foreground antialiased overflow-x-hidden font-sans;
+    background-image: radial-gradient(circle at 50% 0%, rgba(10, 20, 40, 0.4) 0%, rgba(5, 9, 20, 0.8) 100%);
   }
 
   html {
@@ -48,21 +48,34 @@
   }
   
   ::-webkit-scrollbar-track {
-    @apply bg-tesla-dark;
+    @apply bg-aether-dark;
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-tesla-blue/50 rounded-full;
+    @apply bg-aether-blue/50 rounded-full;
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-tesla-blue/80;
+    @apply bg-aether-blue/80;
   }
 }
 
 @layer utilities {
+  .neon-card {
+    @apply bg-aether-panel rounded-2xl border border-aether-blue/20 shadow-neon-blue;
+  }
+  
+  .neon-button {
+    @apply bg-aether-blue text-white rounded-md relative overflow-hidden shadow-neon-blue 
+    hover:shadow-neon-blue-strong transition-all duration-300;
+  }
+
+  .neon-border {
+    @apply border border-aether-blue/30 shadow-neon-blue;
+  }
+  
   .glass-card {
-    @apply backdrop-blur-lg bg-glass border border-glass-border rounded-2xl shadow-[0_8px_32px_rgba(0,10,30,0.12)];
+    @apply backdrop-blur-lg bg-glass border border-glass-border rounded-2xl;
   }
   
   .glass-effect {
@@ -70,7 +83,7 @@
   }
 
   .text-glow {
-    @apply text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)];
+    @apply text-white drop-shadow-[0_0_10px_rgba(10,132,255,0.5)];
   }
   
   .blue-glow {
@@ -82,12 +95,29 @@
   }
   
   .gradient-blue-text {
-    @apply bg-gradient-to-r from-tesla-blue via-tesla-purple to-tesla-blue bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-aether-blue via-aether-blue-light to-aether-blue bg-clip-text text-transparent;
   }
-
-  .shine-effect {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    background-size: 200% auto;
-    @apply animate-shine;
+  
+  .glow-line {
+    @apply h-px bg-aether-blue shadow-neon-blue;
+  }
+  
+  .glow-line-animated::after {
+    content: '';
+    @apply block h-px bg-aether-blue shadow-neon-blue absolute bottom-0 left-0 animate-glow-line;
+  }
+  
+  .menu-item {
+    @apply flex items-center gap-3 px-4 py-3 text-white/80 hover:text-white hover:bg-aether-blue/10 
+    rounded-lg transition-all duration-200 relative;
+  }
+  
+  .menu-item.active {
+    @apply text-white bg-aether-blue/20 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 
+    before:w-1 before:h-6 before:bg-aether-blue before:rounded-r;
+  }
+  
+  .menu-icon {
+    @apply text-aether-blue w-5 h-5;
   }
 }
