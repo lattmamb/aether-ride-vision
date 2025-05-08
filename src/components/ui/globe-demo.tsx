@@ -1,9 +1,8 @@
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { World } from "@/components/ui/globe";
 import { ChargingStation } from "@/types";
-import { AlertTriangle } from "lucide-react";
 
 interface GlobeDemoProps {
   stations?: ChargingStation[];
@@ -12,23 +11,6 @@ interface GlobeDemoProps {
 
 export default function GlobeDemo({ stations = [], className = "" }: GlobeDemoProps) {
   const colors = ["#0A84FF", "#5E5CE6", "#FF3B30", "#34C759"];
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    // Check if WebGL is supported
-    try {
-      const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      if (!gl) {
-        setHasError(true);
-      } else {
-        setIsLoaded(true);
-      }
-    } catch (e) {
-      setHasError(true);
-    }
-  }, []);
 
   // Generate arcs based on charging stations
   const generateArcs = () => {
@@ -81,31 +63,17 @@ export default function GlobeDemo({ stations = [], className = "" }: GlobeDemoPr
 
   const arcs = generateArcs();
 
-  if (hasError) {
-    return (
-      <div className={`relative w-full h-[500px] ${className} flex items-center justify-center glass-card`}>
-        <div className="text-center p-8">
-          <AlertTriangle className="mx-auto w-12 h-12 text-yellow-500 mb-4" />
-          <h3 className="text-2xl font-bold mb-2">3D Globe Unavailable</h3>
-          <p className="text-white/70">
-            Your browser doesn't support WebGL, which is required for the 3D globe visualization.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={`relative w-full h-[500px] ${className}`}>
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: isLoaded ? 1 : 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
         className="absolute w-full inset-0 bg-black/20 glass-card rounded-xl overflow-hidden"
       >
         <div className="absolute w-full bottom-0 inset-x-0 h-20 bg-gradient-to-b pointer-events-none from-transparent to-tesla-dark z-10" />
         <div className="absolute w-full h-full">
-          {isLoaded && <World data={arcs} globeConfig={globeConfig} />}
+          <World data={arcs} globeConfig={globeConfig} />
         </div>
       </motion.div>
     </div>

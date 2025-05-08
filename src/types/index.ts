@@ -15,9 +15,6 @@ export interface Vehicle {
   };
   available: boolean;
   colors: string[];
-  colorImages?: {
-    [key: string]: string;
-  };
 }
 
 export interface SubscriptionPlan {
