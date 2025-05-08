@@ -23,7 +23,7 @@ const HeroContent: React.FC = () => {
         className="mb-6 relative"
       >
         <motion.div
-          className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-tesla-blue/20 rounded-full blur-lg"
+          className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-tesla-blue/20 rounded-full blur-xl"
           animate={{ 
             scale: [1, 1.2, 1],
             opacity: [0.5, 0.8, 0.5]
@@ -35,7 +35,7 @@ const HeroContent: React.FC = () => {
           }}
         />
         <motion.div 
-          className="w-14 h-14 mx-auto mb-6 relative"
+          className="w-16 h-16 mx-auto mb-6 relative"
           animate={{ 
             rotateY: [0, 360],
           }}
@@ -45,23 +45,23 @@ const HeroContent: React.FC = () => {
             ease: "linear" 
           }}
         >
-          <Zap size={56} className="text-tesla-blue" />
+          <Zap size={64} className="text-tesla-blue" />
         </motion.div>
       </motion.div>
       
       <motion.h1 
-        className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 relative z-20"
+        className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 relative z-20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
         Rent Your Dream
         <br />
-        Electric Vehicle
+        <span className="text-tesla-blue">Electric Vehicle</span>
       </motion.h1>
       
       <motion.p 
-        className="text-xl text-white/80 mb-8"
+        className="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
@@ -71,26 +71,26 @@ const HeroContent: React.FC = () => {
       </motion.p>
       
       <motion.div 
-        className="flex flex-col sm:flex-row gap-4"
+        className="flex flex-col sm:flex-row gap-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8 }}
       >
-        <Button asChild size="lg" className="bg-tesla-blue hover:bg-tesla-blue/90 text-white font-medium px-8 group relative overflow-hidden">
+        <Button asChild size="lg" className="bg-tesla-blue hover:bg-tesla-blue/90 text-white font-medium px-8 py-6 text-lg group relative overflow-hidden">
           <Link to="/vehicles">
             <span className="relative z-10 flex items-center">
               Browse Electric Vehicles
-              <ChevronRight className="ml-1 group-hover:translate-x-1 transition-transform duration-200" size={18} />
+              <ChevronRight className="ml-1 group-hover:translate-x-1 transition-transform duration-200" size={20} />
             </span>
             <span className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
           </Link>
         </Button>
         
-        <Button asChild variant="outline" size="lg" className="border-white/20 bg-glass hover:bg-white/10 text-white group">
+        <Button asChild variant="outline" size="lg" className="border-white/20 bg-glass hover:bg-white/10 text-white group py-6 text-lg">
           <Link to="/how-it-works" className="flex items-center">
             <span>Learn More</span>
             <span className="ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200">
-              <ChevronRight size={18} />
+              <ChevronRight size={20} />
             </span>
           </Link>
         </Button>
