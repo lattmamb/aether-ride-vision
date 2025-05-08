@@ -68,8 +68,8 @@ export default function GlobeDemo({ stations = [], className = "" }: GlobeDemoPr
   const [hasError, setHasError] = React.useState(false);
 
   React.useEffect(() => {
-    const handleError = () => {
-      console.log("Globe rendering error caught, displaying fallback");
+    const handleError = (event: ErrorEvent) => {
+      console.log("Globe rendering error caught:", event.message);
       setHasError(true);
     };
 
