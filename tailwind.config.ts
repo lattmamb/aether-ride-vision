@@ -63,10 +63,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-        // Custom colors for our app
+        // Updated custom colors for our app
         tesla: {
           blue: "#0A84FF",
-          purple: "#5E5CE6",
+          purple: "#9b87f5", // New primary brand color
+          brightPurple: "#8B5CF6",
+          deepPurple: "#6E59A5",
           red: "#FF3B30",
           green: "#34C759",
           dark: {
@@ -79,6 +81,20 @@ export default {
           DEFAULT: "rgba(255, 255, 255, 0.05)",
           border: "rgba(255, 255, 255, 0.1)",
           highlight: "rgba(255, 255, 255, 0.2)",
+        },
+        brand: {
+          purple: {
+            DEFAULT: "#9b87f5",
+            light: "#D6BCFA",
+            dark: "#7E69AB",
+            deeper: "#6E59A5"
+          },
+          accent: {
+            blue: "#33C3F0",
+            green: "#34C759",
+            orange: "#F97316",
+            pink: "#D946EF"
+          }
         }
 			},
 			borderRadius: {
@@ -116,6 +132,31 @@ export default {
         'shine': {
           '0%': { backgroundPosition: '200% 0' },
           '100%': { backgroundPosition: '-200% 0' },
+        },
+        'gradient-flow': {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' }
+        },
+        'fade-in-up': {
+          '0%': { 
+            opacity: '0',
+            transform: 'translateY(20px)'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)'
+          }
+        },
+        'scale-in': {
+          '0%': {
+            opacity: '0',
+            transform: 'scale(0.95)'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'scale(1)'
+          }
         }
 			},
 			animation: {
@@ -124,7 +165,15 @@ export default {
         'float': 'float 6s ease-in-out infinite',
         'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
         'shine': 'shine 8s linear infinite',
-			}
+        'gradient-flow': 'gradient-flow 8s ease infinite',
+        'fade-in-up': 'fade-in-up 0.5s ease-out',
+        'scale-in': 'scale-in 0.3s ease-out'
+			},
+      boxShadow: {
+        'inner-glow': 'inset 0 0 20px 0 rgba(155, 135, 245, 0.15)',
+        'card-hover': '0 8px 30px rgba(155, 135, 245, 0.2)',
+        'purple-glow': '0 0 20px rgba(155, 135, 245, 0.4)'
+      }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

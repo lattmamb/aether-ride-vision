@@ -30,7 +30,7 @@
 
 @layer base {
   * {
-    @apply border-border selection:bg-tesla-blue/20 selection:text-white;
+    @apply border-border selection:bg-[#9b87f5]/20 selection:text-white;
   }
   
   body {
@@ -52,11 +52,11 @@
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-tesla-blue/50 rounded-full;
+    @apply bg-[#9b87f5]/50 rounded-full;
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-tesla-blue/80;
+    @apply bg-[#9b87f5]/80;
   }
 }
 
@@ -73,21 +73,42 @@
     @apply text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)];
   }
   
-  .blue-glow {
-    @apply shadow-[0_0_15px_rgba(10,132,255,0.5)];
+  .purple-glow {
+    @apply shadow-[0_0_15px_rgba(155,135,245,0.5)];
   }
 
   .gradient-text {
     @apply bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent;
   }
   
-  .gradient-blue-text {
-    @apply bg-gradient-to-r from-tesla-blue via-tesla-purple to-tesla-blue bg-clip-text text-transparent;
+  .gradient-purple-text {
+    @apply bg-gradient-to-r from-[#9b87f5] via-[#7E69AB] to-[#6E59A5] bg-clip-text text-transparent;
   }
 
   .shine-effect {
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
     background-size: 200% auto;
     @apply animate-shine;
+  }
+  
+  /* New utility classes for consistent styling */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.2)] hover:border-[#9b87f5]/20;
+  }
+  
+  .button-glow {
+    @apply relative overflow-hidden;
+  }
+  
+  .button-glow:after {
+    @apply content-[''] absolute top-0 left-0 w-full h-full bg-white/10 transform scale-x-0 origin-bottom-left transition-transform duration-500;
+  }
+  
+  .button-glow:hover:after {
+    @apply scale-x-100;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
   }
 }

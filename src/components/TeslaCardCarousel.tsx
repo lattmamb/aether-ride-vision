@@ -35,7 +35,7 @@ const VehicleContent = ({
           transition={{ duration: 0.5 }}
         >
           <span className="font-bold text-white text-xl md:text-3xl block mb-4">
-            {model} <span className="text-tesla-blue">Electric Excellence</span>
+            {model} <span className="text-[#9b87f5]">Electric Excellence</span>
           </span>
         </motion.div>
         
@@ -45,16 +45,16 @@ const VehicleContent = ({
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-tesla-blue/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(10,132,255,0.2)]">
-            <p className="text-tesla-blue text-sm">Range</p>
+          <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-[#9b87f5]/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(155,135,245,0.2)]">
+            <p className="text-[#9b87f5] text-sm">Range</p>
             <p className="text-white text-xl font-bold">{performance.range} mi</p>
           </div>
-          <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-tesla-blue/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(10,132,255,0.2)]">
-            <p className="text-tesla-blue text-sm">Top Speed</p>
+          <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-[#9b87f5]/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(155,135,245,0.2)]">
+            <p className="text-[#9b87f5] text-sm">Top Speed</p>
             <p className="text-white text-xl font-bold">{performance.topSpeed} mph</p>
           </div>
-          <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-tesla-blue/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(10,132,255,0.2)]">
-            <p className="text-tesla-blue text-sm">0-60 mph</p>
+          <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-[#9b87f5]/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(155,135,245,0.2)]">
+            <p className="text-[#9b87f5] text-sm">0-60 mph</p>
             <p className="text-white text-xl font-bold">{performance.acceleration}s</p>
           </div>
         </motion.div>
@@ -67,7 +67,7 @@ const VehicleContent = ({
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h3 className="text-tesla-blue text-lg mb-3 flex items-center">
+            <h3 className="text-[#9b87f5] text-lg mb-3 flex items-center">
               <span className="mr-2">Available Colors</span>
               {selectedColor && (
                 <span className="text-sm text-white/60 ml-2">
@@ -79,7 +79,7 @@ const VehicleContent = ({
               {colors.filter(color => colorImages[color]).map((color) => (
                 <motion.div
                   key={color}
-                  className={`w-10 h-10 rounded-full cursor-pointer transition-all duration-300 ${selectedColor === color ? 'ring-2 ring-offset-2 ring-offset-black ring-tesla-blue scale-110' : 'border border-white/10'}`}
+                  className={`w-10 h-10 rounded-full cursor-pointer transition-all duration-300 ${selectedColor === color ? 'ring-2 ring-offset-2 ring-offset-black ring-[#9b87f5] scale-110' : 'border border-white/10'}`}
                   style={{ backgroundColor: color }}
                   whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.95 }}
@@ -96,7 +96,7 @@ const VehicleContent = ({
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <h3 className="text-tesla-blue text-lg mb-2 flex items-center">
+          <h3 className="text-[#9b87f5] text-lg mb-2 flex items-center">
             <BadgeCheck className="w-4 h-4 mr-1" /> Key Features
           </h3>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 pl-2">
@@ -108,13 +108,13 @@ const VehicleContent = ({
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.3, delay: 0.4 + index * 0.05 }}
               >
-                <span className="text-tesla-blue mr-2">•</span> {feature}
+                <span className="text-[#9b87f5] mr-2">•</span> {feature}
               </motion.li>
             ))}
           </ul>
           
           <div className="mt-6 flex justify-center">
-            <Button asChild className="bg-tesla-blue hover:bg-tesla-blue/80 text-white">
+            <Button asChild className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white">
               <Link to={`/vehicles/${id}`} className="flex items-center">
                 View Details <ChevronRight className="ml-1 w-4 h-4" />
               </Link>
@@ -171,8 +171,8 @@ export function TeslaCardCarousel() {
   return (
     <div className="w-full h-full py-20 relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-tesla-blue/10 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-tesla-purple/10 rounded-full blur-[120px]"></div>
+        <div className="absolute top-20 left-20 w-96 h-96 bg-[#9b87f5]/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#6E59A5]/10 rounded-full blur-[120px]"></div>
       </div>
       
       <motion.div 
@@ -197,10 +197,10 @@ export function TeslaCardCarousel() {
             {vehicles.map((_, index) => (
               <motion.div
                 key={index}
-                className={`w-2 h-2 rounded-full ${activeIndex === index ? 'bg-tesla-blue' : 'bg-white/30'}`}
+                className={`w-2 h-2 rounded-full ${activeIndex === index ? 'bg-[#9b87f5]' : 'bg-white/30'}`}
                 animate={{
                   scale: activeIndex === index ? 1.2 : 1,
-                  backgroundColor: activeIndex === index ? 'rgb(10, 132, 255)' : 'rgba(255, 255, 255, 0.3)'
+                  backgroundColor: activeIndex === index ? 'rgb(155, 135, 245)' : 'rgba(255, 255, 255, 0.3)'
                 }}
                 transition={{ duration: 0.3 }}
               />
