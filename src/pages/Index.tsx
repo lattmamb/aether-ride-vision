@@ -4,7 +4,8 @@ import MainLayout from '@/layouts/MainLayout';
 import SearchSection from '@/components/index/SearchSection';
 import FeaturedVehiclesSection from '@/components/index/FeaturedVehiclesSection';
 import QuickActionsSection from '@/components/index/QuickActionsSection';
-import { vehicles } from '@/data/vehicles';
+import { vehicles } from '@/data/vehicleData';
+import FeaturesSection from '@/components/FeaturesSection';
 
 const Index = () => {
   const featuredVehicles = vehicles.slice(0, 3);
@@ -15,6 +16,7 @@ const Index = () => {
         <SearchSection />
         <FeaturedVehiclesSection featuredVehicles={featuredVehicles} />
         <QuickActionsSection />
+        <FeaturesSection />
       </div>
     </MainLayout>
   );

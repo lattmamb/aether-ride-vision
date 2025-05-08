@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Battery, Clock } from 'lucide-react';
-import { VehicleData } from '@/types';
+import { Vehicle } from '@/types';
 
 interface FeaturedVehiclesSectionProps {
-  featuredVehicles: VehicleData[];
+  featuredVehicles: Vehicle[];
 }
 
 const FeaturedVehiclesSection: React.FC<FeaturedVehiclesSectionProps> = ({ featuredVehicles }) => {

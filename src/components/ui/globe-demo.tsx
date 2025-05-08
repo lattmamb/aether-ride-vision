@@ -64,6 +64,19 @@ export default function GlobeDemo({ stations = [], className = "" }: GlobeDemoPr
 
   const arcs = generateArcs();
 
+  // Error boundary handling for globe component
+  const [hasError, setHasError] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleError = () => {
+      console.log("Globe rendering error caught, displaying fallback");
+      setHasError(true);
+    };
+
+    window.addEventListener("error", handleError);
+    return () => window.removeEventListener("error", handleError);
+  }, []);
+
   return (
     <div className={`relative w-full h-[500px] ${className}`}>
       <motion.div
@@ -74,7 +87,18 @@ export default function GlobeDemo({ stations = [], className = "" }: GlobeDemoPr
       >
         <div className="absolute w-full bottom-0 inset-x-0 h-20 bg-gradient-to-b pointer-events-none from-transparent to-tesla-dark z-10" />
         <div className="absolute w-full h-full">
-          <World data={arcs} globeConfig={globeConfig} />
+          {!hasError ? (
+            <World data={arcs} globeConfig={globeConfig} />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="text-center p-4">
+                <h3 className="text-xl font-bold mb-2">Network Overview</h3>
+                <p className="text-white/70">
+                  Connecting {stations.length} charging stations worldwide
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </motion.div>
     </div>

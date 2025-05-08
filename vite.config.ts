@@ -23,6 +23,12 @@ export default defineConfig(({ mode }) => ({
   },
   optimizeDeps: {
     exclude: ['three-globe'],
+    esbuildOptions: {
+      // This is needed to fix the WebGPU import issue
+      define: {
+        global: 'globalThis',
+      },
+    },
   },
   build: {
     commonjsOptions: {
@@ -33,11 +39,16 @@ export default defineConfig(({ mode }) => ({
       // Add an override to handle the missing WebGPU module
       onwarn(warning, warn) {
         if (warning.code === 'MODULE_LEVEL_DIRECTIVE' || 
-            warning.message?.includes('three/webgpu')) {
+            warning.message?.includes('three/webgpu') ||
+            warning.message?.includes('WebGPU')) {
           return;
         }
         warn(warning);
-      }
+      },
+      // Ensure three/webgpu is properly external
+      external: [
+        'three/webgpu',
+      ]
     }
   },
 }));
