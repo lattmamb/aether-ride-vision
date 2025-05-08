@@ -11,7 +11,10 @@ import {
   MapPin, 
   Calendar, 
   Search,
-  ChevronRight
+  ChevronRight,
+  MessageSquare,
+  Battery,
+  User
 } from 'lucide-react';
 import { vehicles } from '@/data/vehicles';
 import { motion } from 'framer-motion';
