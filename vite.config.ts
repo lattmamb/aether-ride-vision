@@ -36,18 +36,20 @@ export default defineConfig(({ mode }) => ({
       ignoreDynamicRequires: true,
     },
     rollupOptions: {
-      // Add an override to handle the missing WebGPU module
+      // Add an override to handle the missing modules
       onwarn(warning, warn) {
         if (warning.code === 'MODULE_LEVEL_DIRECTIVE' || 
             warning.message?.includes('three/webgpu') ||
-            warning.message?.includes('WebGPU')) {
+            warning.message?.includes('WebGPU') ||
+            warning.message?.includes('three/tsl')) {
           return;
         }
         warn(warning);
       },
-      // Ensure three/webgpu is properly external
+      // Ensure problematic modules are properly external
       external: [
         'three/webgpu',
+        'three/tsl',
       ]
     }
   },
