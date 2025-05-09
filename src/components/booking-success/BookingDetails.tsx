@@ -6,24 +6,35 @@ import BookingDetailItem from './BookingDetailItem';
 import NextStepsInfo from './NextStepsInfo';
 
 interface BookingDetailsProps {
-  bookingId: string;
-  pickupLocation: string;
-  pickupDate: string;
-  pickupTime: string;
-  returnDate: string;
-  returnTime: string;
-  totalAmount: number;
+  bookingId?: string;
+  pickupLocation?: string;
+  pickupDate?: string;
+  pickupTime?: string;
+  returnDate?: string;
+  returnTime?: string;
+  totalAmount?: number;
+  vehicle?: any;
+  bookingDetails?: any;
+  plan?: any;
 }
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({
   bookingId,
-  pickupLocation,
-  pickupDate,
-  pickupTime,
-  returnDate,
-  returnTime,
-  totalAmount,
+  pickupLocation = "Tesla Store, Los Angeles",
+  pickupDate = "May 15, 2023",
+  pickupTime = "10:00 AM",
+  returnDate = "May 22, 2023",
+  returnTime = "4:00 PM",
+  totalAmount = 699.99,
+  vehicle,
+  bookingDetails,
+  plan
 }) => {
+  // Calculate the email from bookingDetails or use a default
+  const email = bookingDetails?.email || "user@example.com";
+  // Get vehicle model from vehicle object or use a default
+  const vehicleModel = vehicle?.model || "Model S";
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -118,7 +129,10 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({
           </motion.div>
         </motion.div>
         
-        <NextStepsInfo />
+        <NextStepsInfo 
+          email={email}
+          vehicleModel={vehicleModel}
+        />
       </div>
     </div>
   );

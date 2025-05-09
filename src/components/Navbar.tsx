@@ -1,8 +1,11 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Search, MapPin, CreditCard } from "lucide-react";
+import { 
+  Menu, X, User, Search,
+  MapPin as MapPinIcon, 
+  CreditCard as CreditCardIcon
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -306,11 +309,11 @@ const Navbar: React.FC = () => {
               transition={{ delay: 0.4 }}
             >
               <Link to="/locations" className="bg-white/5 hover:bg-white/10 p-3 rounded-lg text-center">
-                <MapPin className="w-5 h-5 mx-auto mb-1 text-[#9b87f5]" />
+                <MapPinIcon className="w-5 h-5 mx-auto mb-1 text-[#9b87f5]" />
                 <span className="text-xs text-white/80">Locations</span>
               </Link>
               <Link to="/pricing" className="bg-white/5 hover:bg-white/10 p-3 rounded-lg text-center">
-                <CreditCard className="w-5 h-5 mx-auto mb-1 text-[#9b87f5]" />
+                <CreditCardIcon className="w-5 h-5 mx-auto mb-1 text-[#9b87f5]" />
                 <span className="text-xs text-white/80">Pricing</span>
               </Link>
             </motion.div>
