@@ -14,6 +14,7 @@ import Pricing from "./pages/Pricing";
 import Locations from "./pages/Locations";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import BottomNavigation from "./components/navigation/BottomNavigation";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <BottomNavigation />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
