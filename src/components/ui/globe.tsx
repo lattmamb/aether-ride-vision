@@ -6,15 +6,17 @@ import { useThree, Canvas, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import countries from "@/data/globe.json";
 
-declare module "@react-three/fiber" {
-  interface ThreeElements {
-    threeGlobe: ThreeElements["mesh"] & {
-      new (): ThreeGlobe;
-    };
+// This is how we properly extend Fiber's JSX namespace in TypeScript
+extend({ ThreeGlobe });
+
+// Type declaration to enhance THREE elements with ThreeGlobe
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      threeGlobe: any;
+    }
   }
 }
-
-extend({ ThreeGlobe: ThreeGlobe });
 
 const RING_PROPAGATION_SPEED = 3;
 const aspect = 1.2;
@@ -64,8 +66,8 @@ interface WorldProps {
 let numbersOfRings = [0];
 
 export function Globe({ globeConfig, data }: WorldProps) {
-  const globeRef = useRef<ThreeGlobe | null>(null);
-  const groupRef = useRef();
+  const globeRef = useRef<any>(null);
+  const groupRef = useRef<any>();
   const [isInitialized, setIsInitialized] = useState(false);
 
   const defaultProps = {
@@ -89,7 +91,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
   useEffect(() => {
     if (!globeRef.current && groupRef.current) {
       globeRef.current = new ThreeGlobe();
-      (groupRef.current as any).add(globeRef.current);
+      groupRef.current.add(globeRef.current);
       setIsInitialized(true);
     }
   }, []);
