@@ -12,6 +12,7 @@ import ThreeDCardDemo from '@/components/ui/3d-card-demo';
 import ExpandableCardDemoStandard from '@/components/ui/expandable-card-demo-standard';
 import { SparklesPreviewTesla } from '@/components/ui/sparkles-demo';
 import TeslaCardCarousel from '@/components/TeslaCardCarousel';
+import ToggleSwitchDemo from '@/components/ui/toggle-switch-demo';
 
 const Index = () => {
   const [filteredVehicles, setFilteredVehicles] = useState(vehicles);
@@ -76,6 +77,19 @@ const Index = () => {
               <VehicleCard key={vehicle.id} vehicle={vehicle} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Toggle Switch Demo Section */}
+      <section className="py-16 bg-tesla-dark-80">
+        <div className="container mx-auto px-4">
+          <div className="mb-10 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Customize Your Experience</h2>
+            <p className="text-xl text-white/70 max-w-3xl mx-auto mb-8">
+              Choose premium add-ons and advanced features to enhance your vehicle.
+            </p>
+          </div>
+          <ToggleSwitchDemo />
         </div>
       </section>
 
