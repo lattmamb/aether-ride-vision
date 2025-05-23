@@ -23,7 +23,7 @@ export default function ThreeDCardDemo() {
         <CardItem translateZ="100" className="w-full mt-4">
           <img
             src="/lovable-uploads/011215ed-22f9-4462-8492-3cdff3c58719.png"
-            className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+            className="h-60 w-full object-contain rounded-xl group-hover/card:shadow-xl"
             alt="Tesla Model S"
           />
         </CardItem>

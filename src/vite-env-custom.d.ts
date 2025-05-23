@@ -1,6 +1,16 @@
 
 /// <reference types="vite/client" />
 
+// This helps to avoid potential Three.js compatibility issues
+declare module 'three' {
+  export * from 'three/src/Three';
+
+  // Adding missing exports
+  export const LuminanceFormat: number;
+  export const RGBAFormat: number;
+  export const HalfFloatType: number;
+}
+
 // Add custom type declarations for modules without type definitions
 declare module 'three-globe' {
   import { Object3D } from 'three';
