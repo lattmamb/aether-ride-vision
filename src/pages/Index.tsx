@@ -11,7 +11,7 @@ import TeslaVehiclesParallax from '@/components/TeslaVehiclesParallax';
 import ThreeDCardDemo from '@/components/ui/3d-card-demo';
 import ExpandableCardDemoStandard from '@/components/ui/expandable-card-demo-standard';
 import { SparklesPreviewTesla } from '@/components/ui/sparkles-demo';
-import TeslaCardCarousel from '@/components/TeslaCardCarousel';
+import TeslaCardCarousel from '@/components/tesla-card-carousel';
 import ToggleSwitchDemo from '@/components/ui/toggle-switch-demo';
 
 const Index = () => {

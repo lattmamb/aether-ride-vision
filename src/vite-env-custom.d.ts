@@ -1,51 +1,57 @@
 
-/// <reference types="vite/client" />
+// This file contains custom type definitions for the project
 
-// This helps to avoid potential Three.js compatibility issues
-declare module 'three' {
-  export * from 'three/src/Three';
-
-  // Adding missing exports
-  export const LuminanceFormat: number;
-  export const RGBAFormat: number;
-  export const HalfFloatType: number;
-}
-
-// Add custom type declarations for modules without type definitions
+// Type declarations for three-globe
 declare module 'three-globe' {
   import { Object3D } from 'three';
   
   export default class ThreeGlobe extends Object3D {
-    // Add minimal type definitions for the methods we're using
-    hexPolygonsData: (data: any[]) => ThreeGlobe;
-    hexPolygonResolution: (resolution: number) => ThreeGlobe;
-    hexPolygonMargin: (margin: number) => ThreeGlobe;
-    showAtmosphere: (show: boolean) => ThreeGlobe;
-    atmosphereColor: (color: string) => ThreeGlobe;
-    atmosphereAltitude: (altitude: number) => ThreeGlobe;
-    hexPolygonColor: (colorFn: () => string) => ThreeGlobe;
-    arcsData: (data: any[]) => ThreeGlobe;
-    arcStartLat: (fn: (d: any) => number) => ThreeGlobe;
-    arcStartLng: (fn: (d: any) => number) => ThreeGlobe;
-    arcEndLat: (fn: (d: any) => number) => ThreeGlobe;
-    arcEndLng: (fn: (d: any) => number) => ThreeGlobe;
-    arcColor: (fn: (e: any) => string) => ThreeGlobe;
-    arcAltitude: (fn: (e: any) => number) => ThreeGlobe;
-    arcStroke: (fn: () => number[]) => ThreeGlobe;
-    arcDashLength: (length: number) => ThreeGlobe;
-    arcDashInitialGap: (fn: (e: any) => number) => ThreeGlobe;
-    arcDashGap: (gap: number) => ThreeGlobe;
-    arcDashAnimateTime: (fn: () => number) => ThreeGlobe;
+    constructor(options?: any);
+    
+    // Globe geometry
+    globeImageUrl: (url: string) => ThreeGlobe;
+    bumpImageUrl: (url: string) => ThreeGlobe;
+    
+    // Points
     pointsData: (data: any[]) => ThreeGlobe;
-    pointColor: (fn: (e: any) => string) => ThreeGlobe;
-    pointsMerge: (merge: boolean) => ThreeGlobe;
-    pointAltitude: (altitude: number) => ThreeGlobe;
-    pointRadius: (radius: number) => ThreeGlobe;
-    ringsData: (data: any[]) => ThreeGlobe;
-    ringColor: (fn: () => string) => ThreeGlobe;
-    ringMaxRadius: (radius: number) => ThreeGlobe;
-    ringPropagationSpeed: (speed: number) => ThreeGlobe;
-    ringRepeatPeriod: (period: number) => ThreeGlobe;
-    globeMaterial: () => any;
+    pointLat: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    pointLng: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    pointColor: (accessor: string | ((d: any) => string)) => ThreeGlobe;
+    pointAltitude: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    pointRadius: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    
+    // Arcs
+    arcsData: (data: any[]) => ThreeGlobe;
+    arcStartLat: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    arcStartLng: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    arcEndLat: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    arcEndLng: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    arcColor: (accessor: string | ((d: any) => string)) => ThreeGlobe;
+    arcAltitude: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    
+    // Labels
+    labelsData: (data: any[]) => ThreeGlobe;
+    labelLat: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    labelLng: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    labelText: (accessor: string | ((d: any) => string)) => ThreeGlobe;
+    labelSize: (accessor: string | ((d: any) => number)) => ThreeGlobe;
+    labelColor: (accessor: string | ((d: any) => string)) => ThreeGlobe;
+    
+    // Render control
+    width: (width: number) => ThreeGlobe;
+    height: (height: number) => ThreeGlobe;
+    
+    // Animation
+    rotation: (options: any) => ThreeGlobe;
+    
+    // Additional methods
+    tick: () => void;
+    
+    // Add any other methods that you need
   }
+}
+
+// This fixes the three-stdlib error with LuminanceFormat
+declare module 'three' {
+  export const LuminanceFormat: number;
 }
