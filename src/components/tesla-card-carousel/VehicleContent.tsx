@@ -41,13 +41,6 @@ export const VehicleContent: React.FC<VehicleContentProps> = ({
         
         <VehiclePerformanceStats performance={performance} />
         
-        <VehicleColorSelector 
-          colors={colors}
-          colorImages={colorImages}
-          selectedColor={selectedColor}
-          onColorChange={onColorChange}
-        />
-        
         <VehicleFeaturesList features={features} vehicleId={id} />
       </div>
     </div>

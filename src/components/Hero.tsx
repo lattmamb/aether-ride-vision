@@ -19,17 +19,12 @@ const Hero: React.FC = () => {
       const moveY = (clientY - innerHeight / 2) / 50;
       
       const bgElements = heroRef.current.querySelectorAll('.parallax-bg');
-      const carElement = heroRef.current.querySelector('.tesla-car');
       
       bgElements.forEach((element) => {
         if (element instanceof HTMLElement) {
           element.style.transform = `translate(${moveX * 0.5}px, ${moveY * 0.5}px)`;
         }
       });
-      
-      if (carElement instanceof HTMLElement) {
-        carElement.style.transform = `translate(${moveX * -0.8}px, ${moveY * -0.8}px)`;
-      }
     };
     
     document.addEventListener('mousemove', handleMouseMove);
@@ -51,15 +46,6 @@ const Hero: React.FC = () => {
           className="w-full h-full"
           particleColor="#0A84FF"
           speed={0.3}
-        />
-      </div>
-      
-      {/* Featured Tesla vehicle */}
-      <div className="absolute inset-0 flex items-center justify-center tesla-car z-0 opacity-40">
-        <img 
-          src="/lovable-uploads/011215ed-22f9-4462-8492-3cdff3c58719.png" 
-          alt="Tesla Model S" 
-          className="w-[90%] max-w-4xl object-contain"
         />
       </div>
       

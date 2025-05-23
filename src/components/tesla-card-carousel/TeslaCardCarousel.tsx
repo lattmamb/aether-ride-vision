@@ -19,23 +19,20 @@ export function TeslaCardCarousel() {
 
   const cards = vehicles.map((vehicle, index) => {
     const selectedColor = selectedColors[vehicle.id];
-    const displayImage = vehicle.colorImages && selectedColor && vehicle.colorImages[selectedColor] 
-      ? vehicle.colorImages[selectedColor] 
-      : vehicle.image;
-
+    
     return (
       <Card 
         key={vehicle.id} 
         card={{
           category: vehicle.type.toUpperCase(),
           title: vehicle.model,
-          src: displayImage,
+          src: "", // Removed image URL
           content: <VehicleContent 
                     model={vehicle.model} 
                     features={vehicle.features} 
                     performance={vehicle.performance}
                     colors={vehicle.colors}
-                    colorImages={vehicle.colorImages}
+                    colorImages={{}}
                     onColorChange={(color) => handleColorChange(vehicle.id, color)}
                     selectedColor={selectedColor}
                     id={vehicle.id}
@@ -61,10 +58,10 @@ export function TeslaCardCarousel() {
         transition={{ duration: 0.6 }}
       >
         <h2 className="text-xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-400 mb-2">
-          Explore Our Tesla Models
+          Explore Our Electric Models
         </h2>
         <p className="text-white/70 max-w-2xl text-base md:text-lg">
-          Experience extraordinary performance, range, and design. Select a vehicle to explore more details and customize your future Tesla.
+          Experience extraordinary performance, range, and design. Select a vehicle to explore more details.
         </p>
       </motion.div>
       

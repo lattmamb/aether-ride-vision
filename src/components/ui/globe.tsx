@@ -35,7 +35,7 @@ export const World: React.FC<WorldProps> = ({ data, globeConfig }) => {
   useEffect(() => {
     if (!globeEl.current) return;
 
-    let myGlobe: ThreeGlobe;
+    let myGlobe: any;
 
     // Initialize ThreeGlobe
     try {
@@ -46,18 +46,18 @@ export const World: React.FC<WorldProps> = ({ data, globeConfig }) => {
         .globeImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-night.jpg')
         .bumpImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-topology.png')
         .arcsData(data)
-        .arcStartLat(d => (d as any).startLat)
-        .arcStartLng(d => (d as any).startLng)
-        .arcEndLat(d => (d as any).endLat)
-        .arcEndLng(d => (d as any).endLng)
-        .arcColor(d => (d as any).color)
+        .arcStartLat((d: any) => d.startLat)
+        .arcStartLng((d: any) => d.startLng)
+        .arcEndLat((d: any) => d.endLat)
+        .arcEndLng((d: any) => d.endLng)
+        .arcColor((d: any) => d.color)
         .arcDashLength(globeConfig.arcLength)
         .arcDashGap(0.5)
         .arcDashInitialGap(() => Math.random())
         .arcDashAnimateTime(globeConfig.arcTime)
         .arcStroke(0.5)
-        .arcAltitude((d) => {
-          return (d as any).arcAlt;
+        .arcAltitude((d: any) => {
+          return d.arcAlt;
         });
 
       // Apply atmosphere if supported
@@ -120,7 +120,7 @@ const Globe = () => {
   useEffect(() => {
     if (!globeEl.current) return;
 
-    let myGlobe: ThreeGlobe;
+    let myGlobe: any;
 
     // Initialize ThreeGlobe
     try {

@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Vehicle } from "@/types";
-import { Battery, Gauge, Zap, Check, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import VehiclePerformanceStats from "./VehiclePerformanceStats";
@@ -42,11 +42,11 @@ const VehicleDetailOverlay: React.FC<VehicleDetailOverlayProps> = ({
         className="w-full max-w-[600px] h-full md:h-fit md:max-h-[90%] flex flex-col glass-card overflow-hidden"
       >
         <motion.div layoutId={`image-${active.id}-${id}`}>
-          <img
-            src={active.image}
-            alt={active.model}
-            className="w-full h-80 object-contain p-4"
-          />
+          <div className="w-full h-80 flex items-center justify-center p-4 bg-glass-highlight/20">
+            <div className="text-white/50 text-lg">
+              [Vehicle Image]
+            </div>
+          </div>
         </motion.div>
 
         <div className="p-6">

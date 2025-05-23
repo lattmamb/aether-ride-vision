@@ -2,7 +2,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Vehicle } from "@/types";
-import { Battery, Gauge, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface VehicleCardProps {
@@ -29,11 +28,9 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, id, onClick }) => {
       )}
 
       <motion.div layoutId={`image-${vehicle.id}-${id}`} className="h-40 flex items-center justify-center mb-4">
-        <img
-          src={vehicle.image}
-          alt={vehicle.model}
-          className="h-full object-contain"
-        />
+        <div className="text-white/50 text-center">
+          [Vehicle Image]
+        </div>
       </motion.div>
 
       <motion.h3
