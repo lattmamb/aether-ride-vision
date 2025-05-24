@@ -1,7 +1,71 @@
 
 import React, { useRef, useEffect } from 'react';
-import * as THREE from 'three';
-import ThreeGlobe from 'three-globe';
+
+const Globe = () => {
+  const globeEl = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!globeEl.current) return;
+
+    // Simple sphere visualization without ThreeGlobe
+    const createGlobeVisualization = () => {
+      const container = globeEl.current;
+      if (!container) return;
+
+      // Create a simple CSS-based globe representation
+      const globe = document.createElement('div');
+      globe.className = 'globe-sphere';
+      globe.style.cssText = `
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #4a90e2, #1a365d);
+        position: relative;
+        margin: 0 auto;
+        box-shadow: 
+          inset -40px -40px 80px rgba(0,0,0,0.4),
+          0 0 80px rgba(74, 144, 226, 0.3);
+        animation: rotate 20s linear infinite;
+      `;
+
+      // Add CSS animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes rotate {
+          from { transform: rotateY(0deg); }
+          to { transform: rotateY(360deg); }
+        }
+        .globe-sphere::before {
+          content: '';
+          position: absolute;
+          top: 10%;
+          left: 10%;
+          width: 80%;
+          height: 80%;
+          border-radius: 50%;
+          background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent);
+        }
+      `;
+      document.head.appendChild(style);
+
+      container.appendChild(globe);
+
+      return () => {
+        if (container.contains(globe)) {
+          container.removeChild(globe);
+        }
+        if (document.head.contains(style)) {
+          document.head.removeChild(style);
+        }
+      };
+    };
+
+    const cleanup = createGlobeVisualization();
+    return cleanup;
+  }, []);
+
+  return <div ref={globeEl} className="w-full h-full flex items-center justify-center" />;
+};
 
 interface WorldProps {
   data: any[];
@@ -30,159 +94,7 @@ interface WorldProps {
 }
 
 export const World: React.FC<WorldProps> = ({ data, globeConfig }) => {
-  const globeEl = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!globeEl.current) return;
-
-    let myGlobe: any;
-
-    // Initialize ThreeGlobe
-    try {
-      myGlobe = new ThreeGlobe({
-        waitForGlobeReady: true,
-        animateIn: true,
-      })
-        .globeImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-night.jpg')
-        .bumpImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-topology.png')
-        .arcsData(data)
-        .arcStartLat((d: any) => d.startLat)
-        .arcStartLng((d: any) => d.startLng)
-        .arcEndLat((d: any) => d.endLat)
-        .arcEndLng((d: any) => d.endLng)
-        .arcColor((d: any) => d.color)
-        .arcDashLength(globeConfig.arcLength)
-        .arcDashGap(0.5)
-        .arcDashInitialGap(() => Math.random())
-        .arcDashAnimateTime(globeConfig.arcTime)
-        .arcStroke(0.5)
-        .arcAltitude((d: any) => {
-          return d.arcAlt;
-        });
-
-      // Apply atmosphere if supported
-      if (typeof myGlobe.atmosphereColor === 'function') {
-        myGlobe.atmosphereColor(globeConfig.atmosphereColor);
-        myGlobe.atmosphereAltitude(globeConfig.atmosphereAltitude);
-      }
-    } catch (error) {
-      console.error("Failed to initialize ThreeGlobe:", error);
-      return;
-    }
-
-    // Setup scene
-    const scene = new THREE.Scene();
-    scene.add(myGlobe);
-    scene.background = new THREE.Color(globeConfig.globeColor);
-
-    const camera = new THREE.PerspectiveCamera();
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.position.z = 400;
-    camera.far = 1000;
-    camera.updateProjectionMatrix();
-
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    if (globeEl.current) {
-      globeEl.current.appendChild(renderer.domElement);
-    }
-
-    // Render loop
-    (function animate() {
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    })();
-
-    // Handle window resize
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (globeEl.current && renderer.domElement) {
-        globeEl.current.removeChild(renderer.domElement);
-      }
-    };
-  }, [data, globeConfig]);
-
-  return <div ref={globeEl} className="w-full h-full" />;
-};
-
-const Globe = () => {
-  const globeEl = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!globeEl.current) return;
-
-    let myGlobe: any;
-
-    // Initialize ThreeGlobe
-    try {
-      myGlobe = new ThreeGlobe({
-        waitForGlobeReady: true,
-        animateIn: true,
-      })
-        .globeImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-night.jpg')
-        .bumpImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-topology.png');
-
-      // Apply atmosphere if supported
-      if (typeof myGlobe.atmosphereColor === 'function') {
-        myGlobe.atmosphereColor('#3a228a');
-        myGlobe.atmosphereAltitude(0.85);
-      }
-    } catch (error) {
-      console.error("Failed to initialize ThreeGlobe:", error);
-      return;
-    }
-
-    // Setup scene
-    const scene = new THREE.Scene();
-    scene.add(myGlobe);
-    scene.background = new THREE.Color('#040d21');
-
-    const camera = new THREE.PerspectiveCamera();
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.position.z = 400;
-    camera.far = 1000;
-    camera.updateProjectionMatrix();
-
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    if (globeEl.current) {
-      globeEl.current.appendChild(renderer.domElement);
-    }
-
-    // Render loop
-    (function animate() {
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    })();
-
-    // Handle window resize
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (globeEl.current && renderer.domElement) {
-        globeEl.current.removeChild(renderer.domElement);
-      }
-    };
-  }, []);
-
-  return <div ref={globeEl} className="w-full h-full" />;
+  return <Globe />;
 };
 
 export default Globe;
