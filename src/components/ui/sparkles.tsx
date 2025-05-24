@@ -1,9 +1,6 @@
-
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useWindowSize } from "@uidotdev/usehooks";
-import { loadSlim } from "@tsparticles/slim";
-import { Engine } from "@tsparticles/engine";
 
 type ParticlesProps = {
   id?: string;

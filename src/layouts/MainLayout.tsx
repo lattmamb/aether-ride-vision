@@ -6,6 +6,8 @@ import Footer from '@/components/Footer';
 import AIAssistant from '@/components/AIAssistant';
 import NavbarDemo from '@/components/ui/navbar-menu-demo';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs';
+import UnityTransition from '@/components/ui/unity-transition';
+import { useTransition } from '@/contexts/TransitionContext';
 import { ChevronUp } from 'lucide-react';
 
 interface MainLayoutProps {
@@ -16,6 +18,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [scrollY, setScrollY] = useState(0);
   const [showFloatingMenu, setShowFloatingMenu] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const { showTransition, hideTransition } = useTransition();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,6 +39,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <UnityTransition isVisible={showTransition} onComplete={hideTransition} />
+      
       <Navbar />
       <Breadcrumbs />
       
