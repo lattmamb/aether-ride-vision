@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -39,6 +40,14 @@
 
   html {
     @apply scroll-smooth;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
+
+  /* Modern scroll snapping */
+  .modern-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   /* Custom scrollbar */
@@ -47,7 +56,7 @@
   }
   
   ::-webkit-scrollbar-track {
-    @apply bg-tesla-dark;
+    @apply bg-black;
   }
   
   ::-webkit-scrollbar-thumb {
@@ -84,34 +93,188 @@
     @apply bg-gradient-to-r from-[#9b87f5] via-[#7E69AB] to-[#6E59A5] bg-clip-text text-transparent;
   }
 
-  .shine-effect {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    background-size: 200% auto;
-    @apply animate-shine;
-  }
-  
-  /* New utility classes for consistent styling */
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.2)] hover:border-[#9b87f5]/20;
-  }
-  
-  .button-glow {
-    @apply relative overflow-hidden;
-  }
-  
-  .button-glow:after {
-    @apply content-[''] absolute top-0 left-0 w-full h-full bg-white/10 transform scale-x-0 origin-bottom-left transition-transform duration-500;
-  }
-  
-  .button-glow:hover:after {
-    @apply scale-x-100;
-  }
-  
-  .text-balance {
-    text-wrap: balance;
+  /* Modern Components */
+  .modern-badge {
+    @apply flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-lg border border-white/10;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Futuristic Button Styles */
+  .modern-badge:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .modern-button {
+    @apply relative inline-flex items-center justify-center font-medium transition-all duration-300 cursor-pointer rounded-2xl overflow-hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .modern-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(155, 135, 245, 0.2),
+      transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .modern-button:hover:before {
+    opacity: 1;
+  }
+
+  .modern-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(155, 135, 245, 0.2);
+  }
+
+  .modern-button-content {
+    @apply relative z-10 flex items-center px-8 py-4 text-white;
+  }
+
+  .modern-button-primary {
+    background: linear-gradient(135deg, #9b87f5, #7E69AB);
+  }
+
+  .modern-button-secondary {
+    background: linear-gradient(135deg, rgba(10, 132, 255, 0.8), rgba(10, 132, 255, 0.4));
+  }
+
+  .modern-button-small .modern-button-content {
+    @apply px-6 py-3 text-sm;
+  }
+
+  .modern-button-large .modern-button-content {
+    @apply px-12 py-5 text-lg;
+  }
+
+  .modern-card {
+    @apply relative rounded-3xl overflow-hidden transition-all duration-500;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .modern-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(155, 135, 245, 0.1),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .modern-card:hover:before {
+    opacity: 1;
+  }
+
+  .modern-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  }
+
+  .modern-card-content {
+    @apply relative z-10 p-8;
+  }
+
+  .modern-icon-wrapper {
+    @apply w-16 h-16 rounded-2xl flex items-center justify-center mb-6;
+    background: linear-gradient(135deg, rgba(155, 135, 245, 0.2), rgba(10, 132, 255, 0.2));
+    color: #9b87f5;
+  }
+
+  .modern-vehicle-card {
+    @apply relative rounded-3xl overflow-hidden transition-all duration-500;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .modern-vehicle-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(155, 135, 245, 0.15),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .modern-vehicle-card:hover:before {
+    opacity: 1;
+  }
+
+  .modern-vehicle-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(155, 135, 245, 0.2);
+  }
+
+  .modern-vehicle-image {
+    @apply h-64 flex items-center justify-center relative overflow-hidden;
+    background: linear-gradient(135deg, rgba(155, 135, 245, 0.1), rgba(10, 132, 255, 0.1));
+  }
+
+  .modern-vehicle-content {
+    @apply relative z-10 p-8;
+  }
+
+  /* Animation Keyframes */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .modern-card,
+    .modern-vehicle-card {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .modern-button:hover,
+    .modern-card:hover,
+    .modern-vehicle-card:hover {
+      transform: none;
+    }
+  }
+
+  /* Legacy button styles for compatibility */
   .futuristic-button {
     cursor: pointer;
     font-size: 1.4rem;

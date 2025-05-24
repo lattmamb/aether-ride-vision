@@ -1,16 +1,20 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
-import NewHero from '@/components/landing/NewHero';
-import NewFeatures from '@/components/landing/NewFeatures';
-import NewVehicleGallery from '@/components/landing/NewVehicleGallery';
+import ModernHero from '@/components/modern/ModernHero';
+import ModernFeatures from '@/components/modern/ModernFeatures';
+import ModernVehicleShowcase from '@/components/modern/ModernVehicleShowcase';
+import ModernCTA from '@/components/modern/ModernCTA';
 
 const Index = () => {
   return (
     <MainLayout>
-      <NewHero />
-      <NewFeatures />
-      <NewVehicleGallery />
+      <div className="modern-landing">
+        <ModernHero />
+        <ModernFeatures />
+        <ModernVehicleShowcase />
+        <ModernCTA />
+      </div>
     </MainLayout>
   );
 };

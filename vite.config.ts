@@ -18,8 +18,6 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Ensure we're using the correct version of three
-      "three": path.resolve(__dirname, "./node_modules/three")
     },
   },
   build: {
