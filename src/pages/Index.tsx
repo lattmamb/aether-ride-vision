@@ -1,7 +1,7 @@
 
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
-import InteractiveHero from '@/components/landing/InteractiveHero';
+import Hero from '@/components/landing/Hero';
 import Features from '@/components/landing/Features';
 import HeroParallax from '@/components/ui/hero-parallax';
 import ExpandableVehiclesGrid from '@/components/ui/expandable-grid';
@@ -22,8 +22,8 @@ const Index = () => {
   return (
     <MainLayout>
       <div className="min-h-screen">
-        {/* Interactive Hero Section */}
-        <InteractiveHero />
+        {/* Hero Section */}
+        <Hero />
         
         {/* Features Section */}
         <Features />
