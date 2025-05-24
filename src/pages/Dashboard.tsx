@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { Card } from '@/components/ui/card';
@@ -6,8 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Map from '@/components/Map';
+import HolographicVehicleShowcase from '@/components/dashboard/HolographicVehicleShowcase';
+import TestimonialsCarousel from '@/components/dashboard/TestimonialsCarousel';
+import TechnologyPreview from '@/components/dashboard/TechnologyPreview';
+import AnimatedStats from '@/components/dashboard/AnimatedStats';
 import { vehicles } from '@/data/vehicles';
 import { Car, Calendar, Gauge, Battery, MapPin, CreditCard, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Dashboard = () => {
   // This would be actual user data in a real application
@@ -30,40 +34,46 @@ const Dashboard = () => {
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-16 mt-14 md:mt-20">
-        <div className="mb-10">
-          <h1 className="text-4xl font-bold gradient-text mb-2">Dashboard</h1>
-          <p className="text-white/70">Welcome back! Manage your electric vehicle subscriptions.</p>
-        </div>
+        <motion.div
+          className="mb-10"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1 className="text-5xl font-bold gradient-text mb-2">Dashboard</h1>
+          <p className="text-white/70 text-xl">Welcome to the future of electric mobility</p>
+        </motion.div>
+
+        {/* Animated Stats Section */}
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <AnimatedStats />
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main content area */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Active Vehicle */}
-            <Card className="glass-card p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Current Vehicle</h2>
-                <Button variant="outline" className="bg-glass border-glass-border hover:bg-glass-highlight text-white">
-                  View Details
-                </Button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-                <div className="md:col-span-2">
-                  <div className="relative h-40 md:h-48 flex items-center justify-center">
-                    <img
-                      src={activeVehicle.image}
-                      alt={activeVehicle.model}
-                      className="h-full object-contain"
-                    />
-                  </div>
+            {/* Holographic Vehicle Showcase */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Card className="glass-card p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-3xl font-bold gradient-text">Current Vehicle</h2>
+                  <Button variant="outline" className="bg-glass border-glass-border hover:bg-glass-highlight text-white">
+                    View Details
+                  </Button>
                 </div>
-                
-                <div className="md:col-span-3 space-y-6">
-                  <div>
-                    <h3 className="text-xl font-bold">{activeVehicle.model}</h3>
-                    <p className="text-white/70 text-sm">{activeVehicle.tagline}</p>
-                  </div>
 
+                <HolographicVehicleShowcase vehicle={activeVehicle} />
+
+                <div className="mt-6 grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-white/70">Subscription</span>
@@ -79,43 +89,47 @@ const Dashboard = () => {
                     </div>
                     <Progress value={(remainingMiles / totalMiles) * 100} className="h-2 bg-glass" />
                   </div>
-
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="glass-effect flex flex-col items-center p-3 rounded">
-                      <Battery className="h-4 w-4 text-tesla-blue mb-1" />
-                      <span className="text-xs text-white/70">Range</span>
-                      <span className="text-sm font-medium">{activeVehicle.performance.range} mi</span>
-                    </div>
-                    <div className="glass-effect flex flex-col items-center p-3 rounded">
-                      <Gauge className="h-4 w-4 text-tesla-blue mb-1" />
-                      <span className="text-xs text-white/70">Top Speed</span>
-                      <span className="text-sm font-medium">{activeVehicle.performance.topSpeed} mph</span>
-                    </div>
-                    <div className="glass-effect flex flex-col items-center p-3 rounded">
-                      <Clock className="h-4 w-4 text-tesla-blue mb-1" />
-                      <span className="text-xs text-white/70">0-60 mph</span>
-                      <span className="text-sm font-medium">{activeVehicle.performance.acceleration}s</span>
-                    </div>
-                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
+            
+            {/* Testimonials Section */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <Card className="glass-card p-6">
+                <h2 className="text-3xl font-bold gradient-text mb-6">What Our Drivers Say</h2>
+                <TestimonialsCarousel />
+              </Card>
+            </motion.div>
             
             {/* Vehicle Location */}
-            <Card className="glass-card p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Vehicle Location</h2>
-                <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-tesla-green"></div>
-                  <span className="text-sm text-white/70">Updated 5 minutes ago</span>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <Card className="glass-card p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-2xl font-bold">Vehicle Location</h2>
+                  <div className="flex items-center gap-2">
+                    <motion.div
+                      className="h-2 w-2 rounded-full bg-tesla-green"
+                      animate={{ opacity: [1, 0.5, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <span className="text-sm text-white/70">Updated 5 minutes ago</span>
+                  </div>
                 </div>
-              </div>
-              
-              <Map 
-                vehicleLocation={{ lat: 37.7749, lng: -122.4194 }}
-                className="w-full h-[300px]"
-              />
-            </Card>
+                
+                <Map 
+                  vehicleLocation={{ lat: 37.7749, lng: -122.4194 }}
+                  className="w-full h-[300px]"
+                />
+              </Card>
+            </motion.div>
             
             {/* Activity & Trips */}
             <Card className="glass-card p-6">
@@ -265,6 +279,16 @@ const Dashboard = () => {
             </Card>
           </div>
         </div>
+
+        {/* Technology Preview Section */}
+        <motion.div
+          className="mt-16"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+        >
+          <TechnologyPreview />
+        </motion.div>
       </div>
     </MainLayout>
   );
