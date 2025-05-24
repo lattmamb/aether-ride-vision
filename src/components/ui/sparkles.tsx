@@ -18,7 +18,7 @@ type ParticlesProps = {
 export const SparklesCore = ({
   id = "tsparticles",
   className,
-  background,
+  background = "transparent",
   particleSize = 2,
   minSize,
   maxSize,
@@ -45,8 +45,13 @@ export const SparklesCore = ({
       if (!ctx) return;
 
       contextRef.current = ctx;
-      canvas.width = size.width || window.innerWidth;
-      canvas.height = size.height || window.innerHeight;
+      
+      // Set canvas size to parent container
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width || 640;
+      canvas.height = rect.height || 160;
+
+      console.log('Canvas initialized:', canvas.width, canvas.height);
 
       // Create particles
       particlesRef.current = Array.from({ length: particleDensity }, () => ({
@@ -59,41 +64,39 @@ export const SparklesCore = ({
         vy: (Math.random() - 0.5) * speed
       }));
 
-      if (!disableCanvasMouseDetection) {
-        // Initialize mouse position
-        mouseRef.current = { x: 0, y: 0, vx: 0, vy: 0 };
+      console.log('Particles created:', particlesRef.current.length);
 
-        // Setup mouse move listener
+      if (!disableCanvasMouseDetection) {
+        mouseRef.current = { x: 0, y: 0, vx: 0, vy: 0 };
+        const handleMouseMove = (e: MouseEvent) => {
+          if (!mouseRef.current || !canvas) return;
+          
+          const rect = canvas.getBoundingClientRect();
+          const prevX = mouseRef.current.x;
+          const prevY = mouseRef.current.y;
+          
+          mouseRef.current.x = e.clientX - rect.left;
+          mouseRef.current.y = e.clientY - rect.top;
+          
+          mouseRef.current.vx = mouseRef.current.x - prevX;
+          mouseRef.current.vy = mouseRef.current.y - prevY;
+        };
+
         window.addEventListener('mousemove', handleMouseMove);
+        
+        return () => {
+          window.removeEventListener('mousemove', handleMouseMove);
+        };
       }
 
       setIsLoaded(true);
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!mouseRef.current) return;
-      
-      const prevX = mouseRef.current.x;
-      const prevY = mouseRef.current.y;
-      
-      mouseRef.current.x = e.clientX;
-      mouseRef.current.y = e.clientY;
-      
-      mouseRef.current.vx = mouseRef.current.x - prevX;
-      mouseRef.current.vy = mouseRef.current.y - prevY;
     };
 
     if (!init) {
       initializeCanvas();
       setInit(true);
     }
-
-    return () => {
-      if (!disableCanvasMouseDetection) {
-        window.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
-  }, [init, particleDensity, particleSize, minSize, maxSize, speed, disableCanvasMouseDetection, size]);
+  }, [init, particleDensity, particleSize, minSize, maxSize, speed, disableCanvasMouseDetection]);
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -106,7 +109,7 @@ export const SparklesCore = ({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       // Set background if provided
-      if (background) {
+      if (background && background !== "transparent") {
         ctx.fillStyle = background;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
@@ -127,28 +130,23 @@ export const SparklesCore = ({
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
         if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
         
+        // Keep particles in bounds
+        particle.x = Math.max(0, Math.min(canvas.width, particle.x));
+        particle.y = Math.max(0, Math.min(canvas.height, particle.y));
+        
         // Interact with mouse if enabled
         if (mouseRef.current && !disableCanvasMouseDetection) {
           const dx = mouseRef.current.x - particle.x;
           const dy = mouseRef.current.y - particle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          // Apply a small force towards the mouse
           if (distance < 100) {
-            particle.vx += (dx / distance) * 0.2;
-            particle.vy += (dy / distance) * 0.2;
-          }
-          
-          // Apply mouse velocity to particles
-          if (Math.abs(mouseRef.current.vx) > 1 || Math.abs(mouseRef.current.vy) > 1) {
-            if (distance < 50) {
-              particle.vx += mouseRef.current.vx * 0.2;
-              particle.vy += mouseRef.current.vy * 0.2;
-            }
+            particle.vx += (dx / distance) * 0.1;
+            particle.vy += (dy / distance) * 0.1;
           }
         }
         
-        // Apply some friction to prevent infinite acceleration
+        // Apply friction
         particle.vx *= 0.99;
         particle.vy *= 0.99;
       });
@@ -165,20 +163,24 @@ export const SparklesCore = ({
     };
   }, [isLoaded, background, particleColor, disableCanvasMouseDetection]);
 
-  // Handle window resize
+  // Handle resize
   useEffect(() => {
     const handleResize = () => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width || 640;
+      canvas.height = rect.height || 160;
     };
     
-    window.addEventListener('resize', handleResize);
+    const resizeObserver = new ResizeObserver(handleResize);
+    if (canvasRef.current) {
+      resizeObserver.observe(canvasRef.current);
+    }
     
     return () => {
-      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
     };
   }, []);
 
@@ -187,7 +189,11 @@ export const SparklesCore = ({
       ref={canvasRef}
       id={id}
       className={className}
-      style={{ width: "100%", height: "100%" }}
+      style={{ 
+        width: "100%", 
+        height: "100%",
+        display: "block"
+      }}
     />
   );
 };
