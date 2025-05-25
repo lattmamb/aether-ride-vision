@@ -17,7 +17,8 @@ import {
   Bell,
   Settings,
   Heart,
-  TrendingUp
+  TrendingUp,
+  Brain
 } from "lucide-react";
 
 const EnhancedSidebar: React.FC = () => {
@@ -40,11 +41,19 @@ const EnhancedSidebar: React.FC = () => {
       badge: null
     },
     {
+      path: '/ai-assistant',
+      label: 'AI Assistant',
+      icon: Brain,
+      type: 'link' as const,
+      badge: 'New',
+      special: true
+    },
+    {
       path: '/vehicles',
       label: 'Fleet',
       icon: Car,
       type: 'dropdown' as const,
-      badge: 'New',
+      badge: null,
       dropdownItems: [
         { label: 'All Vehicles', path: '/vehicles', description: 'Browse our entire fleet' },
         { label: 'Model S', path: '/vehicles?type=model-s', description: 'Luxury sedan' },
@@ -193,12 +202,16 @@ const EnhancedSidebar: React.FC = () => {
                 {quickActions.map((action) => (
                   <motion.button
                     key={action.action}
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ 
+                      scale: 1.1,
+                      y: -2,
+                      transition: { type: "spring", stiffness: 400, damping: 10 }
+                    }}
                     whileTap={{ scale: 0.95 }}
-                    className="relative neumorphic-button p-3 rounded-xl flex flex-col items-center gap-1"
+                    className="relative neumorphic-button p-3 rounded-xl flex flex-col items-center gap-1 group"
                   >
-                    <action.icon className={`h-4 w-4 ${action.color}`} />
-                    <span className="text-xs text-white/70">{action.label}</span>
+                    <action.icon className={`h-4 w-4 ${action.color} group-hover:scale-110 transition-all duration-200`} />
+                    <span className="text-xs text-white/70 group-hover:text-white transition-colors">{action.label}</span>
                     {action.badge && (
                       <motion.div
                         initial={{ scale: 0 }}
@@ -227,7 +240,13 @@ const EnhancedSidebar: React.FC = () => {
               >
                 {item.type === 'dropdown' ? (
                   <div>
-                    <button
+                    <motion.button
+                      whileHover={{ 
+                        scale: 1.02,
+                        y: -1,
+                        transition: { type: "spring", stiffness: 400, damping: 10 }
+                      }}
+                      whileTap={{ scale: 0.98 }}
                       className={`w-full neumorphic-button rounded-2xl p-4 flex items-center gap-4 transition-all duration-500 relative overflow-hidden ${
                         isActiveRoute(item.path) 
                           ? 'neumorphic-inset text-[#9b87f5]' 
@@ -235,7 +254,7 @@ const EnhancedSidebar: React.FC = () => {
                       }`}
                       onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
                     >
-                      <item.icon className="h-6 w-6 flex-shrink-0" />
+                      <item.icon className={`h-6 w-6 flex-shrink-0 ${hoveredItem === item.label ? 'scale-110' : ''} transition-transform duration-200`} />
                       <AnimatePresence>
                         {isExpanded && (
                           <motion.div
@@ -262,19 +281,19 @@ const EnhancedSidebar: React.FC = () => {
                         )}
                       </AnimatePresence>
                       
-                      {/* Hover gradient effect */}
+                      {/* Apple-style shimmer effect */}
                       <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-[#9b87f5]/10 via-transparent to-[#7c3aed]/10 opacity-0"
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0"
                         animate={{ 
                           opacity: hoveredItem === item.label ? 1 : 0,
                           x: hoveredItem === item.label ? ["-100%", "100%"] : "-100%"
                         }}
                         transition={{ 
                           opacity: { duration: 0.3 },
-                          x: { duration: 2, repeat: Infinity, ease: "linear" }
+                          x: { duration: 1.5, repeat: Infinity, ease: "linear" }
                         }}
                       />
-                    </button>
+                    </motion.button>
                     
                     <AnimatePresence>
                       {activeDropdown === item.label && isExpanded && (
@@ -296,7 +315,7 @@ const EnhancedSidebar: React.FC = () => {
                                 className="block p-3 text-white/80 hover:text-white rounded-xl hover:bg-white/5 transition-all duration-300 group"
                               >
                                 <div className="flex items-center gap-3">
-                                  <div className="w-2 h-2 rounded-full bg-[#9b87f5]/60 group-hover:bg-[#9b87f5] transition-colors" />
+                                  <div className="w-2 h-2 rounded-full bg-[#9b87f5]/60 group-hover:bg-[#9b87f5] group-hover:scale-125 transition-all" />
                                   <div>
                                     <div className="font-medium">{subItem.label}</div>
                                     <div className="text-xs text-white/50">{subItem.description}</div>
@@ -312,38 +331,53 @@ const EnhancedSidebar: React.FC = () => {
                 ) : (
                   <Link
                     to={item.path}
-                    className={`w-full neumorphic-button rounded-2xl p-4 flex items-center gap-4 transition-all duration-500 relative overflow-hidden ${
-                      isActiveRoute(item.path) 
-                        ? 'neumorphic-inset text-[#9b87f5]' 
-                        : 'text-white/90 hover:text-white hover:neumorphic-hover'
-                    }`}
+                    className={`w-full block`}
                   >
-                    <item.icon className="h-6 w-6 flex-shrink-0" />
-                    <AnimatePresence>
-                      {isExpanded && (
-                        <motion.span
-                          initial={{ opacity: 0, width: 0 }}
-                          animate={{ opacity: 1, width: "auto" }}
-                          exit={{ opacity: 0, width: 0 }}
-                          className="font-semibold whitespace-nowrap"
-                        >
-                          {item.label}
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                    
-                    {/* Hover gradient effect */}
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-[#9b87f5]/10 via-transparent to-[#7c3aed]/10 opacity-0"
-                      animate={{ 
-                        opacity: hoveredItem === item.label ? 1 : 0,
-                        x: hoveredItem === item.label ? ["-100%", "100%"] : "-100%"
+                      whileHover={{ 
+                        scale: 1.02,
+                        y: -1,
+                        transition: { type: "spring", stiffness: 400, damping: 10 }
                       }}
-                      transition={{ 
-                        opacity: { duration: 0.3 },
-                        x: { duration: 2, repeat: Infinity, ease: "linear" }
-                      }}
-                    />
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full neumorphic-button rounded-2xl p-4 flex items-center gap-4 transition-all duration-500 relative overflow-hidden ${
+                        isActiveRoute(item.path) 
+                          ? 'neumorphic-inset text-[#9b87f5]' 
+                          : 'text-white/90 hover:text-white hover:neumorphic-hover'
+                      } ${item.special ? 'bg-gradient-to-r from-[#9b87f5]/10 to-[#7c3aed]/10' : ''}`}
+                    >
+                      <item.icon className={`h-6 w-6 flex-shrink-0 ${hoveredItem === item.label ? 'scale-110' : ''} transition-transform duration-200`} />
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ opacity: 0, width: 0 }}
+                            animate={{ opacity: 1, width: "auto" }}
+                            exit={{ opacity: 0, width: 0 }}
+                            className="flex items-center justify-between flex-1"
+                          >
+                            <span className="font-semibold whitespace-nowrap">{item.label}</span>
+                            {item.badge && (
+                              <span className="px-2 py-1 bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] rounded-full text-xs font-bold">
+                                {item.badge}
+                              </span>
+                            )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                      
+                      {/* Apple-style shimmer effect */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0"
+                        animate={{ 
+                          opacity: hoveredItem === item.label ? 1 : 0,
+                          x: hoveredItem === item.label ? ["-100%", "100%"] : "-100%"
+                        }}
+                        transition={{ 
+                          opacity: { duration: 0.3 },
+                          x: { duration: 1.5, repeat: Infinity, ease: "linear" }
+                        }}
+                      />
+                    </motion.div>
                   </Link>
                 )}
               </motion.div>
@@ -354,8 +388,13 @@ const EnhancedSidebar: React.FC = () => {
           <div className="p-4 border-t border-white/10 space-y-3">
             {/* Dashboard */}
             <Link to="/dashboard">
-              <motion.button
-                whileTap={{ scale: 0.95 }}
+              <motion.div
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -1,
+                  transition: { type: "spring", stiffness: 400, damping: 10 }
+                }}
+                whileTap={{ scale: 0.98 }}
                 className={`w-full neumorphic-button rounded-2xl p-4 flex items-center gap-4 transition-all duration-300 ${
                   isActiveRoute('/dashboard') 
                     ? 'neumorphic-inset text-[#9b87f5]' 
@@ -375,7 +414,7 @@ const EnhancedSidebar: React.FC = () => {
                     </motion.span>
                   )}
                 </AnimatePresence>
-              </motion.button>
+              </motion.div>
             </Link>
 
             {/* Settings */}
@@ -383,7 +422,12 @@ const EnhancedSidebar: React.FC = () => {
               <motion.button
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -1,
+                  transition: { type: "spring", stiffness: 400, damping: 10 }
+                }}
+                whileTap={{ scale: 0.98 }}
                 className="w-full neumorphic-button rounded-2xl p-4 flex items-center gap-4 text-white/90 hover:text-white hover:neumorphic-hover transition-all duration-300"
               >
                 <Settings className="h-6 w-6 flex-shrink-0" />
@@ -393,11 +437,16 @@ const EnhancedSidebar: React.FC = () => {
 
             {/* Enhanced Book Now */}
             <Link to="/vehicles">
-              <motion.button
+              <motion.div
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -2,
+                  transition: { type: "spring", stiffness: 400, damping: 10 }
+                }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] p-4 flex items-center gap-4 shadow-xl hover:shadow-2xl transition-all duration-500 group"
               >
-                <Zap className="h-6 w-6 flex-shrink-0 text-white" />
+                <Zap className="h-6 w-6 flex-shrink-0 text-white group-hover:scale-110 transition-transform duration-200" />
                 <AnimatePresence>
                   {isExpanded && (
                     <motion.span
@@ -419,13 +468,13 @@ const EnhancedSidebar: React.FC = () => {
                   transition={{ duration: 0.5 }}
                 />
                 
-                {/* Shimmer effect */}
+                {/* Apple-style shimmer effect */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                   animate={{ x: ["-100%", "200%"] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 />
-              </motion.button>
+              </motion.div>
             </Link>
           </div>
         </div>

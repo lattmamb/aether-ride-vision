@@ -17,6 +17,7 @@ import BookingSuccess from "./pages/BookingSuccess";
 import Pricing from "./pages/Pricing";
 import Locations from "./pages/Locations";
 import About from "./pages/About";
+import AIAssistant from "./pages/AIAssistant";
 import NotFound from "./pages/NotFound";
 import BottomNavigation from "./components/navigation/BottomNavigation";
 
@@ -42,6 +43,7 @@ const AppContent = () => {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/dashboard" element={<EnhancedDashboard />} />
+        <Route path="/ai-assistant" element={<AIAssistant />} />
         <Route path="/vehicles" element={<VehiclesList />} />
         <Route path="/vehicles/:id" element={<VehicleDetails />} />
         <Route path="/book/:id" element={<BookVehicle />} />
