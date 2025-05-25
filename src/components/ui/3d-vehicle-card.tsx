@@ -93,35 +93,35 @@ export const Vehicle3DCard: React.FC<Vehicle3DCardProps> = ({ vehicle }) => {
             <div className="text-white font-bold text-xs">${vehicle.price}</div>
           </span>
         </div>
-
-        {/* Hover effects */}
-        <style jsx>{`
-          .parent:hover .card {
-            transform: rotate3d(1, 1, 0, 30deg);
-          }
-          
-          .parent:hover .card .bottom .social-buttons-container .social-button {
-            transform: translate3d(0, 0, 50px);
-            box-shadow: rgba(155, 135, 245, 0.2) -5px 20px 10px 0px;
-          }
-          
-          .parent:hover .card .logo .circle2 {
-            transform: translate3d(0, 0, 60px);
-          }
-          
-          .parent:hover .card .logo .circle3 {
-            transform: translate3d(0, 0, 80px);
-          }
-          
-          .parent:hover .card .logo .circle4 {
-            transform: translate3d(0, 0, 100px);
-          }
-          
-          .parent:hover .card .logo .circle5 {
-            transform: translate3d(0, 0, 120px);
-          }
-        `}</style>
       </div>
+
+      {/* CSS-in-JS for hover effects */}
+      <style>{`
+        .parent:hover .card {
+          transform: rotate3d(1, 1, 0, 30deg);
+        }
+        
+        .parent:hover .card .bottom .social-buttons-container .social-button {
+          transform: translate3d(0, 0, 50px);
+          box-shadow: rgba(155, 135, 245, 0.2) -5px 20px 10px 0px;
+        }
+        
+        .parent:hover .card .logo .circle2 {
+          transform: translate3d(0, 0, 60px);
+        }
+        
+        .parent:hover .card .logo .circle3 {
+          transform: translate3d(0, 0, 80px);
+        }
+        
+        .parent:hover .card .logo .circle4 {
+          transform: translate3d(0, 0, 100px);
+        }
+        
+        .parent:hover .card .logo .circle5 {
+          transform: translate3d(0, 0, 120px);
+        }
+      `}</style>
     </div>
   );
 };
