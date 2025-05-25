@@ -1,7 +1,8 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Battery, Zap, Timer } from "lucide-react";
+import { Vehicle3DCard } from "@/components/ui/3d-vehicle-card";
+import { vehicles } from "@/data/vehicles";
 
 const VehicleCard: React.FC<{
   model: string;
@@ -58,7 +59,9 @@ const VehicleCard: React.FC<{
   );
 };
 
-const NewVehicleGallery: React.FC = () => {
+const NewVehicleGallery: React.FC<{ use3D?: boolean }> = ({ use3D = false }) => {
+  const displayVehicles = vehicles.slice(0, 3);
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
@@ -79,35 +82,43 @@ const NewVehicleGallery: React.FC = () => {
           </Link>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <VehicleCard
-            model="Model S"
-            type="Luxury Sedan"
-            price="$150"
-            range="405 mi"
-            acceleration="1.99s"
-            topSpeed="200 mph"
-            link="/vehicles/model-s"
-          />
-          <VehicleCard
-            model="Model 3"
-            type="Performance Sedan"
-            price="$120"
-            range="358 mi"
-            acceleration="3.1s"
-            topSpeed="162 mph"
-            link="/vehicles/model-3"
-          />
-          <VehicleCard
-            model="Model X"
-            type="Luxury SUV"
-            price="$180"
-            range="348 mi"
-            acceleration="2.5s"
-            topSpeed="163 mph"
-            link="/vehicles/model-x"
-          />
-        </div>
+        {use3D ? (
+          <div className="flex flex-wrap justify-center gap-8 lg:gap-12">
+            {displayVehicles.map((vehicle) => (
+              <Vehicle3DCard key={vehicle.id} vehicle={vehicle} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <VehicleCard
+              model="Model S"
+              type="Luxury Sedan"
+              price="$150"
+              range="405 mi"
+              acceleration="1.99s"
+              topSpeed="200 mph"
+              link="/vehicles/model-s"
+            />
+            <VehicleCard
+              model="Model 3"
+              type="Performance Sedan"
+              price="$120"
+              range="358 mi"
+              acceleration="3.1s"
+              topSpeed="162 mph"
+              link="/vehicles/model-3"
+            />
+            <VehicleCard
+              model="Model X"
+              type="Luxury SUV"
+              price="$180"
+              range="348 mi"
+              acceleration="2.5s"
+              topSpeed="163 mph"
+              link="/vehicles/model-x"
+            />
+          </div>
+        )}
       </div>
     </section>
   );

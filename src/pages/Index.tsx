@@ -3,6 +3,7 @@ import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import Hero from '@/components/landing/Hero';
 import Features from '@/components/landing/Features';
+import FeaturedVehicles3D from '@/components/landing/FeaturedVehicles3D';
 import HeroParallax from '@/components/ui/hero-parallax';
 import ExpandableVehiclesGrid from '@/components/ui/expandable-grid';
 import { vehicles as vehicleData } from '@/data/vehicles';
@@ -24,6 +25,9 @@ const Index = () => {
       <div className="min-h-screen">
         {/* Hero Section */}
         <Hero />
+        
+        {/* 3D Featured Vehicles Section */}
+        <FeaturedVehicles3D />
         
         {/* Features Section */}
         <Features />
