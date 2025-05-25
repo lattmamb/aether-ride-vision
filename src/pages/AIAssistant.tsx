@@ -4,6 +4,9 @@ import { motion } from 'framer-motion';
 import MainLayout from '@/layouts/MainLayout';
 import { UnityFleetAIChat } from '@/components/ui/v0-ai-chat';
 import SmartCard from '@/components/enhanced/SmartCard';
+import Scene3D from '@/components/3d/Scene3D';
+import { VirtualShowroom } from '@/components/3d/VirtualShowroom';
+import { vehicles } from '@/data/vehicles';
 import { Sparkles, Zap, Brain, MessageCircle } from 'lucide-react';
 
 const AIAssistant: React.FC = () => {
@@ -30,10 +33,47 @@ const AIAssistant: React.FC = () => {
     }
   ];
 
+  const handleVehicleSelect = (vehicle: any) => {
+    console.log('Selected vehicle:', vehicle);
+    // Could trigger navigation or AI conversation about the selected vehicle
+  };
+
   return (
     <MainLayout>
       <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
-        {/* Hero Section */}
+        {/* 3D Virtual Showroom Section */}
+        <div className="relative py-20 px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-7xl mx-auto mb-16"
+          >
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-4">
+                Interactive 3D Vehicle Showcase
+              </h2>
+              <p className="text-white/70 text-lg max-w-2xl mx-auto">
+                Explore our Tesla fleet in ultra-realistic 3D. Rotate, inspect, and interact with each model.
+              </p>
+            </div>
+            
+            <div className="h-[600px] rounded-2xl overflow-hidden border border-white/10 backdrop-blur-xl bg-black/20">
+              <Scene3D
+                environment="sunset"
+                enablePostProcessing={true}
+                className="w-full h-full"
+              >
+                <VirtualShowroom 
+                  vehicles={vehicles.slice(0, 3)} 
+                  onVehicleSelect={handleVehicleSelect}
+                />
+              </Scene3D>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* AI Chat Interface */}
         <div className="relative py-20 px-4 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -45,7 +85,7 @@ const AIAssistant: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Features Section */}
+        {/* Features Section with 3D Enhancement */}
         <div className="py-16 px-4 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <motion.div
@@ -55,10 +95,10 @@ const AIAssistant: React.FC = () => {
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold text-white mb-4">
-                Powered by Advanced AI
+                Powered by Advanced AI & 3D Technology
               </h2>
               <p className="text-white/70 text-lg max-w-2xl mx-auto">
-                Our AI assistant understands Tesla vehicles, subscription plans, and your unique needs to provide the best recommendations
+                Experience the future of automotive exploration with our hyper-realistic 3D interface and intelligent assistance
               </p>
             </motion.div>
 

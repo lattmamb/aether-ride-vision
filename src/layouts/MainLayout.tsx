@@ -9,9 +9,10 @@ import { ChevronUp } from 'lucide-react';
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  enable3D?: boolean;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ children, enable3D = false }) => {
   const [scrollY, setScrollY] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -32,7 +33,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen flex bg-black">
+    <div className={`min-h-screen flex ${enable3D ? 'bg-transparent' : 'bg-black'}`}>
       {/* Enhanced Sidebar */}
       <EnhancedSidebar />
       
