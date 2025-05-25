@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { useTransition } from "@/contexts/TransitionContext";
 import UnityTransition from "@/components/ui/unity-transition";
 import Index from "./pages/Index";
-import Dashboard from "./pages/Dashboard";
+import EnhancedDashboard from "./pages/EnhancedDashboard";
 import VehicleDetails from "./pages/VehicleDetails";
 import VehiclesList from "./pages/VehiclesList";
 import BookVehicle from "./pages/BookVehicle";
@@ -41,7 +41,7 @@ const AppContent = () => {
       <UnityTransition isVisible={showTransition} onComplete={hideTransition} />
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<EnhancedDashboard />} />
         <Route path="/vehicles" element={<VehiclesList />} />
         <Route path="/vehicles/:id" element={<VehicleDetails />} />
         <Route path="/book/:id" element={<BookVehicle />} />
@@ -49,7 +49,6 @@ const AppContent = () => {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/about" element={<About />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
       <BottomNavigation />
