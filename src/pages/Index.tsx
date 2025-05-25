@@ -1,7 +1,7 @@
 
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
-import DraggableCardDemo from '@/components/ui/draggable-card-demo';
+import TeslaScrollHero from '@/components/ui/tesla-scroll-hero';
 import Features from '@/components/landing/Features';
 import FeaturedVehicles3D from '@/components/landing/FeaturedVehicles3D';
 import HeroParallax from '@/components/ui/hero-parallax';
@@ -23,8 +23,8 @@ const Index = () => {
   return (
     <MainLayout>
       <div className="min-h-screen">
-        {/* Interactive Tesla Hero Section */}
-        <DraggableCardDemo />
+        {/* Tesla Scroll Hero Section */}
+        <TeslaScrollHero />
         
         {/* 3D Featured Vehicles Section */}
         <FeaturedVehicles3D />
