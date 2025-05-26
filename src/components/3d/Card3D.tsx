@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
 import { Text, RoundedBox } from '@react-three/drei';
-import { Group } from 'three';
+import * as THREE from 'three';
 import { motion } from 'framer-motion-3d';
 
 interface Card3DProps extends GroupProps {
@@ -37,7 +37,7 @@ export const Card3D: React.FC<Card3DProps> = ({
   onClick,
   ...props
 }) => {
-  const groupRef = useRef<Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
 
   useFrame((state) => {

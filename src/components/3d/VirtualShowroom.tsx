@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Group } from 'three';
+import * as THREE from 'three';
 import { Vehicle3DModel } from './Vehicle3DModel';
 import { Card3D } from './Card3D';
 import { Button3D } from './Button3D';
@@ -18,7 +18,7 @@ export const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
   onVehicleSelect
 }) => {
   const [selectedVehicleIndex, setSelectedVehicleIndex] = useState(0);
-  const groupRef = useRef<Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
 
   const selectedVehicle = vehicles[selectedVehicleIndex];
 

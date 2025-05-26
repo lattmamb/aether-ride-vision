@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
-import { Group } from 'three';
+import * as THREE from 'three';
 import { useGLTF, Float, Sparkles } from '@react-three/drei';
 import { motion } from 'framer-motion-3d';
 import { Vehicle } from '@/types';
@@ -24,7 +24,7 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
   position = [0, 0, 0],
   ...props
 }) => {
-  const groupRef = useRef<Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
 
