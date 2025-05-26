@@ -1,125 +1,50 @@
 
-import React, { useRef, useState } from 'react';
-import { useFrame, GroupProps } from '@react-three/fiber';
-import { RoundedBox } from '@react-three/drei';
-import { Group } from 'three';
-import { motion } from 'framer-motion-3d';
+import React, { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Text } from '@react-three/drei';
+import * as THREE from 'three';
 
-interface Card3DProps extends GroupProps {
-  children?: React.ReactNode;
-  width?: number;
-  height?: number;
-  depth?: number;
-  position?: [number, number, number];
-  rotation?: [number, number, number];
-  color?: string;
-  metalness?: number;
-  roughness?: number;
-  transparent?: boolean;
-  opacity?: number;
-  onHover?: () => void;
-  onClick?: () => void;
-  interactive?: boolean;
+interface Card3DProps {
+  title: string;
+  description: string;
+  position: [number, number, number];
 }
 
-export const Card3D: React.FC<Card3DProps> = ({
-  children,
-  width = 2,
-  height = 1.5,
-  depth = 0.1,
-  position = [0, 0, 0],
-  rotation = [0, 0, 0],
-  color = "#1a1a1a",
-  metalness = 0.1,
-  roughness = 0.3,
-  transparent = true,
-  opacity = 0.9,
-  onHover,
-  onClick,
-  interactive = true,
-  ...props
-}) => {
-  const groupRef = useRef<Group>(null);
-  const [hovered, setHovered] = useState(false);
+const Card3D: React.FC<Card3DProps> = ({ title, description, position }) => {
+  const meshRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
-    if (groupRef.current && hovered && interactive) {
-      groupRef.current.position.z = Math.sin(state.clock.elapsedTime * 2) * 0.05 + position[2] + 0.1;
+    if (meshRef.current) {
+      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
     }
   });
 
-  const handlePointerOver = () => {
-    if (interactive) {
-      setHovered(true);
-      onHover?.();
-    }
-  };
-
-  const handlePointerOut = () => {
-    if (interactive) {
-      setHovered(false);
-    }
-  };
-
-  const handleClick = () => {
-    if (interactive && onClick) {
-      onClick();
-    }
-  };
-
   return (
-    <motion.group
-      ref={groupRef}
-      position={position}
-      rotation={rotation}
-      onPointerOver={handlePointerOver}
-      onPointerOut={handlePointerOut}
-      onClick={handleClick}
-      whileHover={interactive ? { scale: 1.05 } : {}}
-      whileTap={interactive ? { scale: 0.95 } : {}}
-      {...props}
-    >
-      {/* Card Background */}
-      <RoundedBox
-        args={[width, height, depth]}
-        radius={0.1}
-        smoothness={4}
-        castShadow
-        receiveShadow
+    <group ref={meshRef} position={position}>
+      <mesh>
+        <planeGeometry args={[3, 2]} />
+        <meshStandardMaterial color="#1e293b" transparent opacity={0.9} />
+      </mesh>
+      <Text
+        position={[0, 0.3, 0.01]}
+        fontSize={0.3}
+        color="#f1f5f9"
+        anchorX="center"
+        anchorY="middle"
       >
-        <meshStandardMaterial
-          {...({
-            color,
-            metalness,
-            roughness,
-            transparent,
-            opacity: hovered && interactive ? opacity * 1.2 : opacity,
-            envMapIntensity: 1
-          } as any)}
-        />
-      </RoundedBox>
-      
-      {/* Border Glow */}
-      {hovered && interactive && (
-        <RoundedBox
-          args={[width + 0.02, height + 0.02, depth + 0.02]}
-          radius={0.12}
-          smoothness={4}
-        >
-          <meshStandardMaterial
-            {...({
-              color: "#9b87f5",
-              emissive: "#9b87f5",
-              emissiveIntensity: 0.3,
-              transparent: true,
-              opacity: 0.5
-            } as any)}
-          />
-        </RoundedBox>
-      )}
-      
-      {children}
-    </motion.group>
+        {title}
+      </Text>
+      <Text
+        position={[0, -0.2, 0.01]}
+        fontSize={0.15}
+        color="#94a3b8"
+        anchorX="center"
+        anchorY="middle"
+        maxWidth={2.5}
+      >
+        {description}
+      </Text>
+    </group>
   );
 };
 

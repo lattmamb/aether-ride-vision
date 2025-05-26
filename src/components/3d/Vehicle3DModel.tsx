@@ -1,176 +1,124 @@
 
-import React, { useRef, useState } from 'react';
-import { useFrame, GroupProps } from '@react-three/fiber';
-import { Group } from 'three';
-import { Float, Sparkles } from '@react-three/drei';
-import { motion } from 'framer-motion-3d';
-import { Vehicle } from '@/types';
+import React, { useRef, useMemo } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Text } from '@react-three/drei';
+import * as THREE from 'three';
 
-interface Vehicle3DModelProps extends GroupProps {
-  vehicle: Vehicle;
-  selectedColor?: string;
-  enableInteraction?: boolean;
+interface Vehicle3DModelProps {
+  color?: string;
+  position?: [number, number, number];
   scale?: number;
   rotation?: [number, number, number];
-  position?: [number, number, number];
-  performanceMode?: boolean;
 }
 
-export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
-  vehicle,
-  selectedColor = "#FFFFFF",
-  enableInteraction = true,
-  scale = 1,
-  rotation = [0, 0, 0],
+const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({ 
+  color = '#ff0000', 
   position = [0, 0, 0],
-  performanceMode = false,
-  ...props
+  scale = 1,
+  rotation = [0, 0, 0]
 }) => {
-  const groupRef = useRef<Group>(null);
-  const [hovered, setHovered] = useState(false);
-  const [clicked, setClicked] = useState(false);
+  const vehicleRef = useRef<THREE.Group>(null);
+
+  // Create materials with proper typing
+  const bodyMaterial = useMemo(() => new THREE.MeshStandardMaterial({
+    color: color,
+    metalness: 0.8,
+    roughness: 0.2,
+    envMapIntensity: 1
+  }), [color]);
+
+  const glassMaterial = useMemo(() => new THREE.MeshStandardMaterial({
+    color: '#87ceeb',
+    metalness: 0.9,
+    roughness: 0.1,
+    transparent: true,
+    opacity: 0.3,
+    envMapIntensity: 1
+  }), []);
+
+  const rimMaterial = useMemo(() => new THREE.MeshStandardMaterial({
+    color: '#c0c0c0',
+    metalness: 0.9,
+    roughness: 0.1
+  }), []);
+
+  const tireMaterial = useMaterial(() => new THREE.MeshStandardMaterial({
+    color: '#2c2c2c',
+    metalness: 0.2,
+    roughness: 0.8
+  }), []);
+
+  const headlightMaterial = useMemo(() => new THREE.MeshStandardMaterial({
+    color: '#ffffff',
+    emissive: '#ffffff',
+    emissiveIntensity: 0.3
+  }), []);
+
+  const taillightMaterial = useMemo(() => new THREE.MeshStandardMaterial({
+    color: '#ff0000',
+    emissive: '#ff0000',
+    emissiveIntensity: 0.5
+  }), []);
 
   useFrame((state) => {
-    if (groupRef.current && enableInteraction && !performanceMode) {
-      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
-      if (hovered) {
-        groupRef.current.scale.setScalar(scale * 1.05);
-      } else {
-        groupRef.current.scale.setScalar(scale);
-      }
+    if (vehicleRef.current) {
+      vehicleRef.current.rotation.y += 0.005;
     }
   });
 
-  const handlePointerOver = () => {
-    if (enableInteraction) {
-      setHovered(true);
-    }
-  };
-
-  const handlePointerOut = () => {
-    if (enableInteraction) {
-      setHovered(false);
-    }
-  };
-
-  const handleClick = () => {
-    if (enableInteraction) {
-      setClicked(!clicked);
-    }
-  };
-
-  const FloatWrapper = performanceMode ? React.Fragment : Float;
-  const floatProps = performanceMode ? {} : { speed: 1.5, rotationIntensity: 0.2, floatIntensity: 0.5 };
-
   return (
-    <FloatWrapper {...floatProps}>
-      <motion.group
-        ref={groupRef}
-        position={position}
-        rotation={rotation}
-        scale={scale}
-        onPointerOver={handlePointerOver}
-        onPointerOut={handlePointerOut}
-        onClick={handleClick}
-        whileHover={enableInteraction && !performanceMode ? { scale: scale * 1.1 } : {}}
-        whileTap={enableInteraction && !performanceMode ? { scale: scale * 0.95 } : {}}
-        {...props}
-      >
-        {/* Vehicle Body */}
-        <mesh castShadow receiveShadow>
-          <boxGeometry args={[4, 1.5, 2]} />
-          <meshStandardMaterial
-            {...{
-              color: selectedColor,
-              metalness: 0.8,
-              roughness: 0.2,
-              envMapIntensity: 1
-            }}
-          />
-        </mesh>
-        
-        {/* Vehicle Windows */}
-        <mesh position={[0, 0.5, 0]} castShadow>
-          <boxGeometry args={[3.5, 0.8, 1.8]} />
-          <meshStandardMaterial
-            {...{
-              color: "#87CEEB",
-              metalness: 0,
-              roughness: 0,
-              transparent: true,
-              opacity: 0.3,
-              envMapIntensity: 1
-            }}
-          />
-        </mesh>
-        
-        {/* Wheels */}
-        {[-1.3, 1.3].map((x, index) => (
-          <group key={index} position={[x, -0.75, 1.2]}>
-            <mesh castShadow>
-              <cylinderGeometry args={[0.4, 0.4, 0.2, 16]} />
-              <meshStandardMaterial 
-                {...{
-                  color: "#333333",
-                  metalness: 0.1,
-                  roughness: 0.8
-                }}
-              />
-            </mesh>
-          </group>
-        ))}
-        
-        {[-1.3, 1.3].map((x, index) => (
-          <group key={index + 2} position={[x, -0.75, -1.2]}>
-            <mesh castShadow>
-              <cylinderGeometry args={[0.4, 0.4, 0.2, 16]} />
-              <meshStandardMaterial 
-                {...{
-                  color: "#333333",
-                  metalness: 0.1,
-                  roughness: 0.8
-                }}
-              />
-            </mesh>
-          </group>
-        ))}
-        
-        {/* Headlights */}
-        <mesh position={[1.8, 0, 0.6]} castShadow>
-          <sphereGeometry args={[0.15, 16, 16]} />
-          <meshStandardMaterial
-            {...{
-              color: "#FFFFFF",
-              emissive: "#FFFFFF",
-              emissiveIntensity: hovered ? 0.5 : 0.2
-            }}
-          />
-        </mesh>
-        
-        <mesh position={[1.8, 0, -0.6]} castShadow>
-          <sphereGeometry args={[0.15, 16, 16]} />
-          <meshStandardMaterial
-            {...{
-              color: "#FFFFFF",
-              emissive: "#FFFFFF",
-              emissiveIntensity: hovered ? 0.5 : 0.2
-            }}
-          />
-        </mesh>
-        
-        {/* Sparkle Effects on Hover */}
-        {hovered && !performanceMode && (
-          <Sparkles
-            count={50}
-            scale={6}
-            size={3}
-            speed={0.6}
-            opacity={0.6}
-            color="#9b87f5"
-          />
-        )}
-      </motion.group>
-    </FloatWrapper>
+    <group ref={vehicleRef} position={position} scale={scale} rotation={rotation}>
+      {/* Main body */}
+      <mesh position={[0, 0.8, 0]}>
+        <boxGeometry args={[4, 1.2, 1.8]} />
+        <primitive object={bodyMaterial} />
+      </mesh>
+
+      {/* Windshield */}
+      <mesh position={[1.2, 1.3, 0]}>
+        <boxGeometry args={[1.2, 0.8, 1.6]} />
+        <primitive object={glassMaterial} />
+      </mesh>
+
+      {/* Wheels */}
+      {[
+        [-1.4, 0.3, -1.1],
+        [-1.4, 0.3, 1.1],
+        [1.4, 0.3, -1.1],
+        [1.4, 0.3, 1.1]
+      ].map((pos, index) => (
+        <group key={index} position={pos}>
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[0.4, 0.4, 0.3]} />
+            <primitive object={tireMaterial} />
+          </mesh>
+          <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.1]}>
+            <cylinderGeometry args={[0.25, 0.25, 0.1]} />
+            <primitive object={rimMaterial} />
+          </mesh>
+        </group>
+      ))}
+
+      {/* Headlights */}
+      <mesh position={[2.1, 0.9, -0.6]}>
+        <sphereGeometry args={[0.2]} />
+        <primitive object={headlightMaterial} />
+      </mesh>
+      <mesh position={[2.1, 0.9, 0.6]}>
+        <sphereGeometry args={[0.2]} />
+        <primitive object={headlightMaterial} />
+      </mesh>
+
+      {/* Taillights */}
+      <mesh position={[-2.1, 0.9, -0.6]}>
+        <sphereGeometry args={[0.15]} />
+        <primitive object={taillightMaterial} />
+      </mesh>
+      <mesh position={[-2.1, 0.9, 0.6]}>
+        <sphereGeometry args={[0.15]} />
+        <primitive object={taillightMaterial} />
+      </mesh>
+    </group>
   );
 };
 
