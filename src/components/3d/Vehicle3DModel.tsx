@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Object3D } from 'three';
 import { useGLTF, Float, Sparkles } from '@react-three/drei';
 import { motion } from 'framer-motion-3d';
 import { Vehicle } from '@/types';
@@ -26,7 +26,7 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
   performanceMode = false,
   ...props
 }) => {
-  const groupRef = useRef<THREE.Object3D>(null);
+  const groupRef = useRef<Object3D>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
 
@@ -82,7 +82,6 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh castShadow receiveShadow>
           <boxGeometry args={[4, 1.5, 2]} />
           <meshStandardMaterial
-            attach="material"
             color={selectedColor}
             metalness={0.8}
             roughness={0.2}
@@ -94,7 +93,6 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh position={[0, 0.5, 0]} castShadow>
           <boxGeometry args={[3.5, 0.8, 1.8]} />
           <meshStandardMaterial
-            attach="material"
             color="#87CEEB"
             metalness={0}
             roughness={0}
@@ -110,7 +108,6 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
             <mesh castShadow>
               <cylinderGeometry args={[0.4, 0.4, 0.2, 16]} />
               <meshStandardMaterial 
-                attach="material"
                 color="#333333" 
                 metalness={0.1} 
                 roughness={0.8} 
@@ -124,7 +121,6 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
             <mesh castShadow>
               <cylinderGeometry args={[0.4, 0.4, 0.2, 16]} />
               <meshStandardMaterial 
-                attach="material"
                 color="#333333" 
                 metalness={0.1} 
                 roughness={0.8} 
@@ -137,7 +133,6 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh position={[1.8, 0, 0.6]} castShadow>
           <sphereGeometry args={[0.15, 16, 16]} />
           <meshStandardMaterial
-            attach="material"
             color="#FFFFFF"
             emissive="#FFFFFF"
             emissiveIntensity={hovered ? 0.5 : 0.2}
@@ -147,7 +142,6 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh position={[1.8, 0, -0.6]} castShadow>
           <sphereGeometry args={[0.15, 16, 16]} />
           <meshStandardMaterial
-            attach="material"
             color="#FFFFFF"
             emissive="#FFFFFF"
             emissiveIntensity={hovered ? 0.5 : 0.2}

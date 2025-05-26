@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Object3D } from 'three';
 import { Vehicle3DModel } from './Vehicle3DModel';
 import { Card3D } from './Card3D';
 import { Button3D } from './Button3D';
@@ -20,7 +20,7 @@ export const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
   performanceMode = false
 }) => {
   const [selectedVehicleIndex, setSelectedVehicleIndex] = useState(0);
-  const groupRef = useRef<THREE.Object3D>(null);
+  const groupRef = useRef<Object3D>(null);
 
   const selectedVehicle = vehicles[selectedVehicleIndex];
 
@@ -61,7 +61,6 @@ export const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
       <mesh position={[0, -2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[50, 50]} />
         <meshStandardMaterial
-          attach="material"
           color="#1a1a1a"
           metalness={0.1}
           roughness={0.9}

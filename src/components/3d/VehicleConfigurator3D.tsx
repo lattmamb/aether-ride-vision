@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Object3D } from 'three';
 import { Vehicle3DModel } from './Vehicle3DModel';
 import { Button3D } from './Button3D';
 import { Text, Environment, ContactShadows, OrbitControls } from '@react-three/drei';
@@ -31,7 +31,7 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
 }) => {
   const [selectedColor, setSelectedColor] = useState('#FFFFFF');
   const [currentView, setCurrentView] = useState('exterior');
-  const groupRef = useRef<THREE.Object3D>(null);
+  const groupRef = useRef<Object3D>(null);
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
@@ -59,7 +59,6 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
       <mesh position={[0, -2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
         <meshStandardMaterial
-          attach="material"
           color="#f8f9fa"
           metalness={0.1}
           roughness={0.9}
@@ -116,7 +115,6 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
             <mesh position={[1.2, 0, 0]}>
               <sphereGeometry args={[0.08, 16, 16]} />
               <meshStandardMaterial
-                attach="material"
                 color={color.value}
                 metalness={0.8}
                 roughness={0.2}
@@ -130,7 +128,6 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
               <mesh position={[1.2, 0, 0]}>
                 <sphereGeometry args={[0.1, 16, 16]} />
                 <meshStandardMaterial
-                  attach="material"
                   color="#9b87f5"
                   emissive="#9b87f5"
                   emissiveIntensity={0.5}

@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
 import { Text, RoundedBox } from '@react-three/drei';
-import * as THREE from 'three';
+import { Object3D } from 'three';
 import { motion } from 'framer-motion-3d';
 
 interface Card3DProps extends GroupProps {
@@ -39,7 +39,7 @@ export const Card3D: React.FC<Card3DProps> = ({
   interactive = true,
   ...props
 }) => {
-  const groupRef = useRef<THREE.Object3D>(null);
+  const groupRef = useRef<Object3D>(null);
   const [hovered, setHovered] = useState(false);
 
   useFrame((state) => {
@@ -88,7 +88,6 @@ export const Card3D: React.FC<Card3DProps> = ({
         receiveShadow
       >
         <meshStandardMaterial
-          attach="material"
           color={color}
           metalness={metalness}
           roughness={roughness}
@@ -106,7 +105,6 @@ export const Card3D: React.FC<Card3DProps> = ({
           smoothness={4}
         >
           <meshStandardMaterial
-            attach="material"
             color="#9b87f5"
             emissive="#9b87f5"
             emissiveIntensity={0.3}
