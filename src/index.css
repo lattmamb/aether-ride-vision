@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -139,7 +140,43 @@
     text-shadow: 0 0 20px rgba(155, 135, 245, 0.5);
   }
 
-  /* Enhanced Animations */
+  /* Enhanced Genie Effect Animations */
+  @keyframes genie-expand {
+    0% {
+      transform: scale(0) translateY(100vh) translateX(50vw) skewY(45deg);
+      border-radius: 50%;
+      opacity: 0;
+    }
+    50% {
+      transform: scale(0.5) translateY(50vh) translateX(25vw) skewY(22deg);
+      border-radius: 25%;
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1) translateY(0) translateX(0) skewY(0deg);
+      border-radius: 0%;
+      opacity: 1;
+    }
+  }
+
+  @keyframes genie-collapse {
+    0% {
+      transform: scale(1) translateY(0) translateX(0) skewY(0deg);
+      border-radius: 0%;
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.5) translateY(50vh) translateX(25vw) skewY(-22deg);
+      border-radius: 25%;
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(0) translateY(100vh) translateX(50vw) skewY(-45deg);
+      border-radius: 50%;
+      opacity: 0;
+    }
+  }
+
   @keyframes shimmer {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(200%); }
@@ -155,6 +192,19 @@
     50% { box-shadow: 0 0 40px rgba(155, 135, 245, 0.4); }
   }
 
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1) rotate(180deg); }
+  }
+
+  .animate-genie-expand {
+    animation: genie-expand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .animate-genie-collapse {
+    animation: genie-collapse 0.8s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  }
+
   .animate-shimmer {
     animation: shimmer 2s infinite linear;
   }
@@ -167,6 +217,10 @@
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
+  .animate-sparkle {
+    animation: sparkle 2s ease-in-out infinite;
+  }
+
   /* Enhanced Interactive Elements */
   .interactive-card {
     @apply transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer;
@@ -175,67 +229,6 @@
   .interactive-card:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 25px 50px rgba(155, 135, 245, 0.2);
-  }
-
-  /* Status Indicators */
-  .status-online {
-    @apply relative;
-  }
-
-  .status-online::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    width: 8px;
-    height: 8px;
-    background: #10b981;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  /* Enhanced Progress Bars */
-  .progress-enhanced {
-    @apply relative overflow-hidden rounded-full bg-white/10;
-  }
-
-  .progress-enhanced::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    animation: shimmer 2s infinite;
-  }
-
-  /* Micro-interactions */
-  .micro-bounce {
-    @apply transition-transform duration-150;
-  }
-
-  .micro-bounce:active {
-    transform: scale(0.95);
-  }
-
-  .micro-glow {
-    @apply transition-shadow duration-300;
-  }
-
-  .micro-glow:hover {
-    box-shadow: 0 0 20px rgba(155, 135, 245, 0.3);
-  }
-
-  /* Dark theme optimizations */
-  .dark-optimized {
-    background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-                linear-gradient(180deg, rgba(10, 10, 10, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
-  }
-
-  /* Accessibility enhancements */
-  .focus-enhanced:focus {
-    @apply outline-none ring-2 ring-[#9b87f5] ring-offset-2 ring-offset-black;
   }
 
   /* Legacy compatibility styles */

@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
 import { Text, RoundedBox } from '@react-three/drei';
-import { Object3D } from 'three';
+import * as THREE from 'three';
 import { motion } from 'framer-motion-3d';
 
 interface Button3DProps extends GroupProps {
@@ -31,7 +31,7 @@ export const Button3D: React.FC<Button3DProps> = ({
   disabled = false,
   ...props
 }) => {
-  const groupRef = useRef<Object3D>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const [pressed, setPressed] = useState(false);
 

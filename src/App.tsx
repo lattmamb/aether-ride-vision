@@ -5,9 +5,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { TransitionProvider } from "@/contexts/TransitionContext";
+import { GenieTransitionProvider } from "@/contexts/GenieTransitionContext";
 import { useEffect } from "react";
-import { useTransition } from "@/contexts/TransitionContext";
-import UnityTransition from "@/components/ui/unity-transition";
+import { useGenieTransition } from "@/contexts/GenieTransitionContext";
+import GenieTransition from "@/components/ui/genie-transition";
+import EnhancedPageTransition from "@/components/ui/enhanced-page-transition";
 import Index from "./pages/Index";
 import EnhancedDashboard from "./pages/EnhancedDashboard";
 import VehicleDetails from "./pages/VehicleDetails";
@@ -25,34 +27,48 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const location = useLocation();
-  const { showTransition, hideTransition, triggerTransition } = useTransition();
+  const { showGenie, hideGenie, triggerGenie } = useGenieTransition();
 
-  // Trigger transition on initial load
+  // Trigger genie effect on route changes
   useEffect(() => {
-    triggerTransition();
-  }, []);
-
-  // Trigger transition on route changes
-  useEffect(() => {
-    triggerTransition();
+    triggerGenie();
   }, [location.pathname]);
 
   return (
     <>
-      <UnityTransition isVisible={showTransition} onComplete={hideTransition} />
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/dashboard" element={<EnhancedDashboard />} />
-        <Route path="/ai-assistant" element={<AIAssistant />} />
-        <Route path="/vehicles" element={<VehiclesList />} />
-        <Route path="/vehicles/:id" element={<VehicleDetails />} />
-        <Route path="/book/:id" element={<BookVehicle />} />
-        <Route path="/booking-success" element={<BookingSuccess />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/locations" element={<Locations />} />
-        <Route path="/about" element={<About />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <GenieTransition isVisible={showGenie} onComplete={hideGenie}>
+        <div className="flex items-center justify-center h-full">
+          <div className="text-center space-y-6">
+            <div className="w-20 h-20 mx-auto mb-6 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] rounded-full animate-pulse" />
+              <div className="absolute inset-2 bg-black rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] rounded-full animate-spin" />
+              </div>
+            </div>
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+              Unity Fleet
+            </h2>
+            <p className="text-white/60">Transitioning to the future...</p>
+          </div>
+        </div>
+      </GenieTransition>
+      
+      <EnhancedPageTransition pathname={location.pathname}>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/dashboard" element={<EnhancedDashboard />} />
+          <Route path="/ai-assistant" element={<AIAssistant />} />
+          <Route path="/vehicles" element={<VehiclesList />} />
+          <Route path="/vehicles/:id" element={<VehicleDetails />} />
+          <Route path="/book/:id" element={<BookVehicle />} />
+          <Route path="/booking-success" element={<BookingSuccess />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/locations" element={<Locations />} />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </EnhancedPageTransition>
+      
       <BottomNavigation />
     </>
   );
@@ -61,13 +77,15 @@ const AppContent = () => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <TransitionProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AppContent />
-        </BrowserRouter>
-      </TransitionProvider>
+      <GenieTransitionProvider>
+        <TransitionProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
+        </TransitionProvider>
+      </GenieTransitionProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

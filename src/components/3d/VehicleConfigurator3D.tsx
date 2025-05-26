@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
-import { Object3D } from 'three';
+import * as THREE from 'three';
 import { Vehicle3DModel } from './Vehicle3DModel';
 import { Button3D } from './Button3D';
 import { Text, Environment, ContactShadows, OrbitControls } from '@react-three/drei';
@@ -31,7 +31,7 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
 }) => {
   const [selectedColor, setSelectedColor] = useState('#FFFFFF');
   const [currentView, setCurrentView] = useState('exterior');
-  const groupRef = useRef<Object3D>(null);
+  const groupRef = useRef<THREE.Group>(null);
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
