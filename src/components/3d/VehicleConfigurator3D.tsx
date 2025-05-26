@@ -1,237 +1,177 @@
 
-import React, { useState, useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import React, { useRef, useState } from 'react';
+import { useFrame, GroupProps } from '@react-three/fiber';
 import { Group } from 'three';
 import { Vehicle3DModel } from './Vehicle3DModel';
-import { Card3D } from './Card3D';
 import { Button3D } from './Button3D';
-import { Text, Environment, OrbitControls, ContactShadows, Float } from '@react-three/drei';
+import { Text, Environment, ContactShadows, OrbitControls } from '@react-three/drei';
 import { Vehicle } from '@/types';
 
-interface VehicleConfigurator3DProps {
+interface VehicleConfigurator3DProps extends GroupProps {
   vehicle: Vehicle;
   onColorChange?: (color: string) => void;
-  onConfigurationChange?: (config: any) => void;
+  onViewChange?: (view: string) => void;
 }
+
+const availableColors = [
+  { name: 'Pearl White', value: '#FFFFFF' },
+  { name: 'Solid Black', value: '#000000' },
+  { name: 'Midnight Silver', value: '#393C41' },
+  { name: 'Deep Blue', value: '#1B365D' },
+  { name: 'Red Multi-Coat', value: '#B91C1C' }
+];
 
 export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
   vehicle,
   onColorChange,
-  onConfigurationChange
+  onViewChange,
+  ...props
 }) => {
-  const [selectedColor, setSelectedColor] = useState(vehicle.colors?.[0] || "#FFFFFF");
-  const [activeSection, setActiveSection] = useState("colors");
+  const [selectedColor, setSelectedColor] = useState('#FFFFFF');
+  const [currentView, setCurrentView] = useState('exterior');
   const groupRef = useRef<Group>(null);
 
-  const colors = vehicle.colors || ["#FFFFFF", "#000000", "#FF0000", "#0000FF", "#00FF00"];
-  
-  const handleColorSelect = (color: string) => {
+  const handleColorChange = (color: string) => {
     setSelectedColor(color);
     onColorChange?.(color);
   };
 
+  const handleViewChange = (view: string) => {
+    setCurrentView(view);
+    onViewChange?.(view);
+  };
+
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
+      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
     }
   });
 
   return (
-    <group>
-      {/* Studio Environment */}
+    <group ref={groupRef} {...props}>
+      {/* Environment Setup */}
       <Environment preset="studio" />
+      <OrbitControls enablePan={false} enableZoom={true} />
       
-      {/* Advanced Lighting Setup */}
-      <ambientLight intensity={0.3} />
-      <directionalLight
-        position={[10, 10, 5]}
-        intensity={2}
-        castShadow
-        shadow-mapSize={[4096, 4096]}
-        shadow-camera-far={50}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
-      />
-      <pointLight position={[-10, 5, -10]} intensity={0.5} color="#9b87f5" />
-      <spotLight
-        position={[0, 15, 0]}
-        intensity={1}
-        angle={0.3}
-        penumbra={1}
-        castShadow
-      />
-      
-      {/* Floor with Reflection */}
+      {/* Studio Floor */}
       <mesh position={[0, -2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
         <meshStandardMaterial
-          color="#1a1a1a"
-          metalness={0.3}
-          roughness={0.1}
+          color="#f8f9fa"
+          metalness={0.1}
+          roughness={0.9}
           envMapIntensity={1}
         />
       </mesh>
       
       {/* Main Vehicle */}
-      <group ref={groupRef}>
-        <Vehicle3DModel
-          vehicle={vehicle}
-          selectedColor={selectedColor}
-          position={[0, 0, 0]}
-          scale={1.2}
-          enableInteraction={true}
-        />
-      </group>
+      <Vehicle3DModel
+        vehicle={vehicle}
+        selectedColor={selectedColor}
+        position={[0, 0, 0]}
+        scale={1.2}
+        enableInteraction={true}
+      />
       
-      {/* Color Selection Panel */}
-      <Float speed={2} rotationIntensity={0.1} floatIntensity={0.1}>
-        <Card3D
-          position={[-5, 2, 0]}
-          width={2}
-          height={3}
-          color="#1a1a1a"
-          opacity={0.95}
+      {/* Configuration Panel */}
+      <group position={[-6, 0, 0]}>
+        {/* Title */}
+        <Text
+          position={[0, 2, 0]}
+          fontSize={0.3}
+          color="#FFFFFF"
+          anchorX="center"
+          anchorY="middle"
+          maxWidth={4}
         >
-          <Text
-            position={[0, 1.2, 0.06]}
-            fontSize={0.12}
-            color="#FFFFFF"
-            anchorX="center"
-            anchorY="middle"
-          >
-            Colors
-          </Text>
-          
-          {colors.map((color, index) => (
-            <group key={color} position={[0, 0.6 - index * 0.3, 0.06]}>
-              <mesh
-                onClick={() => handleColorSelect(color)}
-                onPointerOver={(e) => e.stopPropagation()}
-              >
+          Configure Your {vehicle.model}
+        </Text>
+        
+        {/* Color Selection */}
+        <Text
+          position={[0, 1.5, 0]}
+          fontSize={0.15}
+          color="#9b87f5"
+          anchorX="center"
+          anchorY="middle"
+        >
+          Select Color
+        </Text>
+        
+        {availableColors.map((color, index) => (
+          <group key={color.value} position={[0, 1 - index * 0.3, 0]}>
+            <Button3D
+              label={color.name}
+              width={2}
+              height={0.25}
+              color={selectedColor === color.value ? "#7c3aed" : "#374151"}
+              onClick={() => handleColorChange(color.value)}
+            />
+            
+            {/* Color Preview Sphere */}
+            <mesh position={[1.2, 0, 0]}>
+              <sphereGeometry args={[0.08, 16, 16]} />
+              <meshStandardMaterial
+                color={color.value}
+                metalness={0.8}
+                roughness={0.2}
+                emissive={selectedColor === color.value ? color.value : "#000000"}
+                emissiveIntensity={selectedColor === color.value ? 0.2 : 0}
+              />
+            </mesh>
+            
+            {/* Selection Indicator */}
+            {selectedColor === color.value && (
+              <mesh position={[1.2, 0, 0]}>
                 <sphereGeometry args={[0.1, 16, 16]} />
                 <meshStandardMaterial
-                  color={color}
-                  metalness={0.8}
-                  roughness={0.2}
-                  emissive={selectedColor === color ? color : "#000000"}
-                  emissiveIntensity={selectedColor === color ? 0.2 : 0}
+                  color="#9b87f5"
+                  emissive="#9b87f5"
+                  emissiveIntensity={0.5}
+                  transparent
+                  opacity={0.3}
                 />
               </mesh>
-              
-              {selectedColor === color && (
-                <mesh position={[0, 0, 0]}>
-                  <ringGeometry args={[0.12, 0.15, 16]} />
-                  <meshStandardMaterial
-                    color="#9b87f5"
-                    emissive="#9b87f5"
-                    emissiveIntensity={0.5}
-                    transparent
-                    opacity={0.8}
-                  />
-                </mesh>
-              )}
-            </group>
-          ))}
-        </Card3D>
-      </Float>
-      
-      {/* Vehicle Info Panel */}
-      <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.1}>
-        <Card3D
-          position={[5, 1, 0]}
-          width={2.5}
-          height={3.5}
-          color="#1a1a1a"
-          opacity={0.95}
+            )}
+          </group>
+        ))}
+        
+        {/* View Controls */}
+        <Text
+          position={[0, -1.5, 0]}
+          fontSize={0.15}
+          color="#9b87f5"
+          anchorX="center"
+          anchorY="middle"
         >
-          <Text
-            position={[0, 1.5, 0.06]}
-            fontSize={0.15}
-            color="#FFFFFF"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={2.2}
-          >
-            {vehicle.model}
-          </Text>
-          
-          <Text
-            position={[0, 1.2, 0.06]}
-            fontSize={0.08}
-            color="#9b87f5"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={2.2}
-          >
-            {vehicle.tagline}
-          </Text>
-          
-          <Text
-            position={[0, 0.8, 0.06]}
-            fontSize={0.12}
-            color="#FFFFFF"
-            anchorX="center"
-            anchorY="middle"
-          >
-            ${vehicle.price}{vehicle.priceUnit}
-          </Text>
-          
-          <Text
-            position={[0, 0.3, 0.06]}
-            fontSize={0.07}
-            color="#888888"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={2.2}
-          >
-            Performance Specs:
-          </Text>
-          
-          <Text
-            position={[0, -0.1, 0.06]}
-            fontSize={0.06}
-            color="#FFFFFF"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={2.2}
-          >
-            Range: {vehicle.performance?.range} mi{'\n'}
-            0-60 mph: {vehicle.performance?.acceleration}s{'\n'}
-            Top Speed: {vehicle.performance?.topSpeed} mph
-          </Text>
-          
-          <Button3D
-            label="Book Test Drive"
-            position={[0, -1.2, 0.1]}
-            width={2}
-            height={0.3}
-            color="#7c3aed"
-            onClick={() => console.log('Book test drive')}
-          />
-        </Card3D>
-      </Float>
-      
-      {/* Interactive Controls */}
-      <Text
-        position={[0, -3, 0]}
-        fontSize={0.08}
-        color="#888888"
-        anchorX="center"
-        anchorY="middle"
-      >
-        Click and drag to rotate • Scroll to zoom
-      </Text>
+          View Options
+        </Text>
+        
+        <Button3D
+          label="Exterior View"
+          position={[0, -1.8, 0]}
+          width={2}
+          color={currentView === 'exterior' ? "#7c3aed" : "#374151"}
+          onClick={() => handleViewChange('exterior')}
+        />
+        
+        <Button3D
+          label="Interior View"
+          position={[0, -2.1, 0]}
+          width={2}
+          color={currentView === 'interior' ? "#7c3aed" : "#374151"}
+          onClick={() => handleViewChange('interior')}
+        />
+      </group>
       
       {/* Contact Shadows */}
       <ContactShadows
         position={[0, -1.99, 0]}
-        opacity={0.8}
+        opacity={0.4}
         scale={15}
-        blur={2}
-        far={20}
-        resolution={512}
+        blur={1}
+        far={10}
+        resolution={256}
         color="#000000"
       />
     </group>
