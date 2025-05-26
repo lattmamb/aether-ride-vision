@@ -3,16 +3,25 @@ import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import * as THREE from 'three';
-import Vehicle3DModel from './Vehicle3DModel';
 
-const VirtualShowroom: React.FC = () => {
+interface VirtualShowroomProps {
+  vehicles?: any[];
+  onVehicleSelect?: (vehicle: any) => void;
+}
+
+const VirtualShowroom: React.FC<VirtualShowroomProps> = ({ 
+  vehicles = [], 
+  onVehicleSelect 
+}) => {
   const platformRef = useRef<THREE.Group>(null);
 
-  const vehicles = [
+  const defaultVehicles = [
     { color: '#ff0000', position: [-6, 0, 0] as [number, number, number], name: 'Model S' },
     { color: '#0000ff', position: [0, 0, 0] as [number, number, number], name: 'Model 3' },
     { color: '#ffffff', position: [6, 0, 0] as [number, number, number], name: 'Model X' },
   ];
+
+  const displayVehicles = vehicles.length > 0 ? vehicles.slice(0, 3) : defaultVehicles;
 
   useFrame((state) => {
     if (platformRef.current) {
@@ -29,21 +38,21 @@ const VirtualShowroom: React.FC = () => {
       </mesh>
 
       {/* Vehicles */}
-      {vehicles.map((vehicle, index) => (
+      {displayVehicles.map((vehicle, index) => (
         <group key={index}>
-          <Vehicle3DModel
-            color={vehicle.color}
-            position={vehicle.position}
-            scale={0.8}
-          />
+          {/* Simple vehicle representation */}
+          <mesh position={vehicle.position || [-6 + index * 6, 0, 0]}>
+            <boxGeometry args={[4, 1.2, 1.8]} />
+            <meshStandardMaterial color={vehicle.color || '#ff0000'} />
+          </mesh>
           <Text
-            position={[vehicle.position[0], vehicle.position[1] + 3, vehicle.position[2]]}
+            position={[(vehicle.position?.[0] || -6 + index * 6), 3, vehicle.position?.[2] || 0]}
             fontSize={0.5}
             color="white"
             anchorX="center"
             anchorY="middle"
           >
-            {vehicle.name}
+            {vehicle.name || `Vehicle ${index + 1}`}
           </Text>
         </group>
       ))}

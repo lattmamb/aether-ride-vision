@@ -2,20 +2,19 @@
 import React, { useState, useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
-import * as THREE from 'three';
+import { Group, MeshStandardMaterial } from 'three';
 
 const VehicleConfigurator3D: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState('#ff0000');
-  const vehicleRef = useRef<THREE.Group>(null);
+  const vehicleRef = useRef<Group>(null);
 
   const colors = ['#ff0000', '#0000ff', '#ffffff', '#000000', '#ffff00'];
 
   // Create materials with proper typing
-  const bodyMaterial = useMemo(() => new THREE.MeshStandardMaterial({
+  const bodyMaterial = useMemo(() => new MeshStandardMaterial({
     color: selectedColor,
     metalness: 0.8,
     roughness: 0.2,
-    envMapIntensity: 1
   }), [selectedColor]);
 
   useFrame((state) => {
@@ -73,10 +72,14 @@ const VehicleConfigurator3D: React.FC = () => {
           <mesh
             onClick={() => setSelectedColor(color)}
             onPointerOver={(e) => {
-              e.object.scale.setScalar(1.2);
+              if (e.object) {
+                e.object.scale.setScalar(1.2);
+              }
             }}
             onPointerOut={(e) => {
-              e.object.scale.setScalar(1);
+              if (e.object) {
+                e.object.scale.setScalar(1);
+              }
             }}
           >
             <sphereGeometry args={[0.3]} />

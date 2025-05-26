@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { UnityFleetAIChat } from '@/components/ui/v0-ai-chat';
 import SmartCard from '@/components/enhanced/SmartCard';
 import Scene3D from '@/components/3d/Scene3D';
-import { VirtualShowroom } from '@/components/3d/VirtualShowroom';
 import { vehicles } from '@/data/vehicles';
 import { Sparkles, Zap, Brain, MessageCircle } from 'lucide-react';
 import IntelligentSidebar from '@/components/navigation/IntelligentSidebar';
@@ -33,10 +32,6 @@ const AIAssistant: React.FC = () => {
       description: "Book test drives and manage subscriptions with AI-powered assistance"
     }
   ];
-
-  const handleVehicleSelect = (vehicle: any) => {
-    console.log('Selected vehicle:', vehicle);
-  };
 
   const stickyContent = [
     {
@@ -123,7 +118,7 @@ const AIAssistant: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* 3D Virtual Showroom Section */}
+        {/* 3D Scene Section */}
         <div className="relative py-20 px-4 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -145,12 +140,7 @@ const AIAssistant: React.FC = () => {
                 environment="sunset"
                 enablePostProcessing={true}
                 className="w-full h-full"
-              >
-                <VirtualShowroom 
-                  vehicles={vehicles.slice(0, 3)} 
-                  onVehicleSelect={handleVehicleSelect}
-                />
-              </Scene3D>
+              />
             </div>
           </motion.div>
         </div>
@@ -216,7 +206,7 @@ const AIAssistant: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom spacing - no footer */}
+        {/* Bottom spacing */}
         <div className="pb-20"></div>
       </div>
     </div>
