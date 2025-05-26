@@ -1,17 +1,17 @@
 
 import React, { useState, useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, ThreeEvent } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
-import { Group, MeshStandardMaterial } from 'three';
+import * as THREE from 'three';
 
 const VehicleConfigurator3D: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState('#ff0000');
-  const vehicleRef = useRef<Group>(null);
+  const vehicleRef = useRef<THREE.Group>(null);
 
   const colors = ['#ff0000', '#0000ff', '#ffffff', '#000000', '#ffff00'];
 
   // Create materials with proper typing
-  const bodyMaterial = useMemo(() => new MeshStandardMaterial({
+  const bodyMaterial = useMemo(() => new THREE.MeshStandardMaterial({
     color: selectedColor,
     metalness: 0.8,
     roughness: 0.2,
@@ -71,14 +71,16 @@ const VehicleConfigurator3D: React.FC = () => {
         <group key={color} position={[index * 1.5 - 3, -2, 0]}>
           <mesh
             onClick={() => setSelectedColor(color)}
-            onPointerOver={(e) => {
-              if (e.object) {
-                e.object.scale.setScalar(1.2);
+            onPointerOver={(e: ThreeEvent<PointerEvent>) => {
+              const target = e.object as THREE.Mesh;
+              if (target) {
+                target.scale.setScalar(1.2);
               }
             }}
-            onPointerOut={(e) => {
-              if (e.object) {
-                e.object.scale.setScalar(1);
+            onPointerOut={(e: ThreeEvent<PointerEvent>) => {
+              const target = e.object as THREE.Mesh;
+              if (target) {
+                target.scale.setScalar(1);
               }
             }}
           >

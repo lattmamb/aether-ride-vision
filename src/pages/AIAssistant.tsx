@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { UnityFleetAIChat } from '@/components/ui/v0-ai-chat';
@@ -8,6 +7,7 @@ import { vehicles } from '@/data/vehicles';
 import { Sparkles, Zap, Brain, MessageCircle } from 'lucide-react';
 import IntelligentSidebar from '@/components/navigation/IntelligentSidebar';
 import { StickyScroll } from '@/components/ui/sticky-scroll-reveal';
+import VehicleConfigurator3D from '@/components/3d/VehicleConfigurator3D';
 
 const AIAssistant: React.FC = () => {
   const features = [
@@ -140,7 +140,9 @@ const AIAssistant: React.FC = () => {
                 environment="sunset"
                 enablePostProcessing={true}
                 className="w-full h-full"
-              />
+              >
+                <VehicleConfigurator3D />
+              </Scene3D>
             </div>
           </motion.div>
         </div>
