@@ -33,8 +33,8 @@ export const useWebGLCapabilities = (): WebGLCapabilities => {
       const canvas = document.createElement('canvas');
       
       // Check WebGL support
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      const gl2 = canvas.getContext('webgl2');
+      const gl = canvas.getContext('webgl') as WebGLRenderingContext | null;
+      const gl2 = canvas.getContext('webgl2') as WebGL2RenderingContext | null;
       
       if (!gl) {
         setCapabilities(prev => ({ ...prev, isWebGLSupported: false }));

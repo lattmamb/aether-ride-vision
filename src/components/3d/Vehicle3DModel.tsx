@@ -1,8 +1,8 @@
 
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
-import * as THREE from 'three';
-import { useGLTF, Float, Sparkles } from '@react-three/drei';
+import { Group } from 'three';
+import { Float, Sparkles } from '@react-three/drei';
 import { motion } from 'framer-motion-3d';
 import { Vehicle } from '@/types';
 
@@ -26,12 +26,10 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
   performanceMode = false,
   ...props
 }) => {
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  // For now, we'll create a placeholder 3D vehicle using basic geometry
-  // In production, you'd load actual GLTF vehicle models
   useFrame((state) => {
     if (groupRef.current && enableInteraction && !performanceMode) {
       groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
@@ -82,10 +80,12 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh castShadow receiveShadow>
           <boxGeometry args={[4, 1.5, 2]} />
           <meshStandardMaterial
-            color={selectedColor}
-            metalness={0.8}
-            roughness={0.2}
-            envMapIntensity={1}
+            {...{
+              color: selectedColor,
+              metalness: 0.8,
+              roughness: 0.2,
+              envMapIntensity: 1
+            }}
           />
         </mesh>
         
@@ -93,12 +93,14 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh position={[0, 0.5, 0]} castShadow>
           <boxGeometry args={[3.5, 0.8, 1.8]} />
           <meshStandardMaterial
-            color="#87CEEB"
-            metalness={0}
-            roughness={0}
-            transparent
-            opacity={0.3}
-            envMapIntensity={1}
+            {...{
+              color: "#87CEEB",
+              metalness: 0,
+              roughness: 0,
+              transparent: true,
+              opacity: 0.3,
+              envMapIntensity: 1
+            }}
           />
         </mesh>
         
@@ -108,9 +110,11 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
             <mesh castShadow>
               <cylinderGeometry args={[0.4, 0.4, 0.2, 16]} />
               <meshStandardMaterial 
-                color="#333333" 
-                metalness={0.1} 
-                roughness={0.8} 
+                {...{
+                  color: "#333333",
+                  metalness: 0.1,
+                  roughness: 0.8
+                }}
               />
             </mesh>
           </group>
@@ -121,9 +125,11 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
             <mesh castShadow>
               <cylinderGeometry args={[0.4, 0.4, 0.2, 16]} />
               <meshStandardMaterial 
-                color="#333333" 
-                metalness={0.1} 
-                roughness={0.8} 
+                {...{
+                  color: "#333333",
+                  metalness: 0.1,
+                  roughness: 0.8
+                }}
               />
             </mesh>
           </group>
@@ -133,18 +139,22 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh position={[1.8, 0, 0.6]} castShadow>
           <sphereGeometry args={[0.15, 16, 16]} />
           <meshStandardMaterial
-            color="#FFFFFF"
-            emissive="#FFFFFF"
-            emissiveIntensity={hovered ? 0.5 : 0.2}
+            {...{
+              color: "#FFFFFF",
+              emissive: "#FFFFFF",
+              emissiveIntensity: hovered ? 0.5 : 0.2
+            }}
           />
         </mesh>
         
         <mesh position={[1.8, 0, -0.6]} castShadow>
           <sphereGeometry args={[0.15, 16, 16]} />
           <meshStandardMaterial
-            color="#FFFFFF"
-            emissive="#FFFFFF"
-            emissiveIntensity={hovered ? 0.5 : 0.2}
+            {...{
+              color: "#FFFFFF",
+              emissive: "#FFFFFF",
+              emissiveIntensity: hovered ? 0.5 : 0.2
+            }}
           />
         </mesh>
         

@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Group } from 'three';
 import { Vehicle3DModel } from './Vehicle3DModel';
 import { Button3D } from './Button3D';
 import { Text, Environment, ContactShadows, OrbitControls } from '@react-three/drei';
@@ -31,7 +31,7 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
 }) => {
   const [selectedColor, setSelectedColor] = useState('#FFFFFF');
   const [currentView, setCurrentView] = useState('exterior');
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<Group>(null);
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
@@ -59,10 +59,12 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
       <mesh position={[0, -2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
         <meshStandardMaterial
-          color="#f8f9fa"
-          metalness={0.1}
-          roughness={0.9}
-          envMapIntensity={1}
+          {...{
+            color: "#f8f9fa",
+            metalness: 0.1,
+            roughness: 0.9,
+            envMapIntensity: 1
+          }}
         />
       </mesh>
       
@@ -115,11 +117,13 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
             <mesh position={[1.2, 0, 0]}>
               <sphereGeometry args={[0.08, 16, 16]} />
               <meshStandardMaterial
-                color={color.value}
-                metalness={0.8}
-                roughness={0.2}
-                emissive={selectedColor === color.value ? color.value : "#000000"}
-                emissiveIntensity={selectedColor === color.value ? 0.2 : 0}
+                {...{
+                  color: color.value,
+                  metalness: 0.8,
+                  roughness: 0.2,
+                  emissive: selectedColor === color.value ? color.value : "#000000",
+                  emissiveIntensity: selectedColor === color.value ? 0.2 : 0
+                }}
               />
             </mesh>
             
@@ -128,11 +132,13 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
               <mesh position={[1.2, 0, 0]}>
                 <sphereGeometry args={[0.1, 16, 16]} />
                 <meshStandardMaterial
-                  color="#9b87f5"
-                  emissive="#9b87f5"
-                  emissiveIntensity={0.5}
-                  transparent
-                  opacity={0.3}
+                  {...{
+                    color: "#9b87f5",
+                    emissive: "#9b87f5",
+                    emissiveIntensity: 0.5,
+                    transparent: true,
+                    opacity: 0.3
+                  }}
                 />
               </mesh>
             )}
