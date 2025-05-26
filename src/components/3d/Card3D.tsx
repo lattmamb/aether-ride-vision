@@ -1,11 +1,11 @@
 
 import React, { useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, GroupProps } from '@react-three/fiber';
 import { Text, RoundedBox } from '@react-three/drei';
-import { Group, Vector3 } from 'three';
+import { Group } from 'three';
 import { motion } from 'framer-motion-3d';
 
-interface Card3DProps {
+interface Card3DProps extends GroupProps {
   children?: React.ReactNode;
   width?: number;
   height?: number;
@@ -34,7 +34,8 @@ export const Card3D: React.FC<Card3DProps> = ({
   transparent = true,
   opacity = 0.9,
   onHover,
-  onClick
+  onClick,
+  ...props
 }) => {
   const groupRef = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
@@ -58,6 +59,7 @@ export const Card3D: React.FC<Card3DProps> = ({
       onClick={onClick}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
+      {...props}
     >
       {/* Card Background */}
       <RoundedBox

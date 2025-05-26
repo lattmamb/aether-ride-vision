@@ -2,12 +2,11 @@
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows, PresentationControls } from '@react-three/drei';
-import { EffectComposer, Bloom, SSAO, DepthOfField } from '@react-three/postprocessing';
 
 interface Scene3DProps {
   children: React.ReactNode;
   enableControls?: boolean;
-  environment?: string;
+  environment?: "apartment" | "city" | "dawn" | "forest" | "lobby" | "night" | "park" | "studio" | "sunset" | "warehouse";
   enablePostProcessing?: boolean;
   className?: string;
 }
@@ -67,15 +66,6 @@ export const Scene3D: React.FC<Scene3DProps> = ({
           
           {/* Scene Content */}
           {children}
-          
-          {/* Post Processing Effects */}
-          {enablePostProcessing && (
-            <EffectComposer>
-              <Bloom intensity={0.5} luminanceThreshold={0.9} />
-              <SSAO intensity={0.1} radius={0.1} />
-              <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} />
-            </EffectComposer>
-          )}
         </Suspense>
       </Canvas>
     </div>

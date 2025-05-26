@@ -1,13 +1,12 @@
 
 import React, { useRef, useState } from 'react';
-import { useFrame, useLoader } from '@react-three/fiber';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { MeshStandardMaterial, Group, Mesh } from 'three';
+import { useFrame, GroupProps } from '@react-three/fiber';
+import { Group } from 'three';
 import { useGLTF, Float, Sparkles } from '@react-three/drei';
 import { motion } from 'framer-motion-3d';
 import { Vehicle } from '@/types';
 
-interface Vehicle3DModelProps {
+interface Vehicle3DModelProps extends GroupProps {
   vehicle: Vehicle;
   selectedColor?: string;
   enableInteraction?: boolean;
@@ -22,7 +21,8 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
   enableInteraction = true,
   scale = 1,
   rotation = [0, 0, 0],
-  position = [0, 0, 0]
+  position = [0, 0, 0],
+  ...props
 }) => {
   const groupRef = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
@@ -53,6 +53,7 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         onClick={() => setClicked(!clicked)}
         whileHover={{ scale: enableInteraction ? scale * 1.1 : scale }}
         whileTap={{ scale: enableInteraction ? scale * 0.95 : scale }}
+        {...props}
       >
         {/* Vehicle Body */}
         <mesh castShadow receiveShadow>

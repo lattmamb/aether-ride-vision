@@ -1,11 +1,11 @@
 
 import React, { useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, GroupProps } from '@react-three/fiber';
 import { Text, RoundedBox } from '@react-three/drei';
 import { Group } from 'three';
 import { motion } from 'framer-motion-3d';
 
-interface Button3DProps {
+interface Button3DProps extends GroupProps {
   label: string;
   position?: [number, number, number];
   width?: number;
@@ -26,7 +26,8 @@ export const Button3D: React.FC<Button3DProps> = ({
   fontSize = 0.1,
   color = "#9b87f5",
   textColor = "#FFFFFF",
-  onClick
+  onClick,
+  ...props
 }) => {
   const groupRef = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
@@ -60,6 +61,7 @@ export const Button3D: React.FC<Button3DProps> = ({
       }}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
+      {...props}
     >
       {/* Button Base */}
       <RoundedBox
@@ -84,7 +86,6 @@ export const Button3D: React.FC<Button3DProps> = ({
         color={textColor}
         anchorX="center"
         anchorY="middle"
-        font="/fonts/inter-bold.woff"
       >
         {label}
       </Text>
