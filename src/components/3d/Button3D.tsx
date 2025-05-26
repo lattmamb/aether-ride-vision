@@ -15,6 +15,7 @@ interface Button3DProps extends GroupProps {
   color?: string;
   textColor?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export const Button3D: React.FC<Button3DProps> = ({
@@ -27,14 +28,15 @@ export const Button3D: React.FC<Button3DProps> = ({
   color = "#9b87f5",
   textColor = "#FFFFFF",
   onClick,
+  disabled = false,
   ...props
 }) => {
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Object3D>(null);
   const [hovered, setHovered] = useState(false);
   const [pressed, setPressed] = useState(false);
 
   useFrame(() => {
-    if (groupRef.current) {
+    if (groupRef.current && !disabled) {
       if (pressed) {
         groupRef.current.position.z = position[2] - 0.02;
       } else if (hovered) {
@@ -45,22 +47,28 @@ export const Button3D: React.FC<Button3DProps> = ({
     }
   });
 
+  const handleClick = () => {
+    if (!disabled && onClick) {
+      onClick();
+    }
+  };
+
   return (
     <motion.group
       ref={groupRef}
       position={position}
-      onPointerOver={() => setHovered(true)}
+      onPointerOver={() => !disabled && setHovered(true)}
       onPointerOut={() => {
         setHovered(false);
         setPressed(false);
       }}
-      onPointerDown={() => setPressed(true)}
+      onPointerDown={() => !disabled && setPressed(true)}
       onPointerUp={() => {
         setPressed(false);
-        onClick?.();
+        handleClick();
       }}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={!disabled ? { scale: 1.05 } : {}}
+      whileTap={!disabled ? { scale: 0.95 } : {}}
       {...props}
     >
       {/* Button Base */}
@@ -71,11 +79,12 @@ export const Button3D: React.FC<Button3DProps> = ({
         castShadow
       >
         <meshStandardMaterial
-          color={hovered ? "#7c3aed" : color}
+          attach="material"
+          color={disabled ? "#666666" : (hovered ? "#7c3aed" : color)}
           metalness={0.3}
           roughness={0.4}
-          emissive={hovered ? "#9b87f5" : "#000000"}
-          emissiveIntensity={hovered ? 0.1 : 0}
+          emissive={hovered && !disabled ? "#9b87f5" : "#000000"}
+          emissiveIntensity={hovered && !disabled ? 0.1 : 0}
         />
       </RoundedBox>
       
@@ -83,7 +92,7 @@ export const Button3D: React.FC<Button3DProps> = ({
       <Text
         position={[0, 0, depth / 2 + 0.01]}
         fontSize={fontSize}
-        color={textColor}
+        color={disabled ? "#999999" : textColor}
         anchorX="center"
         anchorY="middle"
       >
@@ -91,13 +100,14 @@ export const Button3D: React.FC<Button3DProps> = ({
       </Text>
       
       {/* Glow Effect */}
-      {hovered && (
+      {hovered && !disabled && (
         <RoundedBox
           args={[width + 0.02, height + 0.02, depth + 0.02]}
           radius={0.06}
           smoothness={4}
         >
           <meshStandardMaterial
+            attach="material"
             color="#9b87f5"
             emissive="#9b87f5"
             emissiveIntensity={0.3}

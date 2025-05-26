@@ -11,6 +11,7 @@ interface VehicleConfigurator3DProps extends GroupProps {
   vehicle: Vehicle;
   onColorChange?: (color: string) => void;
   onViewChange?: (view: string) => void;
+  performanceMode?: boolean;
 }
 
 const availableColors = [
@@ -25,11 +26,12 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
   vehicle,
   onColorChange,
   onViewChange,
+  performanceMode = false,
   ...props
 }) => {
   const [selectedColor, setSelectedColor] = useState('#FFFFFF');
   const [currentView, setCurrentView] = useState('exterior');
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Object3D>(null);
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
@@ -42,7 +44,7 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
   };
 
   useFrame((state) => {
-    if (groupRef.current) {
+    if (groupRef.current && !performanceMode) {
       groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
     }
   });
@@ -57,6 +59,7 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
       <mesh position={[0, -2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
         <meshStandardMaterial
+          attach="material"
           color="#f8f9fa"
           metalness={0.1}
           roughness={0.9}
@@ -71,6 +74,7 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
         position={[0, 0, 0]}
         scale={1.2}
         enableInteraction={true}
+        performanceMode={performanceMode}
       />
       
       {/* Configuration Panel */}
@@ -112,6 +116,7 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
             <mesh position={[1.2, 0, 0]}>
               <sphereGeometry args={[0.08, 16, 16]} />
               <meshStandardMaterial
+                attach="material"
                 color={color.value}
                 metalness={0.8}
                 roughness={0.2}
@@ -125,6 +130,7 @@ export const VehicleConfigurator3D: React.FC<VehicleConfigurator3DProps> = ({
               <mesh position={[1.2, 0, 0]}>
                 <sphereGeometry args={[0.1, 16, 16]} />
                 <meshStandardMaterial
+                  attach="material"
                   color="#9b87f5"
                   emissive="#9b87f5"
                   emissiveIntensity={0.5}

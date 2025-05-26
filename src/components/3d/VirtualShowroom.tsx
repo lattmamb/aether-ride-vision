@@ -11,14 +11,16 @@ import { Vehicle } from '@/types';
 interface VirtualShowroomProps {
   vehicles: Vehicle[];
   onVehicleSelect?: (vehicle: Vehicle) => void;
+  performanceMode?: boolean;
 }
 
 export const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
   vehicles,
-  onVehicleSelect
+  onVehicleSelect,
+  performanceMode = false
 }) => {
   const [selectedVehicleIndex, setSelectedVehicleIndex] = useState(0);
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Object3D>(null);
 
   const selectedVehicle = vehicles[selectedVehicleIndex];
 
@@ -34,11 +36,21 @@ export const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
     );
   };
 
+  const handleVehicleSelect = () => {
+    if (selectedVehicle && onVehicleSelect) {
+      onVehicleSelect(selectedVehicle);
+    }
+  };
+
   useFrame((state) => {
-    if (groupRef.current) {
+    if (groupRef.current && !performanceMode) {
       groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.1) * 0.05;
     }
   });
+
+  if (!selectedVehicle) {
+    return null;
+  }
 
   return (
     <group ref={groupRef}>
@@ -49,6 +61,7 @@ export const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
       <mesh position={[0, -2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[50, 50]} />
         <meshStandardMaterial
+          attach="material"
           color="#1a1a1a"
           metalness={0.1}
           roughness={0.9}
@@ -56,71 +69,69 @@ export const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
       </mesh>
       
       {/* Main Vehicle Display */}
-      {selectedVehicle && (
-        <Vehicle3DModel
-          vehicle={selectedVehicle}
-          position={[0, 0, 0]}
-          scale={0.8}
-          enableInteraction={true}
-        />
-      )}
+      <Vehicle3DModel
+        vehicle={selectedVehicle}
+        position={[0, 0, 0]}
+        scale={0.8}
+        enableInteraction={true}
+        performanceMode={performanceMode}
+      />
       
       {/* Vehicle Info Card */}
-      {selectedVehicle && (
-        <Card3D
-          position={[-4, 1, 0]}
-          width={2.5}
-          height={2}
-          color="#1a1a1a"
-          opacity={0.9}
+      <Card3D
+        position={[-4, 1, 0]}
+        width={2.5}
+        height={2}
+        color="#1a1a1a"
+        opacity={0.9}
+        interactive={!performanceMode}
+      >
+        <Text
+          position={[0, 0.6, 0.06]}
+          fontSize={0.15}
+          color="#FFFFFF"
+          anchorX="center"
+          anchorY="middle"
+          maxWidth={2}
         >
-          <Text
-            position={[0, 0.6, 0.06]}
-            fontSize={0.15}
-            color="#FFFFFF"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={2}
-          >
-            {selectedVehicle.model}
-          </Text>
-          
-          <Text
-            position={[0, 0.3, 0.06]}
-            fontSize={0.08}
-            color="#9b87f5"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={2}
-          >
-            {selectedVehicle.tagline}
-          </Text>
-          
-          <Text
-            position={[0, 0, 0.06]}
-            fontSize={0.1}
-            color="#FFFFFF"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={2}
-          >
-            ${selectedVehicle.price}{selectedVehicle.priceUnit}
-          </Text>
-          
-          <Text
-            position={[0, -0.3, 0.06]}
-            fontSize={0.06}
-            color="#888888"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={2.2}
-          >
-            Range: {selectedVehicle.performance?.range} mi{'\n'}
-            0-60: {selectedVehicle.performance?.acceleration}s{'\n'}
-            Top Speed: {selectedVehicle.performance?.topSpeed} mph
-          </Text>
-        </Card3D>
-      )}
+          {selectedVehicle.model}
+        </Text>
+        
+        <Text
+          position={[0, 0.3, 0.06]}
+          fontSize={0.08}
+          color="#9b87f5"
+          anchorX="center"
+          anchorY="middle"
+          maxWidth={2}
+        >
+          {selectedVehicle.tagline}
+        </Text>
+        
+        <Text
+          position={[0, 0, 0.06]}
+          fontSize={0.1}
+          color="#FFFFFF"
+          anchorX="center"
+          anchorY="middle"
+          maxWidth={2}
+        >
+          ${selectedVehicle.price}{selectedVehicle.priceUnit}
+        </Text>
+        
+        <Text
+          position={[0, -0.3, 0.06]}
+          fontSize={0.06}
+          color="#888888"
+          anchorX="center"
+          anchorY="middle"
+          maxWidth={2.2}
+        >
+          Range: {selectedVehicle.performance?.range} mi{'\n'}
+          0-60: {selectedVehicle.performance?.acceleration}s{'\n'}
+          Top Speed: {selectedVehicle.performance?.topSpeed} mph
+        </Text>
+      </Card3D>
       
       {/* Navigation Controls */}
       <Button3D
@@ -140,7 +151,7 @@ export const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
         position={[0, -1, 2]}
         width={2}
         color="#7c3aed"
-        onClick={() => onVehicleSelect?.(selectedVehicle)}
+        onClick={handleVehicleSelect}
       />
       
       {/* Vehicle Counter */}

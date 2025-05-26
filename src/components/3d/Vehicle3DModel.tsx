@@ -13,6 +13,7 @@ interface Vehicle3DModelProps extends GroupProps {
   scale?: number;
   rotation?: [number, number, number];
   position?: [number, number, number];
+  performanceMode?: boolean;
 }
 
 export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
@@ -22,16 +23,17 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
   scale = 1,
   rotation = [0, 0, 0],
   position = [0, 0, 0],
+  performanceMode = false,
   ...props
 }) => {
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Object3D>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
 
   // For now, we'll create a placeholder 3D vehicle using basic geometry
   // In production, you'd load actual GLTF vehicle models
   useFrame((state) => {
-    if (groupRef.current && enableInteraction) {
+    if (groupRef.current && enableInteraction && !performanceMode) {
       groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
       if (hovered) {
         groupRef.current.scale.setScalar(scale * 1.05);
@@ -41,24 +43,46 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
     }
   });
 
+  const handlePointerOver = () => {
+    if (enableInteraction) {
+      setHovered(true);
+    }
+  };
+
+  const handlePointerOut = () => {
+    if (enableInteraction) {
+      setHovered(false);
+    }
+  };
+
+  const handleClick = () => {
+    if (enableInteraction) {
+      setClicked(!clicked);
+    }
+  };
+
+  const FloatWrapper = performanceMode ? React.Fragment : Float;
+  const floatProps = performanceMode ? {} : { speed: 1.5, rotationIntensity: 0.2, floatIntensity: 0.5 };
+
   return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+    <FloatWrapper {...floatProps}>
       <motion.group
         ref={groupRef}
         position={position}
         rotation={rotation}
         scale={scale}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-        onClick={() => setClicked(!clicked)}
-        whileHover={{ scale: enableInteraction ? scale * 1.1 : scale }}
-        whileTap={{ scale: enableInteraction ? scale * 0.95 : scale }}
+        onPointerOver={handlePointerOver}
+        onPointerOut={handlePointerOut}
+        onClick={handleClick}
+        whileHover={enableInteraction && !performanceMode ? { scale: scale * 1.1 } : {}}
+        whileTap={enableInteraction && !performanceMode ? { scale: scale * 0.95 } : {}}
         {...props}
       >
         {/* Vehicle Body */}
         <mesh castShadow receiveShadow>
           <boxGeometry args={[4, 1.5, 2]} />
           <meshStandardMaterial
+            attach="material"
             color={selectedColor}
             metalness={0.8}
             roughness={0.2}
@@ -70,6 +94,7 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh position={[0, 0.5, 0]} castShadow>
           <boxGeometry args={[3.5, 0.8, 1.8]} />
           <meshStandardMaterial
+            attach="material"
             color="#87CEEB"
             metalness={0}
             roughness={0}
@@ -84,7 +109,12 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
           <group key={index} position={[x, -0.75, 1.2]}>
             <mesh castShadow>
               <cylinderGeometry args={[0.4, 0.4, 0.2, 16]} />
-              <meshStandardMaterial color="#333333" metalness={0.1} roughness={0.8} />
+              <meshStandardMaterial 
+                attach="material"
+                color="#333333" 
+                metalness={0.1} 
+                roughness={0.8} 
+              />
             </mesh>
           </group>
         ))}
@@ -93,7 +123,12 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
           <group key={index + 2} position={[x, -0.75, -1.2]}>
             <mesh castShadow>
               <cylinderGeometry args={[0.4, 0.4, 0.2, 16]} />
-              <meshStandardMaterial color="#333333" metalness={0.1} roughness={0.8} />
+              <meshStandardMaterial 
+                attach="material"
+                color="#333333" 
+                metalness={0.1} 
+                roughness={0.8} 
+              />
             </mesh>
           </group>
         ))}
@@ -102,6 +137,7 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh position={[1.8, 0, 0.6]} castShadow>
           <sphereGeometry args={[0.15, 16, 16]} />
           <meshStandardMaterial
+            attach="material"
             color="#FFFFFF"
             emissive="#FFFFFF"
             emissiveIntensity={hovered ? 0.5 : 0.2}
@@ -111,6 +147,7 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <mesh position={[1.8, 0, -0.6]} castShadow>
           <sphereGeometry args={[0.15, 16, 16]} />
           <meshStandardMaterial
+            attach="material"
             color="#FFFFFF"
             emissive="#FFFFFF"
             emissiveIntensity={hovered ? 0.5 : 0.2}
@@ -118,7 +155,7 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         </mesh>
         
         {/* Sparkle Effects on Hover */}
-        {hovered && (
+        {hovered && !performanceMode && (
           <Sparkles
             count={50}
             scale={6}
@@ -129,7 +166,7 @@ export const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
           />
         )}
       </motion.group>
-    </Float>
+    </FloatWrapper>
   );
 };
 

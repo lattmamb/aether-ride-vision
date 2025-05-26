@@ -19,6 +19,7 @@ interface Card3DProps extends GroupProps {
   opacity?: number;
   onHover?: () => void;
   onClick?: () => void;
+  interactive?: boolean;
 }
 
 export const Card3D: React.FC<Card3DProps> = ({
@@ -35,30 +36,47 @@ export const Card3D: React.FC<Card3DProps> = ({
   opacity = 0.9,
   onHover,
   onClick,
+  interactive = true,
   ...props
 }) => {
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Object3D>(null);
   const [hovered, setHovered] = useState(false);
 
   useFrame((state) => {
-    if (groupRef.current && hovered) {
+    if (groupRef.current && hovered && interactive) {
       groupRef.current.position.z = Math.sin(state.clock.elapsedTime * 2) * 0.05 + position[2] + 0.1;
     }
   });
+
+  const handlePointerOver = () => {
+    if (interactive) {
+      setHovered(true);
+      onHover?.();
+    }
+  };
+
+  const handlePointerOut = () => {
+    if (interactive) {
+      setHovered(false);
+    }
+  };
+
+  const handleClick = () => {
+    if (interactive && onClick) {
+      onClick();
+    }
+  };
 
   return (
     <motion.group
       ref={groupRef}
       position={position}
       rotation={rotation}
-      onPointerOver={() => {
-        setHovered(true);
-        onHover?.();
-      }}
-      onPointerOut={() => setHovered(false)}
-      onClick={onClick}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
+      onClick={handleClick}
+      whileHover={interactive ? { scale: 1.05 } : {}}
+      whileTap={interactive ? { scale: 0.95 } : {}}
       {...props}
     >
       {/* Card Background */}
@@ -70,23 +88,25 @@ export const Card3D: React.FC<Card3DProps> = ({
         receiveShadow
       >
         <meshStandardMaterial
+          attach="material"
           color={color}
           metalness={metalness}
           roughness={roughness}
           transparent={transparent}
-          opacity={hovered ? opacity * 1.2 : opacity}
+          opacity={hovered && interactive ? opacity * 1.2 : opacity}
           envMapIntensity={1}
         />
       </RoundedBox>
       
       {/* Border Glow */}
-      {hovered && (
+      {hovered && interactive && (
         <RoundedBox
           args={[width + 0.02, height + 0.02, depth + 0.02]}
           radius={0.12}
           smoothness={4}
         >
           <meshStandardMaterial
+            attach="material"
             color="#9b87f5"
             emissive="#9b87f5"
             emissiveIntensity={0.3}
