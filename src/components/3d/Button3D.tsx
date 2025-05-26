@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text, RoundedBox } from '@react-three/drei';
-import { Group } from 'three';
+import * as THREE from 'three';
 import { motion } from 'framer-motion-3d';
 
 interface Button3DProps {
@@ -30,7 +30,7 @@ export const Button3D: React.FC<Button3DProps> = ({
   onClick,
   disabled = false,
 }) => {
-  const groupRef = useRef<Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const [pressed, setPressed] = useState(false);
 
@@ -77,13 +77,11 @@ export const Button3D: React.FC<Button3DProps> = ({
         castShadow
       >
         <meshStandardMaterial
-          {...{
-            color: disabled ? "#666666" : (hovered ? "#7c3aed" : color),
-            metalness: 0.3,
-            roughness: 0.4,
-            emissive: hovered && !disabled ? "#9b87f5" : "#000000",
-            emissiveIntensity: hovered && !disabled ? 0.1 : 0
-          }}
+          color={disabled ? "#666666" : (hovered ? "#7c3aed" : color)}
+          metalness={0.3}
+          roughness={0.4}
+          emissive={hovered && !disabled ? "#9b87f5" : "#000000"}
+          emissiveIntensity={hovered && !disabled ? 0.1 : 0}
         />
       </RoundedBox>
       
@@ -106,13 +104,11 @@ export const Button3D: React.FC<Button3DProps> = ({
           smoothness={4}
         >
           <meshStandardMaterial
-            {...{
-              color: "#9b87f5",
-              emissive: "#9b87f5",
-              emissiveIntensity: 0.3,
-              transparent: true,
-              opacity: 0.3
-            }}
+            color="#9b87f5"
+            emissive="#9b87f5"
+            emissiveIntensity={0.3}
+            transparent
+            opacity={0.3}
           />
         </RoundedBox>
       )}

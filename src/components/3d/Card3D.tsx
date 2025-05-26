@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { useFrame, GroupProps } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
-import { Group } from 'three';
+import * as THREE from 'three';
 import { motion } from 'framer-motion-3d';
 
 interface Card3DProps extends GroupProps {
@@ -39,7 +39,7 @@ export const Card3D: React.FC<Card3DProps> = ({
   interactive = true,
   ...props
 }) => {
-  const groupRef = useRef<Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
 
   useFrame((state) => {
@@ -88,14 +88,12 @@ export const Card3D: React.FC<Card3DProps> = ({
         receiveShadow
       >
         <meshStandardMaterial
-          {...{
-            color,
-            metalness,
-            roughness,
-            transparent,
-            opacity: hovered && interactive ? opacity * 1.2 : opacity,
-            envMapIntensity: 1
-          }}
+          color={color}
+          metalness={metalness}
+          roughness={roughness}
+          transparent={transparent}
+          opacity={hovered && interactive ? opacity * 1.2 : opacity}
+          envMapIntensity={1}
         />
       </RoundedBox>
       
@@ -107,13 +105,11 @@ export const Card3D: React.FC<Card3DProps> = ({
           smoothness={4}
         >
           <meshStandardMaterial
-            {...{
-              color: "#9b87f5",
-              emissive: "#9b87f5",
-              emissiveIntensity: 0.3,
-              transparent: true,
-              opacity: 0.5
-            }}
+            color="#9b87f5"
+            emissive="#9b87f5"
+            emissiveIntensity={0.3}
+            transparent
+            opacity={0.5}
           />
         </RoundedBox>
       )}

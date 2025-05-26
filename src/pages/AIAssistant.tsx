@@ -1,13 +1,14 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import MainLayout from '@/layouts/MainLayout';
 import { UnityFleetAIChat } from '@/components/ui/v0-ai-chat';
 import SmartCard from '@/components/enhanced/SmartCard';
 import Scene3D from '@/components/3d/Scene3D';
 import { VirtualShowroom } from '@/components/3d/VirtualShowroom';
 import { vehicles } from '@/data/vehicles';
 import { Sparkles, Zap, Brain, MessageCircle } from 'lucide-react';
+import IntelligentSidebar from '@/components/navigation/IntelligentSidebar';
+import { StickyScroll } from '@/components/ui/sticky-scroll-reveal';
 
 const AIAssistant: React.FC = () => {
   const features = [
@@ -35,12 +36,93 @@ const AIAssistant: React.FC = () => {
 
   const handleVehicleSelect = (vehicle: any) => {
     console.log('Selected vehicle:', vehicle);
-    // Could trigger navigation or AI conversation about the selected vehicle
   };
 
+  const stickyContent = [
+    {
+      title: "AI-Powered Fleet Management",
+      description: "Experience the future of vehicle subscription with our intelligent AI assistant that understands your needs and preferences.",
+      content: (
+        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#9b87f5] to-[#7c3aed] text-white">
+          <div className="text-center space-y-4">
+            <div className="text-4xl font-bold">🤖</div>
+            <div className="text-xl font-semibold">AI Assistant</div>
+            <div className="text-sm opacity-80">Intelligent recommendations</div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "3D Vehicle Exploration",
+      description: "Explore our Tesla fleet in ultra-realistic 3D environments with real-time interaction and customization options.",
+      content: (
+        <div className="flex h-full w-full items-center justify-center text-white">
+          <img
+            src={vehicles[0].image}
+            width={300}
+            height={200}
+            className="h-full w-full object-contain"
+            alt="Unity Fleet vehicle"
+          />
+        </div>
+      ),
+    },
+    {
+      title: "Seamless Integration",
+      description: "Our AI seamlessly integrates with your lifestyle, providing personalized vehicle recommendations and smart booking assistance.",
+      content: (
+        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#06b6d4] to-[#10b981] text-white">
+          <div className="text-center space-y-4">
+            <div className="text-4xl font-bold">⚡</div>
+            <div className="text-xl font-semibold">Smart Integration</div>
+            <div className="text-sm opacity-80">Personalized experience</div>
+          </div>
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <MainLayout>
-      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black relative overflow-x-hidden">
+      {/* Intelligent Sidebar */}
+      <IntelligentSidebar />
+
+      {/* Main Content */}
+      <div className="relative z-10">
+        {/* Hero Section with Sticky Scroll */}
+        <div className="relative py-20 px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-7xl mx-auto"
+          >
+            <div className="text-center mb-16">
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-5xl md:text-6xl font-bold text-white mb-6"
+              >
+                AI-Powered Tesla Experience
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-xl text-white/70 max-w-3xl mx-auto"
+              >
+                Discover the future of vehicle subscription with our intelligent AI assistant and immersive 3D experiences
+              </motion.p>
+            </div>
+
+            {/* Sticky Scroll Experience */}
+            <div className="mb-20">
+              <StickyScroll content={stickyContent} />
+            </div>
+          </motion.div>
+        </div>
+
         {/* 3D Virtual Showroom Section */}
         <div className="relative py-20 px-4 lg:px-8">
           <motion.div
@@ -85,7 +167,7 @@ const AIAssistant: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Features Section with 3D Enhancement */}
+        {/* Features Section */}
         <div className="py-16 px-4 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <motion.div
@@ -133,8 +215,11 @@ const AIAssistant: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Bottom spacing - no footer */}
+        <div className="pb-20"></div>
       </div>
-    </MainLayout>
+    </div>
   );
 };
 

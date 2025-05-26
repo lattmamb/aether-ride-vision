@@ -19,8 +19,6 @@ export const StickyScroll = ({
   const [activeCard, setActiveCard] = React.useState(0);
   const ref = useRef<any>(null);
   const { scrollYProgress } = useScroll({
-    // uncomment line 22 and comment line 23 if you DONT want the overflow container and want to have it change on the entire page scroll
-    // target: ref
     container: ref,
     offset: ["start start", "end start"],
   });
@@ -47,8 +45,8 @@ export const StickyScroll = ({
     "#171717", // neutral-900
   ];
   const linearGradients = [
-    "linear-gradient(to bottom right, #9b87f5, #7c3aed)", // purple gradients
-    "linear-gradient(to bottom right, #06b6d4, #10b981)", // cyan-500 to emerald-500
+    "linear-gradient(to bottom right, #9b87f5, #7c3aed)", // Unity Fleet colors
+    "linear-gradient(to bottom right, #ec4899, #6366f1)", // pink-500 to indigo-500
     "linear-gradient(to bottom right, #f97316, #eab308)", // orange-500 to yellow-500
   ];
 
@@ -65,7 +63,7 @@ export const StickyScroll = ({
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className="relative flex h-[30rem] justify-center space-x-10 overflow-y-auto rounded-md p-10"
+      className="relative flex h-[30rem] justify-center space-x-10 overflow-y-auto rounded-2xl p-10 neumorphic-card backdrop-blur-xl border border-white/10"
       ref={ref}
     >
       <div className="div relative flex items-start px-4">
@@ -90,7 +88,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-kg mt-10 max-w-sm text-slate-300"
+                className="text-lg mt-10 max-w-sm text-slate-300"
               >
                 {item.description}
               </motion.p>
@@ -102,7 +100,7 @@ export const StickyScroll = ({
       <div
         style={{ background: backgroundGradient }}
         className={cn(
-          "sticky top-10 hidden h-60 w-80 overflow-hidden rounded-md bg-white lg:block",
+          "sticky top-10 hidden h-60 w-80 overflow-hidden rounded-md neumorphic-card backdrop-blur-xl lg:block",
           contentClassName,
         )}
       >
