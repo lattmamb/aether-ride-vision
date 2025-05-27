@@ -26,9 +26,6 @@ const AIAssistantPage: React.FC = () => {
 
         {/* Features Section */}
         <AIAssistantFeatures />
-
-        {/* Bottom spacing */}
-        <div className="pb-20"></div>
       </div>
 
       {/* AI Assistant floating button */}
