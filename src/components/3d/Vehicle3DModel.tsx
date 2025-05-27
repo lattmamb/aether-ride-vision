@@ -54,7 +54,7 @@ const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         [1.4, 0.3, -1.1],
         [1.4, 0.3, 1.1]
       ].map((pos, index) => (
-        <group key={index} position={pos}>
+        <group key={index} position={pos as [number, number, number]}>
           <mesh rotation={[Math.PI / 2, 0, 0]}>
             <cylinderGeometry args={[0.4, 0.4, 0.3]} />
             <meshStandardMaterial 
