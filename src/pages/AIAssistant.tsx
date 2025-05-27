@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { UnityFleetAIChat } from '@/components/ui/v0-ai-chat';
@@ -8,8 +9,9 @@ import { Sparkles, Zap, Brain, MessageCircle } from 'lucide-react';
 import IntelligentSidebar from '@/components/navigation/IntelligentSidebar';
 import { StickyScroll } from '@/components/ui/sticky-scroll-reveal';
 import VehicleConfigurator3D from '@/components/3d/VehicleConfigurator3D';
+import AIAssistant from '@/components/AIAssistant';
 
-const AIAssistant: React.FC = () => {
+const AIAssistantPage: React.FC = () => {
   const features = [
     {
       icon: <Brain className="h-6 w-6" />,
@@ -211,8 +213,11 @@ const AIAssistant: React.FC = () => {
         {/* Bottom spacing */}
         <div className="pb-20"></div>
       </div>
+
+      {/* AI Assistant floating button */}
+      <AIAssistant />
     </div>
   );
 };
 
-export default AIAssistant;
+export default AIAssistantPage;

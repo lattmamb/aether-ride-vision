@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
-import * as THREE from 'three';
+import { Group } from 'three';
 
 interface Button3DProps {
   text: string;
@@ -11,7 +11,7 @@ interface Button3DProps {
 }
 
 const Button3D: React.FC<Button3DProps> = ({ text, position, onClick }) => {
-  const meshRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<Group>(null);
 
   useFrame((state) => {
     if (meshRef.current) {

@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
-import * as THREE from 'three';
+import { Group } from 'three';
 
 interface Card3DProps {
   title: string;
@@ -11,7 +11,7 @@ interface Card3DProps {
 }
 
 const Card3D: React.FC<Card3DProps> = ({ title, description, position }) => {
-  const meshRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<Group>(null);
 
   useFrame((state) => {
     if (meshRef.current) {
