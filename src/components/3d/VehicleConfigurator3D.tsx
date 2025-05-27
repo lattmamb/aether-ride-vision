@@ -2,11 +2,10 @@
 import React, { useState, useRef } from 'react';
 import { useFrame, ThreeEvent } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
-import { Group, Mesh } from 'three';
 
 const VehicleConfigurator3D: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState('#ff0000');
-  const vehicleRef = useRef<Group>(null);
+  const vehicleRef = useRef<any>(null);
 
   const colors = ['#ff0000', '#0000ff', '#ffffff', '#000000', '#ffff00'];
 
@@ -69,13 +68,13 @@ const VehicleConfigurator3D: React.FC = () => {
           <mesh
             onClick={() => setSelectedColor(color)}
             onPointerOver={(e: ThreeEvent<PointerEvent>) => {
-              const target = e.eventObject as Mesh;
+              const target = e.eventObject as any;
               if (target) {
                 target.scale.setScalar(1.2);
               }
             }}
             onPointerOut={(e: ThreeEvent<PointerEvent>) => {
-              const target = e.eventObject as Mesh;
+              const target = e.eventObject as any;
               if (target) {
                 target.scale.setScalar(1);
               }

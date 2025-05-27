@@ -2,7 +2,6 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
-import { Group } from 'three';
 
 interface Button3DProps {
   text: string;
@@ -11,7 +10,7 @@ interface Button3DProps {
 }
 
 const Button3D: React.FC<Button3DProps> = ({ text, position, onClick }) => {
-  const meshRef = useRef<Group>(null);
+  const meshRef = useRef<any>(null);
 
   useFrame((state) => {
     if (meshRef.current) {
@@ -23,7 +22,11 @@ const Button3D: React.FC<Button3DProps> = ({ text, position, onClick }) => {
     <group ref={meshRef} position={position} onClick={onClick}>
       <mesh>
         <boxGeometry args={[2, 0.5, 0.2]} />
-        <meshStandardMaterial color="#4338ca" metalness={0.7} roughness={0.2} />
+        <meshStandardMaterial 
+          color="#4338ca" 
+          metalness={0.7} 
+          roughness={0.2} 
+        />
       </mesh>
       <Text
         position={[0, 0, 0.11]}

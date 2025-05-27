@@ -2,7 +2,6 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
-import { Group } from 'three';
 
 interface Card3DProps {
   title: string;
@@ -11,7 +10,7 @@ interface Card3DProps {
 }
 
 const Card3D: React.FC<Card3DProps> = ({ title, description, position }) => {
-  const meshRef = useRef<Group>(null);
+  const meshRef = useRef<any>(null);
 
   useFrame((state) => {
     if (meshRef.current) {
@@ -23,7 +22,11 @@ const Card3D: React.FC<Card3DProps> = ({ title, description, position }) => {
     <group ref={meshRef} position={position}>
       <mesh>
         <planeGeometry args={[3, 2]} />
-        <meshStandardMaterial color="#1e293b" transparent opacity={0.9} />
+        <meshStandardMaterial 
+          color="#1e293b" 
+          transparent 
+          opacity={0.9} 
+        />
       </mesh>
       <Text
         position={[0, 0.3, 0.01]}

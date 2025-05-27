@@ -1,7 +1,6 @@
 
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Group } from 'three';
 
 interface Vehicle3DModelProps {
   color?: string;
@@ -16,7 +15,7 @@ const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
   scale = 1,
   rotation = [0, 0, 0]
 }) => {
-  const vehicleRef = useRef<Group>(null);
+  const vehicleRef = useRef<any>(null);
 
   useFrame((state) => {
     if (vehicleRef.current) {
@@ -58,11 +57,19 @@ const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
         <group key={index} position={pos}>
           <mesh rotation={[Math.PI / 2, 0, 0]}>
             <cylinderGeometry args={[0.4, 0.4, 0.3]} />
-            <meshStandardMaterial color="#2c2c2c" metalness={0.2} roughness={0.8} />
+            <meshStandardMaterial 
+              color="#2c2c2c" 
+              metalness={0.2} 
+              roughness={0.8} 
+            />
           </mesh>
           <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.1]}>
             <cylinderGeometry args={[0.25, 0.25, 0.1]} />
-            <meshStandardMaterial color="#c0c0c0" metalness={0.9} roughness={0.1} />
+            <meshStandardMaterial 
+              color="#c0c0c0" 
+              metalness={0.9} 
+              roughness={0.1} 
+            />
           </mesh>
         </group>
       ))}
