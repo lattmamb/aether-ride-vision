@@ -1,8 +1,7 @@
 
-import React, { useRef, useMemo } from 'react';
+import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
-import * as THREE from 'three';
+import { Group } from 'three';
 
 interface Vehicle3DModelProps {
   color?: string;
@@ -17,7 +16,7 @@ const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
   scale = 1,
   rotation = [0, 0, 0]
 }) => {
-  const vehicleRef = useRef<THREE.Group>(null);
+  const vehicleRef = useRef<Group>(null);
 
   useFrame((state) => {
     if (vehicleRef.current) {

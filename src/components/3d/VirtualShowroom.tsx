@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
-import * as THREE from 'three';
+import { Group } from 'three';
 
 interface VirtualShowroomProps {
   vehicles?: any[];
@@ -13,7 +13,7 @@ const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
   vehicles = [], 
   onVehicleSelect 
 }) => {
-  const platformRef = useRef<THREE.Group>(null);
+  const platformRef = useRef<Group>(null);
 
   const defaultVehicles = [
     { color: '#ff0000', position: [-6, 0, 0] as [number, number, number], name: 'Model S' },
