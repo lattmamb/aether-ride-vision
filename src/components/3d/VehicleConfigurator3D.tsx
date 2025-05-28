@@ -47,16 +47,16 @@ const VehicleConfigurator3D: React.FC = () => {
         <mesh position={[2.1, 0.9, -0.6]}>
           <sphereGeometry args={[0.2]} />
           <meshStandardMaterial 
-            color="#ffffff" 
-            emissive="#ffffff" 
+            color="#ffffff"
+            emissive="#ffffff"
             emissiveIntensity={0.3}
           />
         </mesh>
         <mesh position={[2.1, 0.9, 0.6]}>
           <sphereGeometry args={[0.2]} />
           <meshStandardMaterial 
-            color="#ffffff" 
-            emissive="#ffffff" 
+            color="#ffffff"
+            emissive="#ffffff"
             emissiveIntensity={0.3}
           />
         </mesh>
@@ -82,7 +82,7 @@ const VehicleConfigurator3D: React.FC = () => {
           >
             <sphereGeometry args={[0.3]} />
             <meshStandardMaterial 
-              color={color} 
+              color={color}
               emissive={selectedColor === color ? color : '#000000'}
               emissiveIntensity={selectedColor === color ? 0.2 : 0}
               transparent={selectedColor !== color}

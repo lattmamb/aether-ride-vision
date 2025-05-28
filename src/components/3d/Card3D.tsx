@@ -23,9 +23,9 @@ const Card3D: React.FC<Card3DProps> = ({ title, description, position }) => {
       <mesh>
         <planeGeometry args={[3, 2]} />
         <meshStandardMaterial 
-          color="#1e293b" 
+          color="#1e293b"
           transparent 
-          opacity={0.9} 
+          opacity={0.9}
         />
       </mesh>
       <Text

@@ -58,17 +58,17 @@ const Vehicle3DModel: React.FC<Vehicle3DModelProps> = ({
           <mesh rotation={[Math.PI / 2, 0, 0]}>
             <cylinderGeometry args={[0.4, 0.4, 0.3]} />
             <meshStandardMaterial 
-              color="#2c2c2c" 
-              metalness={0.2} 
-              roughness={0.8} 
+              color="#2c2c2c"
+              metalness={0.2}
+              roughness={0.8}
             />
           </mesh>
           <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.1]}>
             <cylinderGeometry args={[0.25, 0.25, 0.1]} />
             <meshStandardMaterial 
-              color="#c0c0c0" 
-              metalness={0.9} 
-              roughness={0.1} 
+              color="#c0c0c0"
+              metalness={0.9}
+              roughness={0.1}
             />
           </mesh>
         </group>

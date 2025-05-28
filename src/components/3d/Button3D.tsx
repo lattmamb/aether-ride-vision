@@ -23,9 +23,9 @@ const Button3D: React.FC<Button3DProps> = ({ text, position, onClick }) => {
       <mesh>
         <boxGeometry args={[2, 0.5, 0.2]} />
         <meshStandardMaterial 
-          color="#4338ca" 
-          metalness={0.7} 
-          roughness={0.2} 
+          color="#4338ca"
+          metalness={0.7}
+          roughness={0.2}
         />
       </mesh>
       <Text

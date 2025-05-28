@@ -34,9 +34,9 @@ const VirtualShowroom: React.FC<VirtualShowroomProps> = ({
       <mesh position={[0, -1, 0]}>
         <cylinderGeometry args={[12, 12, 0.2]} />
         <meshStandardMaterial 
-          color="#1e293b" 
-          metalness={0.8} 
-          roughness={0.2} 
+          color="#1e293b"
+          metalness={0.8}
+          roughness={0.2}
         />
       </mesh>
 
