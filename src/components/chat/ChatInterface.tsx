@@ -7,7 +7,6 @@ import { Textarea } from '@/components/ui/textarea';
 import ChatMessage from './ChatMessage';
 import ChatSidebar from './ChatSidebar';
 import { Message, ChatContext } from '@/types/chat';
-import { vehicles } from '@/data/vehicles';
 
 const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
@@ -137,51 +136,96 @@ const ChatInterface: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-tesla-dark">
+    <div className="flex h-screen bg-tesla-dark relative overflow-hidden">
+      {/* Background Enhancement */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#9b87f5]/10 rounded-full blur-3xl floating"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#33C3F0]/10 rounded-full blur-3xl floating-delayed"></div>
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#D946EF]/10 rounded-full blur-3xl floating-slow"></div>
+      </div>
+
       <ChatSidebar />
       
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <div className="glass-card border-b border-glass-border p-4 flex items-center justify-between">
+      <div className="flex-1 flex flex-col relative z-10">
+        {/* Enhanced Header */}
+        <motion.div 
+          className="glass-card seamless-bottom border-b-0 p-4 flex items-center justify-between relative"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 relative flex items-center justify-center">
-              <div className="absolute w-8 h-8 rounded-full bg-gradient-to-r from-[#9b87f5] to-[#6E59A5] opacity-70 blur-[8px]"></div>
-              <div className="text-[#9b87f5] font-bold text-xl relative z-10">U</div>
-            </div>
+            <motion.div 
+              className="w-10 h-10 relative flex items-center justify-center"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="absolute w-10 h-10 rounded-full gradient-bg-primary opacity-80 blur-md"></div>
+              <div className="text-white font-bold text-xl relative z-10 text-glow">U</div>
+            </motion.div>
             <div>
-              <h1 className="text-xl font-bold text-white">Unity Fleet Assistant</h1>
+              <h1 className="text-xl font-bold gradient-purple-text">Unity Fleet Assistant</h1>
               <p className="text-sm text-white/60">Your Tesla rental AI companion</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" className="text-white/70 hover:text-white">
-              <Settings className="w-4 h-4" />
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button variant="ghost" size="sm" className="text-white/70 hover:text-white glass-effect">
+                <Settings className="w-4 h-4" />
+              </Button>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          <AnimatePresence>
-            {messages.map((message) => (
-              <ChatMessage key={message.id} message={message} context={context} />
+        {/* Enhanced Messages Area */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6 relative">
+          <AnimatePresence mode="popLayout">
+            {messages.map((message, index) => (
+              <motion.div
+                key={message.id}
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100 
+                }}
+              >
+                <ChatMessage message={message} context={context} />
+              </motion.div>
             ))}
           </AnimatePresence>
           
           {isTyping && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.9 }}
               className="flex items-center gap-3"
             >
-              <div className="w-8 h-8 rounded-full bg-[#9b87f5] flex items-center justify-center">
+              <motion.div 
+                className="w-8 h-8 rounded-full gradient-bg-primary flex items-center justify-center"
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
                 <Sparkles className="w-4 h-4 text-white" />
-              </div>
-              <div className="glass-card p-4 max-w-xs">
+              </motion.div>
+              <div className="glass-card p-4 max-w-xs message-bubble">
                 <div className="flex gap-1">
-                  <div className="w-2 h-2 bg-[#9b87f5] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <div className="w-2 h-2 bg-[#9b87f5] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <div className="w-2 h-2 bg-[#9b87f5] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  {[0, 150, 300].map((delay, i) => (
+                    <motion.div
+                      key={i}
+                      className="w-2 h-2 gradient-bg-primary rounded-full"
+                      animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                      transition={{ 
+                        duration: 1.5, 
+                        repeat: Infinity, 
+                        delay: delay / 1000 
+                      }}
+                    />
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -189,46 +233,83 @@ const ChatInterface: React.FC = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Quick Actions */}
+        {/* Enhanced Quick Actions */}
         {messages.length <= 1 && (
-          <div className="px-6 pb-4">
+          <motion.div 
+            className="px-6 pb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {quickActions.map((action) => (
-                <Button
+              {quickActions.map((action, index) => (
+                <motion.div
                   key={action.label}
-                  variant="outline"
-                  className="glass-card border-glass-border h-auto p-4 flex flex-col items-center gap-2 hover:bg-white/5"
-                  onClick={action.action}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <action.icon className="w-5 h-5 text-[#9b87f5]" />
-                  <span className="text-sm">{action.label}</span>
-                </Button>
+                  <Button
+                    variant="outline"
+                    className="glass-card interactive-card border-0 h-auto p-4 flex flex-col items-center gap-2 hover:bg-white/5 w-full group"
+                    onClick={action.action}
+                  >
+                    <motion.div
+                      className="w-8 h-8 rounded-full gradient-bg-primary flex items-center justify-center"
+                      whileHover={{ rotate: 10 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <action.icon className="w-4 h-4 text-white" />
+                    </motion.div>
+                    <span className="text-sm gradient-accent-text font-medium group-hover:text-glow transition-all duration-300">
+                      {action.label}
+                    </span>
+                  </Button>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
 
-        {/* Input */}
-        <div className="p-6 border-t border-glass-border">
-          <div className="glass-card p-4 flex gap-3 items-end">
+        {/* Enhanced Input Area */}
+        <motion.div 
+          className="p-6 seamless-top border-t-0 relative"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <div className="glass-card gradient-border-animated p-4 flex gap-3 items-end group hover:purple-glow transition-all duration-300">
             <Textarea
               ref={textareaRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask about Tesla vehicles, pricing, locations, or booking..."
-              className="flex-1 min-h-[44px] max-h-[120px] resize-none bg-transparent border-none focus:ring-0 text-white placeholder-white/50"
+              className="flex-1 min-h-[44px] max-h-[120px] resize-none bg-transparent border-none focus:ring-0 text-white placeholder-white/50 transition-all duration-300"
               rows={1}
             />
-            <Button
-              onClick={handleSendMessage}
-              disabled={!inputValue.trim()}
-              className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white h-11 w-11 p-0"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <Send className="w-4 h-4" />
-            </Button>
+              <Button
+                onClick={handleSendMessage}
+                disabled={!inputValue.trim()}
+                className="gradient-bg-primary hover:gradient-bg-secondary text-white h-11 w-11 p-0 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-white/20 rounded-xl"
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileHover={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <Send className="w-4 h-4 relative z-10" />
+              </Button>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

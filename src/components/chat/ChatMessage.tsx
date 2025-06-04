@@ -41,37 +41,107 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, context }) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}
+      transition={{ duration: 0.4, type: "spring", stiffness: 100 }}
+      className={`flex gap-4 ${isUser ? 'justify-end' : 'justify-start'} group`}
     >
       {!isUser && (
-        <div className="w-8 h-8 rounded-full bg-[#9b87f5] flex items-center justify-center flex-shrink-0">
-          <Sparkles className="w-4 h-4 text-white" />
-        </div>
+        <motion.div 
+          className="w-10 h-10 rounded-full gradient-bg-primary flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-white/20"
+            initial={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+          <Sparkles className="w-5 h-5 text-white relative z-10" />
+        </motion.div>
       )}
       
-      <div className={`max-w-4xl ${isUser ? 'order-first' : ''}`}>
-        <div className={`glass-card p-4 ${isUser ? 'bg-[#9b87f5]/20 ml-auto' : ''}`}>
-          <div className="text-white whitespace-pre-wrap">{message.content}</div>
-        </div>
+      <div className={`max-w-4xl ${isUser ? 'order-first' : ''} space-y-2`}>
+        <motion.div 
+          className={`glass-card message-bubble p-4 relative group-hover:purple-glow transition-all duration-500 ${
+            isUser 
+              ? 'gradient-bg-primary ml-auto text-white' 
+              : 'hover:bg-white/5'
+          }`}
+          whileHover={{ scale: 1.02, y: -2 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="text-white whitespace-pre-wrap relative z-10">
+            {message.content}
+          </div>
+          
+          {/* Enhanced message glow effect */}
+          <motion.div
+            className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"
+            style={{
+              background: isUser 
+                ? 'linear-gradient(135deg, #9b87f5, #7E69AB)' 
+                : 'linear-gradient(135deg, #33C3F0, #9b87f5)',
+              filter: 'blur(20px)',
+            }}
+          />
+        </motion.div>
         
         {message.components && message.components.length > 0 && (
-          <div className="mt-4 space-y-4">
+          <motion.div 
+            className="space-y-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             {message.components.map((component, index) => (
-              <div key={index}>{renderComponent(component)}</div>
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100 
+                }}
+              >
+                {renderComponent(component)}
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
         
-        <div className="text-xs text-white/40 mt-2">
-          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-        </div>
+        <motion.div 
+          className="text-xs text-white/40 mt-2 flex items-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
+        >
+          <span>{message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          {!isUser && (
+            <motion.div
+              className="w-2 h-2 rounded-full bg-green-400"
+              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          )}
+        </motion.div>
       </div>
       
       {isUser && (
-        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-          <User className="w-4 h-4 text-white" />
-        </div>
+        <motion.div 
+          className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+          whileHover={{ scale: 1.1, rotate: -5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-white/20"
+            initial={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+          <User className="w-5 h-5 text-white relative z-10" />
+        </motion.div>
       )}
     </motion.div>
   );
