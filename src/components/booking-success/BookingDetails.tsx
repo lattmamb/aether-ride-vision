@@ -4,6 +4,7 @@ import { Calendar, MapPin, Car } from 'lucide-react';
 import { motion } from 'framer-motion';
 import VehicleInfo from './VehicleInfo';
 import BookingDetailItem from './BookingDetailItem';
+import NextStepsInfo from './NextStepsInfo';
 import { Vehicle, SubscriptionPlan } from '@/types';
 
 interface BookingDetailsProps {
