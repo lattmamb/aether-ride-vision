@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X, User, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar: React.FC = () => {
@@ -75,7 +76,8 @@ const Navbar: React.FC = () => {
             { path: '/vehicles', label: 'Vehicles' },
             { path: '/pricing', label: 'Pricing' },
             { path: '/locations', label: 'Locations' },
-            { path: '/about', label: 'About' }
+            { path: '/about', label: 'About' },
+            { path: '/chat', label: 'AI Assistant' }
           ].map((link, index) => (
             <motion.div
               key={link.path}
@@ -86,12 +88,13 @@ const Navbar: React.FC = () => {
             >
               <Link 
                 to={link.path} 
-                className={`transition-colors relative ${
+                className={`transition-colors relative flex items-center gap-1 ${
                   isActiveRoute(link.path) 
                     ? 'text-white' 
                     : 'text-white/80 hover:text-white'
                 }`}
               >
+                {link.path === '/chat' && <MessageSquare className="w-4 h-4" />}
                 {link.label}
                 {isActiveRoute(link.path) && (
                   <motion.div 
@@ -149,7 +152,8 @@ const Navbar: React.FC = () => {
               { path: '/vehicles', label: 'Vehicles' },
               { path: '/pricing', label: 'Pricing' },
               { path: '/locations', label: 'Locations' },
-              { path: '/about', label: 'About' }
+              { path: '/about', label: 'About' },
+              { path: '/chat', label: 'AI Assistant' }
             ].map((link, index) => (
               <motion.div
                 key={link.path}
@@ -159,12 +163,13 @@ const Navbar: React.FC = () => {
               >
                 <Link
                   to={link.path}
-                  className={`py-2 block transition-colors ${
+                  className={`py-2 block transition-colors flex items-center gap-2 ${
                     isActiveRoute(link.path) 
                       ? 'text-white font-medium border-l-2 border-[#9b87f5] pl-2' 
                       : 'text-white/80 hover:text-white'
                   }`}
                 >
+                  {link.path === '/chat' && <MessageSquare className="w-4 h-4" />}
                   {link.label}
                 </Link>
               </motion.div>
