@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Map from '@/components/Map';
-import StickyScrollRevealDemo from '@/components/ui/sticky-scroll-reveal-demo';
 import { vehicles } from '@/data/vehicles';
 import { Car, Calendar, Gauge, Battery, MapPin, CreditCard, Clock } from 'lucide-react';
 
@@ -116,16 +115,6 @@ const Dashboard = () => {
                 vehicleLocation={{ lat: 37.7749, lng: -122.4194 }}
                 className="w-full h-[300px]"
               />
-            </Card>
-
-            {/* Unity Fleet Experience - Sticky Scroll Section */}
-            <Card className="glass-card p-6">
-              <div className="mb-4">
-                <h2 className="text-2xl font-bold">Unity Fleet Experience</h2>
-                <p className="text-white/70">Discover what makes our platform unique</p>
-              </div>
-              
-              <StickyScrollRevealDemo />
             </Card>
             
             {/* Activity & Trips */}

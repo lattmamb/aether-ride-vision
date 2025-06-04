@@ -14,10 +14,12 @@ const VehicleInfo: React.FC<VehicleInfoProps> = ({ vehicle }) => {
       whileHover={{ x: 5 }}
       transition={{ duration: 0.2 }}
     >
-      <div className="flex-shrink-0 w-24 h-16 bg-white/5 p-2 rounded-lg flex items-center justify-center">
-        <div className="text-white/50 text-xs">
-          [Vehicle]
-        </div>
+      <div className="flex-shrink-0 w-24 bg-white/5 p-2 rounded-lg">
+        <img 
+          src={vehicle.image} 
+          alt={vehicle.model} 
+          className="w-full"
+        />
       </div>
       <div className="ml-4">
         <h3 className="font-medium text-white">Tesla {vehicle.model}</h3>

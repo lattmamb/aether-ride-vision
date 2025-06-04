@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { VehicleCard } from "./vehicle-card";
-import VehicleHeader from "./vehicle-header";
+import { VehicleHeader } from "./vehicle-header";
 
 interface VehicleProduct {
   id: string;
@@ -60,7 +60,7 @@ export const HeroParallax = ({
       ref={ref}
       className="h-[200vh] py-20 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
-      <VehicleHeader title="Our Fleet" subtitle="Premium Electric Vehicles" />
+      <VehicleHeader />
       <motion.div
         style={{
           rotateX,

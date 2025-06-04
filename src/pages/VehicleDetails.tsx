@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
@@ -7,7 +8,6 @@ import VehicleDetailsHero from '@/components/vehicle-details/VehicleDetailsHero'
 import SubscriptionPlans from '@/components/vehicle-details/SubscriptionPlans';
 import VehicleDetailsTabs from '@/components/vehicle-details/VehicleDetailsTabs';
 import RelatedVehicles from '@/components/vehicle-details/RelatedVehicles';
-import VehicleScrollExpansion from '@/components/vehicle-details/VehicleScrollExpansion';
 
 const VehicleDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -67,9 +67,6 @@ const VehicleDetails = () => {
         {/* Related Vehicles */}
         <RelatedVehicles currentVehicleId={vehicle.id} vehicles={vehicles} />
       </div>
-      
-      {/* New Scroll Expansion Sections */}
-      <VehicleScrollExpansion vehicle={vehicle} />
     </MainLayout>
   );
 };

@@ -33,20 +33,6 @@ const BookingSuccess = () => {
     );
   }
 
-  // Extract booking details for BookingDetails component
-  const bookingProps = {
-    pickupLocation: bookingDetails.pickupLocation || "Tesla Store, Los Angeles",
-    pickupDate: bookingDetails.pickupDate || "May 15, 2023",
-    pickupTime: bookingDetails.pickupTime || "10:00 AM",
-    returnDate: bookingDetails.returnDate || "May 22, 2023",
-    returnTime: bookingDetails.returnTime || "4:00 PM",
-    totalAmount: bookingDetails.totalPrice || 699.99,
-    bookingId: bookingDetails.bookingId || "TSLA-" + Math.floor(Math.random() * 10000),
-    vehicle,
-    bookingDetails,
-    plan
-  };
-
   return (
     <MainLayout>
       <motion.div 
@@ -57,7 +43,11 @@ const BookingSuccess = () => {
       >
         <div className="max-w-3xl mx-auto">
           <SuccessHeader />
-          <BookingDetails {...bookingProps} />
+          <BookingDetails 
+            vehicle={vehicle} 
+            bookingDetails={bookingDetails} 
+            plan={plan} 
+          />
           <ActionButtons />
         </div>
       </motion.div>

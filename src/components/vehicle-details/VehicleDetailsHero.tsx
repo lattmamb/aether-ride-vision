@@ -59,13 +59,13 @@ const VehicleDetailsHero: React.FC<VehicleDetailsHeroProps> = ({
               </div>
             )}
           </div>
-          <motion.div
-            className="text-white/50 text-xl"
+          <motion.img
+            src={vehicle.image}
+            alt={vehicle.model}
+            className="max-h-full object-contain"
             whileHover={{ scale: 1.05, rotate: 1 }}
             transition={{ duration: 0.5 }}
-          >
-            [Vehicle Image]
-          </motion.div>
+          />
         </div>
         
         <motion.div className="mt-6" variants={itemVariants}>
