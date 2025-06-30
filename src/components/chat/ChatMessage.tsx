@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { User, Sparkles } from 'lucide-react';
+import { User, Bot, Copy, ThumbsUp, ThumbsDown, RotateCcw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Message, ChatContext } from '@/types/chat';
 import VehicleGalleryComponent from './components/VehicleGalleryComponent';
 import PricingPlansComponent from './components/PricingPlansComponent';
@@ -47,68 +48,39 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, context }) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, type: "spring", stiffness: 100 }}
+      transition={{ duration: 0.3 }}
       className={`flex gap-4 ${isUser ? 'justify-end' : 'justify-start'} group`}
     >
       {!isUser && (
-        <motion.div 
-          className="w-10 h-10 rounded-full gradient-bg-primary flex items-center justify-center flex-shrink-0 relative overflow-hidden"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <motion.div
-            className="absolute inset-0 bg-white/20"
-            initial={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-          <Sparkles className="w-5 h-5 text-white relative z-10" />
-        </motion.div>
+        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#9b87f5] to-[#33C3F0] flex items-center justify-center flex-shrink-0">
+          <Bot className="w-4 h-4 text-white" />
+        </div>
       )}
       
-      <div className={`max-w-4xl ${isUser ? 'order-first' : ''} space-y-2`}>
-        <motion.div 
-          className={`glass-card message-bubble p-4 relative group-hover:purple-glow transition-all duration-500 ${
-            isUser 
-              ? 'gradient-bg-primary ml-auto text-white' 
-              : 'hover:bg-white/5'
-          }`}
-          whileHover={{ scale: 1.02, y: -2 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <div className="text-white whitespace-pre-wrap relative z-10">
+      <div className={`max-w-[85%] ${isUser ? 'order-first' : ''}`}>
+        <div className={`rounded-2xl px-4 py-3 ${
+          isUser 
+            ? 'bg-[#2f2f2f] text-white ml-auto max-w-lg' 
+            : 'bg-transparent text-white'
+        }`}>
+          <div className="whitespace-pre-wrap text-sm leading-relaxed">
             {message.content}
           </div>
-          
-          <motion.div
-            className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-            style={{
-              background: isUser 
-                ? 'linear-gradient(135deg, #9b87f5, #7E69AB)' 
-                : 'linear-gradient(135deg, #33C3F0, #9b87f5)',
-              filter: 'blur(20px)',
-            }}
-          />
-        </motion.div>
+        </div>
         
         {message.components && message.components.length > 0 && (
           <motion.div 
-            className="space-y-4"
+            className="mt-4 space-y-4"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
           >
             {message.components.map((component, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ 
-                  duration: 0.4, 
-                  delay: index * 0.1,
-                  type: "spring",
-                  stiffness: 100 
-                }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
               >
                 {renderComponent(component)}
               </motion.div>
@@ -116,37 +88,18 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, context }) => {
           </motion.div>
         )}
         
-        <motion.div 
-          className="text-xs text-white/40 mt-2 flex items-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.5 }}
-        >
+        <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
           <span>{message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           {!isUser && (
-            <motion.div
-              className="w-2 h-2 rounded-full bg-green-400"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
+            <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
           )}
-        </motion.div>
+        </div>
       </div>
       
       {isUser && (
-        <motion.div 
-          className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
-          whileHover={{ scale: 1.1, rotate: -5 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <motion.div
-            className="absolute inset-0 bg-white/20"
-            initial={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-          <User className="w-5 h-5 text-white relative z-10" />
-        </motion.div>
+        <div className="w-8 h-8 rounded-full bg-[#2f2f2f] flex items-center justify-center flex-shrink-0">
+          <User className="w-4 h-4 text-white" />
+        </div>
       )}
     </motion.div>
   );

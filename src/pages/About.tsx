@@ -1,7 +1,7 @@
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { motion } from 'framer-motion';
-import { Users, Target, Award, Heart } from 'lucide-react';
+import { Users, Target, Award, Heart, Zap, Leaf, Shield } from 'lucide-react';
 import PremiumCard from '@/components/ui/PremiumCard';
 
 const About = () => {
