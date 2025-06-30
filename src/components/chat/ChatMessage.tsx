@@ -10,6 +10,7 @@ import ThreeDShowcaseComponent from './components/ThreeDShowcaseComponent';
 import QuickActionsComponent from './components/QuickActionsComponent';
 import BookingFlowComponent from './components/BookingFlowComponent';
 import VehicleManagementComponent from './components/VehicleManagementComponent';
+import ComprehensiveDashboardComponent from './components/ComprehensiveDashboardComponent';
 
 interface ChatMessageProps {
   message: Message;
@@ -35,6 +36,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, context }) => {
         return <BookingFlowComponent />;
       case 'vehicle-management':
         return <VehicleManagementComponent />;
+      case 'comprehensive-dashboard':
+        return <ComprehensiveDashboardComponent />;
       default:
         return null;
     }

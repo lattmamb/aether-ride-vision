@@ -34,6 +34,16 @@ const ChatInterface: React.FC = () => {
   const generateResponse = (userMessage: string): Message => {
     const message = userMessage.toLowerCase();
     
+    if (message.includes('dashboard') || message.includes('comprehensive') || message.includes('full dashboard') || message.includes('complete dashboard')) {
+      return {
+        id: Date.now().toString(),
+        type: 'assistant',
+        content: "Here's your comprehensive dashboard! This is your complete vehicle and service management hub with advanced analytics, real-time monitoring, payment processing, and full booking management:",
+        timestamp: new Date(),
+        components: ['comprehensive-dashboard']
+      };
+    }
+
     if (message.includes('manage') || message.includes('control') || message.includes('vehicle management') || message.includes('my car')) {
       return {
         id: Date.now().toString(),
@@ -147,7 +157,7 @@ const ChatInterface: React.FC = () => {
     { icon: CreditCard, label: 'View Pricing', action: () => handleQuickAction('What are your subscription plans?') },
     { icon: MapPin, label: 'Find Locations', action: () => handleQuickAction('Show me charging stations and locations') },
     { icon: Calendar, label: 'Book Now', action: () => handleQuickAction('I want to book a Tesla') },
-    { icon: Settings, label: 'Vehicle Management', action: () => handleQuickAction('Manage my vehicle and services') },
+    { icon: Settings, label: 'Full Dashboard', action: () => handleQuickAction('Show me the comprehensive dashboard') },
   ];
 
   const handleQuickAction = (message: string) => {

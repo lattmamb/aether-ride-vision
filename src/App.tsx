@@ -11,6 +11,7 @@ import VehicleDetails from "@/pages/VehicleDetails";
 import BookVehicle from "@/pages/BookVehicle";
 import BookingSuccess from "@/pages/BookingSuccess";
 import Dashboard from "@/pages/Dashboard";
+import ComprehensiveDashboard from "@/pages/ComprehensiveDashboard";
 import Pricing from "@/pages/Pricing";
 import Locations from "@/pages/Locations";
 import About from "@/pages/About";
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/book/:id" element={<BookVehicle />} />
           <Route path="/booking-success" element={<BookingSuccess />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/comprehensive-dashboard" element={<ComprehensiveDashboard />} />
           <Route path="/vehicle-management" element={<VehicleManagement />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/locations" element={<Locations />} />
