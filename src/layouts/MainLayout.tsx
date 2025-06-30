@@ -1,20 +1,29 @@
 
 import React from 'react';
+import UnityDockNavbar from '@/components/ui/unity-dock-navbar';
 import Footer from '@/components/Footer';
-import AIAssistant from '@/components/AIAssistant';
-import UnityNavbar from '@/components/UnityNavbar';
+import PageTransition from '@/components/layout/PageTransition';
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  showNavbar?: boolean;
+  showFooter?: boolean;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ 
+  children, 
+  showNavbar = true, 
+  showFooter = true 
+}) => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <UnityNavbar />
-      <main className="flex-grow pt-20">{children}</main>
-      <Footer />
-      <AIAssistant />
+    <div className="min-h-screen bg-unity-midnight text-unity-platinum">
+      {showNavbar && <UnityDockNavbar />}
+      <PageTransition>
+        <main className={`${showNavbar ? 'pt-20' : ''}`}>
+          {children}
+        </main>
+      </PageTransition>
+      {showFooter && <Footer />}
     </div>
   );
 };
