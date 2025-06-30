@@ -14,6 +14,7 @@ import Dashboard from "@/pages/Dashboard";
 import Pricing from "@/pages/Pricing";
 import Locations from "@/pages/Locations";
 import About from "@/pages/About";
+import VehicleManagement from "@/pages/VehicleManagement";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/book/:id" element={<BookVehicle />} />
           <Route path="/booking-success" element={<BookingSuccess />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/vehicle-management" element={<VehicleManagement />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/locations" element={<Locations />} />
           <Route path="/about" element={<About />} />

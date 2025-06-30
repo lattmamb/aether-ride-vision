@@ -9,6 +9,7 @@ import LocationsMapComponent from './components/LocationsMapComponent';
 import ThreeDShowcaseComponent from './components/ThreeDShowcaseComponent';
 import QuickActionsComponent from './components/QuickActionsComponent';
 import BookingFlowComponent from './components/BookingFlowComponent';
+import VehicleManagementComponent from './components/VehicleManagementComponent';
 
 interface ChatMessageProps {
   message: Message;
@@ -32,6 +33,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, context }) => {
         return <QuickActionsComponent />;
       case 'booking-flow':
         return <BookingFlowComponent />;
+      case 'vehicle-management':
+        return <VehicleManagementComponent />;
       default:
         return null;
     }
@@ -74,7 +77,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, context }) => {
             {message.content}
           </div>
           
-          {/* Enhanced message glow effect */}
           <motion.div
             className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"
             style={{

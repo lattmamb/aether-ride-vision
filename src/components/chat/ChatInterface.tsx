@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Sparkles, Car, MapPin, Calendar, CreditCard, User, Settings } from 'lucide-react';
@@ -13,7 +12,7 @@ const ChatInterface: React.FC = () => {
     {
       id: '1',
       type: 'assistant',
-      content: "Welcome to Unity Fleet! 🚗⚡ I'm your AI assistant. I can help you explore Tesla vehicles, check pricing, find locations, or book your perfect electric ride. What would you like to do today?",
+      content: "Welcome to Unity Fleet! 🚗⚡ I'm your AI assistant. I can help you explore Tesla vehicles, check pricing, find locations, book your perfect electric ride, or manage your vehicle services like Uber, DoorDash, and Lyft. What would you like to do today?",
       timestamp: new Date(),
       components: []
     }
@@ -34,6 +33,26 @@ const ChatInterface: React.FC = () => {
 
   const generateResponse = (userMessage: string): Message => {
     const message = userMessage.toLowerCase();
+    
+    if (message.includes('manage') || message.includes('control') || message.includes('vehicle management') || message.includes('my car')) {
+      return {
+        id: Date.now().toString(),
+        type: 'assistant',
+        content: "Here's your vehicle management center! You can control your Tesla remotely, manage ride-sharing services like Uber, DoorDash, and Lyft, track earnings, and monitor your vehicle's status:",
+        timestamp: new Date(),
+        components: ['vehicle-management']
+      };
+    }
+
+    if (message.includes('uber') || message.includes('doordash') || message.includes('lyft') || message.includes('earning') || message.includes('service')) {
+      return {
+        id: Date.now().toString(),
+        type: 'assistant',
+        content: "Maximize your Tesla's earning potential! Manage your ride-sharing and delivery services, track your earnings, and optimize your service schedule:",
+        timestamp: new Date(),
+        components: ['vehicle-management']
+      };
+    }
     
     if (message.includes('tesla') || message.includes('model') || message.includes('vehicle') || message.includes('car')) {
       return {
@@ -88,7 +107,7 @@ const ChatInterface: React.FC = () => {
     return {
       id: Date.now().toString(),
       type: 'assistant',
-      content: "I can help you with:\n• 🚗 Explore Tesla vehicles and specs\n• 💰 View pricing and subscription plans\n• 📍 Find locations and charging stations\n• 📅 Book and manage reservations\n• 🎯 Compare models and features\n\nWhat would you like to know more about?",
+      content: "I can help you with:\n• 🚗 Explore Tesla vehicles and specs\n• 💰 View pricing and subscription plans\n• 📍 Find locations and charging stations\n• 📅 Book and manage reservations\n• 🎯 Compare models and features\n• 🚙 Manage your vehicle and services (Uber, DoorDash, Lyft)\n• 🔧 Vehicle control and settings\n\nWhat would you like to know more about?",
       timestamp: new Date(),
       components: ['quick-actions']
     };
@@ -128,6 +147,7 @@ const ChatInterface: React.FC = () => {
     { icon: CreditCard, label: 'View Pricing', action: () => handleQuickAction('What are your subscription plans?') },
     { icon: MapPin, label: 'Find Locations', action: () => handleQuickAction('Show me charging stations and locations') },
     { icon: Calendar, label: 'Book Now', action: () => handleQuickAction('I want to book a Tesla') },
+    { icon: Settings, label: 'Vehicle Management', action: () => handleQuickAction('Manage my vehicle and services') },
   ];
 
   const handleQuickAction = (message: string) => {
@@ -165,7 +185,7 @@ const ChatInterface: React.FC = () => {
             </motion.div>
             <div>
               <h1 className="text-xl font-bold gradient-purple-text">Unity Fleet Assistant</h1>
-              <p className="text-sm text-white/60">Your Tesla rental AI companion</p>
+              <p className="text-sm text-white/60">Your Tesla rental & management AI companion</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -177,7 +197,7 @@ const ChatInterface: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Enhanced Messages Area */}
+        {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6 relative">
           <AnimatePresence mode="popLayout">
             {messages.map((message, index) => (
@@ -233,7 +253,7 @@ const ChatInterface: React.FC = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Enhanced Quick Actions */}
+        {/* Quick Actions */}
         {messages.length <= 1 && (
           <motion.div 
             className="px-6 pb-4"
@@ -241,7 +261,7 @@ const ChatInterface: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {quickActions.map((action, index) => (
                 <motion.div
                   key={action.label}
@@ -273,7 +293,7 @@ const ChatInterface: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Enhanced Input Area */}
+        {/* Input Area */}
         <motion.div 
           className="p-6 seamless-top border-t-0 relative"
           initial={{ y: 20, opacity: 0 }}
@@ -286,7 +306,7 @@ const ChatInterface: React.FC = () => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask about Tesla vehicles, pricing, locations, or booking..."
+              placeholder="Ask about Tesla vehicles, pricing, locations, booking, or vehicle management..."
               className="flex-1 min-h-[44px] max-h-[120px] resize-none bg-transparent border-none focus:ring-0 text-white placeholder-white/50 transition-all duration-300"
               rows={1}
             />
