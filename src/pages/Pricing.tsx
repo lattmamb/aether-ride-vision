@@ -17,7 +17,7 @@ const Pricing = () => {
   }));
 
   return (
-    <MainLayout useAnimatedNav={true} showNavbar={true} showFooter={true}>
+    <MainLayout showNavbar={true} showFooter={true}>
       <ModernPricingPage
         title={
           <>
