@@ -2,6 +2,7 @@
 import React from 'react';
 import { ModernPricingPage, PricingCardProps } from '@/components/ui/animated-glassy-pricing';
 import { vehicles, subscriptionPlans } from '@/data/vehicles';
+import MainLayout from '@/layouts/MainLayout';
 
 const Pricing = () => {
   // Convert subscription plans to pricing cards format
@@ -16,16 +17,18 @@ const Pricing = () => {
   }));
 
   return (
-    <ModernPricingPage
-      title={
-        <>
-          Simple, <span className="gradient-luxury-text">Transparent</span> Pricing
-        </>
-      }
-      subtitle="Choose the perfect subscription plan for your lifestyle with no hidden fees or long-term commitments."
-      plans={pricingPlans}
-      showAnimatedBackground={true}
-    />
+    <MainLayout useAnimatedNav={true} showNavbar={true} showFooter={true}>
+      <ModernPricingPage
+        title={
+          <>
+            Simple, <span className="gradient-luxury-text">Transparent</span> Pricing
+          </>
+        }
+        subtitle="Choose the perfect subscription plan for your lifestyle with no hidden fees or long-term commitments."
+        plans={pricingPlans}
+        showAnimatedBackground={true}
+      />
+    </MainLayout>
   );
 };
 
