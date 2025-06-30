@@ -29,14 +29,13 @@ const EnhancedVehicleViewer: React.FC<EnhancedVehicleViewerProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const angles = [0, 45, 90, 135, 180, 225, 270, 315];
-  const views = {
-    exterior: [
-      '/lovable-uploads/011215ed-22f9-4462-8492-3cdff3c58719.png',
-      '/lovable-uploads/87310600-2a51-4edd-a0b3-4ae26fc44398.png'
-    ],
-    interior: [
-      '/lovable-uploads/011215ed-22f9-4462-8492-3cdff3c58719.png'
-    ]
+
+  // Get the appropriate image based on selected color and vehicle
+  const getCurrentImage = () => {
+    if (vehicle.colorImages && vehicle.colorImages[selectedColor]) {
+      return vehicle.colorImages[selectedColor];
+    }
+    return vehicle.image;
   };
 
   // Auto-rotation functionality
@@ -146,7 +145,7 @@ const EnhancedVehicleViewer: React.FC<EnhancedVehicleViewerProps> = ({
         <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-br from-unity-midnight/50 via-unity-charcoal/30 to-unity-purple/20">
           <AnimatePresence mode="wait">
             <motion.div
-              key={`${selectedView}-${currentAngle}`}
+              key={`${selectedView}-${currentAngle}-${selectedColor}`}
               initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
               exit={{ opacity: 0, scale: 0.9, rotateY: 10 }}
@@ -160,12 +159,14 @@ const EnhancedVehicleViewer: React.FC<EnhancedVehicleViewerProps> = ({
               )}
               
               <img
-                src={views[selectedView][0]}
+                src={getCurrentImage()}
                 alt={`${vehicle.model} ${selectedView} view`}
-                className="max-w-full max-h-full object-contain transition-all duration-500"
+                className="max-w-full max-h-full object-contain transition-all duration-500 drop-shadow-2xl"
                 style={{
-                  filter: `hue-rotate(${selectedColor === '#FF0000' ? '0deg' : selectedColor === '#0000FF' ? '240deg' : '0deg'}) drop-shadow(0 25px 50px rgba(107, 70, 193, 0.3))`
+                  transform: `rotateY(${currentAngle}deg)`,
+                  filter: 'drop-shadow(0 25px 50px rgba(107, 70, 193, 0.3))'
                 }}
+                onLoad={() => setIsLoading(false)}
               />
             </motion.div>
           </AnimatePresence>
