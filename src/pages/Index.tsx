@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
-import Hero from '@/components/Hero';
 import SearchFilter from '@/components/SearchFilter';
 import VehicleCard from '@/components/VehicleCard';
 import FeaturesSection from '@/components/FeaturesSection';
@@ -98,9 +97,7 @@ const Index = () => {
   return (
     <AdaptiveLayoutProvider>
       <MainLayout>
-        <Hero />
-        
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 pt-8">
           <SearchFilter onSearch={handleSearch} />
         </div>
 
