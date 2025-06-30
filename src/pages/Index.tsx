@@ -11,7 +11,6 @@ import ThreeDCardDemo from '@/components/ui/3d-card-demo';
 import ExpandableCardDemoStandard from '@/components/ui/expandable-card-demo-standard';
 import { SparklesPreviewTesla } from '@/components/ui/sparkles-demo';
 import TeslaCardCarousel from '@/components/TeslaCardCarousel';
-import IntelligentDashboard from '@/components/ui/IntelligentDashboard';
 import InteractiveGallery from '@/components/ui/InteractiveGallery';
 import MediaGrid from '@/components/ui/MediaGrid';
 import VehicleVideoPlayer from '@/components/ui/VehicleVideoPlayer';
@@ -100,13 +99,6 @@ const Index = () => {
         <div className="container mx-auto px-4 pt-8">
           <SearchFilter onSearch={handleSearch} />
         </div>
-
-        {/* Intelligent Dashboard Section */}
-        <section className="py-16 bg-tesla-dark-50">
-          <div className="container mx-auto px-4">
-            <IntelligentDashboard />
-          </div>
-        </section>
 
         {/* Featured Video Section */}
         <section className="py-16 bg-gradient-to-br from-unity-midnight via-unity-charcoal to-unity-midnight">
