@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import Hero from '@/components/Hero';
 import SearchFilter from '@/components/SearchFilter';
-import VehicleCard from '@/components/VehicleCard';
 import FeaturesSection from '@/components/FeaturesSection';
 import Map from '@/components/Map';
 import { vehicles } from '@/data/vehicles';
@@ -16,6 +15,8 @@ import ExpandableCardDemoStandard from '@/components/ui/expandable-card-demo-sta
 import { AdaptiveLayoutProvider } from '@/contexts/AdaptiveLayoutContext';
 import PageTransition from '@/components/layout/PageTransition';
 import { motion } from 'framer-motion';
+import SectionHeader from '@/components/sections/SectionHeader';
+import VehicleShowcaseSection from '@/components/sections/VehicleShowcaseSection';
 
 const Index = () => {
   const [filteredVehicles, setFilteredVehicles] = useState(vehicles);
@@ -121,56 +122,8 @@ const Index = () => {
             {/* Tesla-style minimal section divider */}
             <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
             
-            {/* Available Vehicles Section with Tesla-inspired layout */}
-            <motion.section 
-              className="py-24 md:py-32 bg-unity-midnight"
-              variants={itemVariants}
-            >
-              <div className="container mx-auto px-6">
-                <div className="text-center mb-20">
-                  <motion.h2 
-                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                  >
-                    Available Now
-                  </motion.h2>
-                  <motion.p 
-                    className="text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                  >
-                    Browse our current inventory of premium electric vehicles ready for immediate rental.
-                  </motion.p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                  {filteredVehicles.map((vehicle, index) => (
-                    <motion.div
-                      key={vehicle.id}
-                      initial={{ opacity: 0, y: 40 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ 
-                        delay: index * 0.1,
-                        type: "spring",
-                        damping: 25,
-                        stiffness: 100
-                      }}
-                      viewport={{ once: true }}
-                      className="group"
-                    >
-                      <div className="transform transition-all duration-500 hover:scale-105">
-                        <VehicleCard vehicle={vehicle} />
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.section>
+            {/* Available Vehicles Section */}
+            <VehicleShowcaseSection vehicles={filteredVehicles} variants={itemVariants} />
 
             {/* Tesla Cards Carousel with enhanced styling */}
             <motion.section 
@@ -191,26 +144,10 @@ const Index = () => {
               variants={itemVariants}
             >
               <div className="container mx-auto px-6">
-                <div className="text-center mb-20">
-                  <motion.h2 
-                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                  >
-                    Gallery
-                  </motion.h2>
-                  <motion.p 
-                    className="text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                  >
-                    Experience our collection through immersive imagery showcasing design and innovation.
-                  </motion.p>
-                </div>
+                <SectionHeader 
+                  title="Gallery"
+                  subtitle="Experience our collection through immersive imagery showcasing design and innovation."
+                />
                 
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -233,26 +170,10 @@ const Index = () => {
               variants={itemVariants}
             >
               <div className="container mx-auto px-6">
-                <div className="text-center mb-20">
-                  <motion.h2 
-                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                  >
-                    Experience
-                  </motion.h2>
-                  <motion.p 
-                    className="text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                  >
-                    Interactive showcase with immersive details.
-                  </motion.p>
-                </div>
+                <SectionHeader 
+                  title="Experience"
+                  subtitle="Interactive showcase with immersive details."
+                />
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -275,26 +196,10 @@ const Index = () => {
               variants={itemVariants}
             >
               <div className="container mx-auto px-6">
-                <div className="text-center mb-20">
-                  <motion.h2 
-                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                  >
-                    Find Nearby
-                  </motion.h2>
-                  <motion.p 
-                    className="text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                  >
-                    Track available vehicles and charging stations in real-time.
-                  </motion.p>
-                </div>
+                <SectionHeader 
+                  title="Find Nearby"
+                  subtitle="Track available vehicles and charging stations in real-time."
+                />
                 
                 <motion.div 
                   className="max-w-6xl mx-auto backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-4"
@@ -314,26 +219,10 @@ const Index = () => {
               variants={itemVariants}
             >
               <div className="container mx-auto px-6">
-                <div className="text-center mb-20">
-                  <motion.h2 
-                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                  >
-                    Our Fleet
-                  </motion.h2>
-                  <motion.p 
-                    className="text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                  >
-                    Explore our complete lineup of premium electric vehicles.
-                  </motion.p>
-                </div>
+                <SectionHeader 
+                  title="Our Fleet"
+                  subtitle="Explore our complete lineup of premium electric vehicles."
+                />
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
