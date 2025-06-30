@@ -1,6 +1,6 @@
 
 import React from 'react';
-import SmartVehicleViewer from '@/components/ui/SmartVehicleViewer';
+import EnhancedVehicleViewer from './EnhancedVehicleViewer';
 import { Vehicle } from '@/types';
 
 interface InteractiveVehicleViewerProps {
@@ -15,7 +15,7 @@ const InteractiveVehicleViewer: React.FC<InteractiveVehicleViewerProps> = ({
   onColorChange
 }) => {
   return (
-    <SmartVehicleViewer
+    <EnhancedVehicleViewer
       vehicle={vehicle}
       selectedColor={selectedColor}
       onColorChange={onColorChange}
