@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Palette, RotateCcw, Maximize2, Eye, Zap } from 'lucide-react';
@@ -30,13 +29,43 @@ const EnhancedVehicleViewer: React.FC<EnhancedVehicleViewerProps> = ({
 
   const angles = [0, 45, 90, 135, 180, 225, 270, 315];
 
-  // Get the appropriate image based on selected color and vehicle
+  // Enhanced image selection with Tesla authentic images
   const getCurrentImage = () => {
+    if (selectedView === 'interior' && vehicle.interiorImages) {
+      return vehicle.interiorImages[currentAngle] || vehicle.interiorImages[0] || vehicle.image;
+    }
+    
+    if (selectedView === 'exterior' && vehicle.angleImages && vehicle.angleImages[currentAngle]) {
+      const angleSet = vehicle.angleImages[currentAngle];
+      if (angleSet[selectedColor]) {
+        return angleSet[selectedColor];
+      }
+    }
+    
+    // Fallback to color-specific image
     if (vehicle.colorImages && vehicle.colorImages[selectedColor]) {
       return vehicle.colorImages[selectedColor];
     }
+    
     return vehicle.image;
   };
+
+  // Preload images for smooth transitions
+  useEffect(() => {
+    const preloadImages = () => {
+      angles.forEach(angle => {
+        if (vehicle.angleImages && vehicle.angleImages[angle] && vehicle.angleImages[angle][selectedColor]) {
+          const img = new Image();
+          img.src = vehicle.angleImages[angle][selectedColor];
+        }
+        if (vehicle.interiorImages && vehicle.interiorImages[angle]) {
+          const img = new Image();
+          img.src = vehicle.interiorImages[angle];
+        }
+      });
+    };
+    preloadImages();
+  }, [selectedColor, vehicle]);
 
   // Auto-rotation functionality
   useEffect(() => {
@@ -51,7 +80,7 @@ const EnhancedVehicleViewer: React.FC<EnhancedVehicleViewerProps> = ({
   const handleAngleChange = (newAngle: number) => {
     setIsLoading(true);
     setCurrentAngle(newAngle);
-    setTimeout(() => setIsLoading(false), 300);
+    setTimeout(() => setIsLoading(false), 200);
   };
 
   const nextAngle = () => handleAngleChange((currentAngle + 45) % 360);
@@ -65,7 +94,7 @@ const EnhancedVehicleViewer: React.FC<EnhancedVehicleViewerProps> = ({
   const handleViewChange = (view: 'exterior' | 'interior') => {
     setIsLoading(true);
     setSelectedView(view);
-    setTimeout(() => setIsLoading(false), 200);
+    setTimeout(() => setIsLoading(false), 150);
   };
 
   return (
@@ -141,15 +170,15 @@ const EnhancedVehicleViewer: React.FC<EnhancedVehicleViewerProps> = ({
           </div>
         </div>
 
-        {/* Enhanced Vehicle Display */}
+        {/* Enhanced Vehicle Display with Tesla Images */}
         <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-br from-unity-midnight/50 via-unity-charcoal/30 to-unity-purple/20">
           <AnimatePresence mode="wait">
             <motion.div
               key={`${selectedView}-${currentAngle}-${selectedColor}`}
-              initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{ opacity: 0, scale: 0.9, rotateY: 10 }}
-              transition={{ duration: reducedMotion ? 0.1 : 0.6, ease: "easeOut" }}
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
+              transition={{ duration: reducedMotion ? 0.1 : 0.4, ease: "easeOut" }}
               className="relative w-full h-full flex items-center justify-center"
             >
               {isLoading && (
@@ -160,13 +189,15 @@ const EnhancedVehicleViewer: React.FC<EnhancedVehicleViewerProps> = ({
               
               <img
                 src={getCurrentImage()}
-                alt={`${vehicle.model} ${selectedView} view`}
-                className="max-w-full max-h-full object-contain transition-all duration-500 drop-shadow-2xl"
+                alt={`Tesla ${vehicle.model} ${selectedView} view - ${currentAngle}°`}
+                className="max-w-full max-h-full object-contain transition-all duration-300"
                 style={{
-                  transform: `rotateY(${currentAngle}deg)`,
-                  filter: 'drop-shadow(0 25px 50px rgba(107, 70, 193, 0.3))'
+                  filter: 'drop-shadow(0 25px 50px rgba(107, 70, 193, 0.2))',
+                  maxHeight: '85%',
+                  maxWidth: '90%'
                 }}
                 onLoad={() => setIsLoading(false)}
+                onError={() => setIsLoading(false)}
               />
             </motion.div>
           </AnimatePresence>
@@ -206,43 +237,45 @@ const EnhancedVehicleViewer: React.FC<EnhancedVehicleViewerProps> = ({
         </div>
       </div>
 
-      {/* Enhanced Color Palette */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-        className="mt-6 glass-card p-6 rounded-2xl backdrop-blur-luxury border border-unity-platinum/20"
-      >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-full bg-unity-champagne/20">
-            <Palette className="w-5 h-5 text-unity-champagne" />
+      {/* Enhanced Color Palette - Only show for exterior view */}
+      {selectedView === 'exterior' && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="mt-6 glass-card p-6 rounded-2xl backdrop-blur-luxury border border-unity-platinum/20"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded-full bg-unity-champagne/20">
+              <Palette className="w-5 h-5 text-unity-champagne" />
+            </div>
+            <span className="text-unity-platinum font-display font-semibold">Color Selection</span>
           </div>
-          <span className="text-unity-platinum font-display font-semibold">Color Selection</span>
-        </div>
-        
-        <div className="flex gap-4 flex-wrap">
-          {vehicle.colors.map((color) => (
-            <motion.button
-              key={color}
-              onClick={() => onColorChange(color)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className={`relative w-14 h-14 rounded-full border-2 transition-all duration-300 ${
-                selectedColor === color 
-                  ? 'border-unity-champagne shadow-unity-luxury scale-110' 
-                  : 'border-unity-platinum/30 hover:border-unity-champagne/50'
-              }`}
-              style={{ backgroundColor: color }}
-            >
-              {selectedColor === color && (
-                <div className="absolute inset-0 rounded-full border-2 border-unity-champagne/50 flex items-center justify-center">
-                  <div className="w-3 h-3 bg-unity-champagne rounded-full shadow-lg" />
-                </div>
-              )}
-            </motion.button>
-          ))}
-        </div>
-      </motion.div>
+          
+          <div className="flex gap-4 flex-wrap">
+            {vehicle.colors.map((color) => (
+              <motion.button
+                key={color}
+                onClick={() => onColorChange(color)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className={`relative w-14 h-14 rounded-full border-2 transition-all duration-300 ${
+                  selectedColor === color 
+                    ? 'border-unity-champagne shadow-unity-luxury scale-110' 
+                    : 'border-unity-platinum/30 hover:border-unity-champagne/50'
+                }`}
+                style={{ backgroundColor: color }}
+              >
+                {selectedColor === color && (
+                  <div className="absolute inset-0 rounded-full border-2 border-unity-champagne/50 flex items-center justify-center">
+                    <div className="w-3 h-3 bg-unity-champagne rounded-full shadow-lg" />
+                  </div>
+                )}
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
+      )}
 
       {/* Enhanced Vehicle Info */}
       <motion.div

@@ -5,7 +5,7 @@ export const vehicles: Vehicle[] = [
     id: 'model-s',
     model: 'Model S',
     type: 'sedan',
-    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&h=600&fit=crop',
+    image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png',
     price: 249,
     priceUnit: '/mo',
     tagline: 'Premium electric sedan with incredible range',
@@ -24,11 +24,79 @@ export const vehicles: Vehicle[] = [
     available: true,
     colors: ['#FFFFFF', '#000000', '#C0C0C0', '#FF0000', '#0000FF'],
     colorImages: {
-      '#FFFFFF': 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&h=600&fit=crop',
-      '#000000': 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&h=600&fit=crop',
-      '#C0C0C0': 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&h=600&fit=crop',
-      '#FF0000': 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=600&fit=crop',
-      '#0000FF': 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=600&fit=crop'
+      '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png',
+      '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Pearl-White.png',
+      '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Midnight-Silver.png',
+      '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Red-Multi-Coat.png',
+      '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Deep-Blue.png'
+    },
+    angleImages: {
+      0: {
+        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png',
+        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Pearl-White.png',
+        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Midnight-Silver.png',
+        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Red-Multi-Coat.png',
+        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Deep-Blue.png'
+      },
+      45: {
+        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-White.png',
+        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Black.png',
+        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Silver.png',
+        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Red.png',
+        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Blue.png'
+      },
+      90: {
+        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-White.png',
+        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Black.png',
+        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Silver.png',
+        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Red.png',
+        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Blue.png'
+      },
+      135: {
+        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-White.png',
+        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Black.png',
+        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Silver.png',
+        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Red.png',
+        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Blue.png'
+      },
+      180: {
+        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-White.png',
+        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-Black.png',
+        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-Silver.png',
+        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-Red.png',
+        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-Blue.png'
+      },
+      225: {
+        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-White.png',
+        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Black.png',
+        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Silver.png',
+        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Red.png',
+        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Blue.png'
+      },
+      270: {
+        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-White.png',
+        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Black.png',
+        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Silver.png',
+        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Red.png',
+        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Blue.png'
+      },
+      315: {
+        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-White.png',
+        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Black.png',
+        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Silver.png',
+        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Red.png',
+        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Blue.png'
+      }
+    },
+    interiorImages: {
+      0: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Dashboard.png',
+      45: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Side.png',
+      90: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Profile.png',
+      135: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Rear.png',
+      180: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Back.png',
+      225: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Rear.png',
+      270: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Profile.png',
+      315: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Side.png'
     }
   },
   {

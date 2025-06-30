@@ -1,3 +1,4 @@
+
 export interface Vehicle {
   id: string;
   model: string;
@@ -16,6 +17,14 @@ export interface Vehicle {
   colors: string[];
   colorImages?: {
     [key: string]: string;
+  };
+  angleImages?: {
+    [angle: number]: {
+      [color: string]: string;
+    };
+  };
+  interiorImages?: {
+    [angle: number]: string;
   };
 }
 
