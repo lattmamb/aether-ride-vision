@@ -45,11 +45,12 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     return () => window.removeEventListener('resize', checkDeviceCapabilities);
   }, []);
 
-  // Set navigation style based on route
+  // Set navigation style based on route - chat page uses animated (expandable) navbar
   useEffect(() => {
     const routeStyles: Record<string, 'dock' | 'animated'> = {
       '/': 'animated',
       '/pricing': 'animated',
+      '/chat': 'animated',  // Chat page uses expandable navigation
       '/vehicles': 'dock',
       '/dashboard': 'dock',
       '/about': 'animated',

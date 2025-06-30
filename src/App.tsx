@@ -1,11 +1,10 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NavigationProvider } from "@/contexts/NavigationContext";
-import ChatInterface from "@/components/chat/ChatInterface";
+import ChatPage from "@/pages/ChatPage";
 import Index from "@/pages/Index";
 import VehiclesList from "@/pages/VehiclesList";
 import VehicleDetails from "@/pages/VehicleDetails";
@@ -31,7 +30,7 @@ const App = () => (
         <NavigationProvider>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/chat" element={<ChatInterface />} />
+            <Route path="/chat" element={<ChatPage />} />
             <Route path="/vehicles" element={<VehiclesList />} />
             <Route path="/vehicles/:id" element={<VehicleDetails />} />
             <Route path="/book/:id" element={<BookVehicle />} />
