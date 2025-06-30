@@ -2,10 +2,10 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, Zap, Shield, Sparkles } from "lucide-react";
-import { SparklesCore } from "@/components/ui/sparkles";
 import AutomotiveButton from "@/components/ui/AutomotiveButton";
 import PremiumCard from "@/components/ui/PremiumCard";
 import HUDDisplay from "@/components/ui/HUDDisplay";
+import VideoBackground from "@/components/ui/VideoBackground";
 
 const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -37,19 +37,17 @@ const Hero: React.FC = () => {
 
   return (
     <div ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Enhanced Sparkles background effect */}
-      <div className="w-full absolute inset-0 h-screen">
-        <SparklesCore
-          id="heroSparkles"
-          background="transparent"
-          minSize={0.8}
-          maxSize={2.0}
-          particleDensity={150}
-          className="w-full h-full"
-          particleColor="#6B46C1"
-          speed={0.4}
-        />
-      </div>
+      {/* Video Background */}
+      <VideoBackground
+        src="https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Homepage-Demo-Drive-Desktop.mp4"
+        fallbackImage="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png"
+        className="absolute inset-0 w-full h-full"
+        overlay={true}
+        overlayOpacity={0.6}
+        autoPlay={true}
+        muted={true}
+        loop={true}
+      />
       
       {/* Premium background blur effects with Unity Fleet colors */}
       <div className="absolute inset-0 z-0">
