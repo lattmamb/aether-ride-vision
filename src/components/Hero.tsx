@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, Zap, Shield, Sparkles } from "lucide-react";
@@ -6,48 +5,36 @@ import AutomotiveButton from "@/components/ui/AutomotiveButton";
 import PremiumCard from "@/components/ui/PremiumCard";
 import HUDDisplay from "@/components/ui/HUDDisplay";
 import VideoBackground from "@/components/ui/VideoBackground";
-
 const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
-  
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!heroRef.current) return;
-      
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      
+      const {
+        clientX,
+        clientY
+      } = e;
+      const {
+        innerWidth,
+        innerHeight
+      } = window;
       const moveX = (clientX - innerWidth / 2) / 50;
       const moveY = (clientY - innerHeight / 2) / 50;
-      
       const bgElements = heroRef.current.querySelectorAll('.parallax-bg');
-      
-      bgElements.forEach((element) => {
+      bgElements.forEach(element => {
         if (element instanceof HTMLElement) {
           element.style.transform = `translate(${moveX * 0.5}px, ${moveY * 0.5}px)`;
         }
       });
     };
-    
     document.addEventListener('mousemove', handleMouseMove);
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
-
-  return (
-    <div ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+  return <div ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Video Background */}
-      <VideoBackground
-        src="https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Homepage-Demo-Drive-Desktop.mp4"
-        fallbackImage="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png"
-        className="absolute inset-0 w-full h-full"
-        overlay={true}
-        overlayOpacity={0.6}
-        autoPlay={true}
-        muted={true}
-        loop={true}
-      />
+      <VideoBackground src="https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Homepage-Demo-Drive-Desktop.mp4" fallbackImage="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png" className="absolute inset-0 w-full h-full" overlay={true} overlayOpacity={0.6} autoPlay={true} muted={true} loop={true} />
       
       {/* Premium background blur effects with Unity Fleet colors */}
       <div className="absolute inset-0 z-0">
@@ -87,47 +74,21 @@ const Hero: React.FC = () => {
           
           {/* Premium Stats Display */}
           <div className="grid grid-cols-3 gap-4 mb-12 max-w-2xl w-full">
-            <HUDDisplay
-              label="Range"
-              value="500+"
-              unit="miles"
-              status="success"
-              icon={<Zap className="w-4 h-4" />}
-            />
-            <HUDDisplay
-              label="Safety"
-              value="5"
-              unit="star"
-              status="normal"
-              icon={<Shield className="w-4 h-4" />}
-            />
-            <HUDDisplay
-              label="Fleet"
-              value="25+"
-              unit="models"
-              status="success"
-              icon={<Sparkles className="w-4 h-4" />}
-            />
+            <HUDDisplay label="Range" value="500+" unit="miles" status="success" icon={<Zap className="w-4 h-4" />} />
+            <HUDDisplay label="Safety" value="5" unit="star" status="normal" icon={<Shield className="w-4 h-4" />} />
+            <HUDDisplay label="Fleet" value="25+" unit="models" status="success" icon={<Sparkles className="w-4 h-4" />} />
           </div>
           
           {/* Premium Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-6">
             <Link to="/vehicles">
-              <AutomotiveButton 
-                variant="primary" 
-                size="lg"
-                icon={<Zap className="w-5 h-5" />}
-              >
+              <AutomotiveButton variant="primary" size="lg" icon={<Zap className="w-5 h-5" />}>
                 Explore Premium Fleet
               </AutomotiveButton>
             </Link>
             
             <Link to="/how-it-works">
-              <AutomotiveButton 
-                variant="luxury" 
-                size="lg"
-                icon={<Sparkles className="w-5 h-5" />}
-              >
+              <AutomotiveButton variant="luxury" size="lg" icon={<Sparkles className="w-5 h-5" />}>
                 Discover Excellence
               </AutomotiveButton>
             </Link>
@@ -175,7 +136,7 @@ const Hero: React.FC = () => {
       </div>
       
       {/* Enhanced radial gradient mask */}
-      <div className="absolute inset-0 w-full h-full bg-unity-midnight [mask-image:radial-gradient(600px_400px_at_top,transparent_30%,white)]"></div>
+      <div className="absolute inset-0 w-full h-full bg-unity-midnight [mask-image:absolute "></div>
       
       {/* Premium scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
@@ -184,8 +145,6 @@ const Hero: React.FC = () => {
           <ArrowDown className="h-6 w-6 text-unity-signature" />
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Hero;
