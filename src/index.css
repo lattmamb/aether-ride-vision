@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 @import './styles/brand-identity.css';
+@import './styles/enhanced-polish.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,9 +36,9 @@
     --gradient-accent: linear-gradient(135deg, #34C759 0%, #00D4FF 50%, #6B46C1 100%);
     --gradient-border: linear-gradient(135deg, rgba(107, 70, 193, 0.3) 0%, rgba(10, 132, 255, 0.3) 50%, rgba(0, 212, 255, 0.3) 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-    --gradient-mesh: radial-gradient(circle at 20% 80%, rgba(107, 70, 193, 0.15) 0%, transparent 50%),
-                     radial-gradient(circle at 80% 20%, rgba(10, 132, 255, 0.15) 0%, transparent 50%),
-                     radial-gradient(circle at 40% 40%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+    --gradient-mesh: radial-gradient(circle at 20% 80%, rgba(107, 70, 193, 0.08) 0%, transparent 50%),
+                     radial-gradient(circle at 80% 20%, rgba(10, 132, 255, 0.08) 0%, transparent 50%),
+                     radial-gradient(circle at 40% 40%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
   }
 }
 
@@ -52,33 +53,11 @@
     background: 
       var(--gradient-mesh),
       radial-gradient(circle at 50% 0%, #1a1d26 0%, #0b0f1a 100%);
-    animation: mesh-flow 20s ease-in-out infinite;
+    animation: mesh-flow 30s ease-in-out infinite;
   }
 
   html {
     @apply scroll-smooth;
-  }
-
-  /* Enhanced scrollbar with Unity Fleet branding */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    @apply bg-unity-charcoal;
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: var(--gradient-primary);
-    border-radius: 10px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--gradient-secondary);
-    background-clip: padding-box;
   }
 }
 
@@ -197,21 +176,6 @@
       0 40px 80px rgba(10, 132, 255, 0.1);
   }
 
-  /* Premium Button Effects */
-  .btn-unity-primary {
-    @apply bg-gradient-to-r from-unity-purple to-unity-signature text-white font-display font-semibold;
-    @apply border border-unity-purple/30 shadow-unity-glow rounded-xl px-6 py-3;
-    @apply hover:shadow-unity-premium hover:scale-105 transition-all duration-300;
-    letter-spacing: 0.02em;
-  }
-
-  .btn-unity-luxury {
-    @apply bg-gradient-to-r from-unity-champagne to-unity-gold text-unity-midnight font-display font-bold;
-    @apply border border-unity-champagne shadow-unity-luxury rounded-xl px-6 py-3;
-    @apply hover:shadow-unity-luxury hover:scale-105 transition-all duration-300;
-    letter-spacing: 0.02em;
-  }
-
   /* Unity Fleet Premium Animations */
   .floating {
     animation: float 6s ease-in-out infinite;
@@ -238,7 +202,7 @@
   }
 }
 
-/* Keep existing animations and add Unity Fleet premium animations */
+/* Enhanced animations */
 @keyframes mesh-flow {
   0%, 100% {
     background-position: 0% 50%;
@@ -262,7 +226,7 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-12px);
   }
 }
 
@@ -294,5 +258,3 @@
     background-position: 200% 0;
   }
 }
-
-/* ... keep existing code (other animations and styles) the same ... */
