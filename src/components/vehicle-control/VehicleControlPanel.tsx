@@ -12,7 +12,7 @@ import {
   MapPin, 
   Zap,
   Volume2,
-  Lights,
+  Lightbulb,
   Settings
 } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
@@ -61,7 +61,7 @@ const VehicleControlPanel: React.FC = () => {
       color: vehicleStatus.charging ? 'text-blue-400' : 'text-white'
     },
     {
-      icon: Lights,
+      icon: Lightbulb,
       label: 'Flash Lights',
       action: () => console.log('Flash lights'),
       color: 'text-yellow-400'
