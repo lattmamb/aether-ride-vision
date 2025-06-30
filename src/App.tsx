@@ -15,6 +15,7 @@ import ComprehensiveDashboard from "@/pages/ComprehensiveDashboard";
 import Pricing from "@/pages/Pricing";
 import Locations from "@/pages/Locations";
 import About from "@/pages/About";
+import HowItWorks from "@/pages/HowItWorks";
 import VehicleManagement from "@/pages/VehicleManagement";
 import NotFound from "@/pages/NotFound";
 
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/locations" element={<Locations />} />
           <Route path="/about" element={<About />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
