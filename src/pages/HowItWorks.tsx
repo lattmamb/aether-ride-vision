@@ -2,9 +2,6 @@
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { useNavigate } from 'react-router-dom';
 import { 
   Search, 
   Calendar, 
@@ -17,73 +14,75 @@ import {
   Users,
   Shield,
   Zap,
-  CheckCircle
+  Sparkles
 } from 'lucide-react';
+import AutomotiveDashboardSection from '@/components/automotive/AutomotiveDashboardSection';
+import LuxuryFeaturePanel from '@/components/automotive/LuxuryFeaturePanel';
+import PremiumCTASection from '@/components/automotive/PremiumCTASection';
+import PremiumCard from '@/components/ui/PremiumCard';
 
 const HowItWorks = () => {
-  const navigate = useNavigate();
-
   const steps = [
     {
       step: 1,
       icon: Search,
-      title: "Browse & Discover",
-      description: "Explore our Tesla fleet with smart filters and AI-powered recommendations",
-      details: ["Filter by model, price, and availability", "Get personalized vehicle suggestions", "View detailed specs and 3D previews"]
+      title: "Intelligent Discovery",
+      description: "Experience our AI-powered vehicle selection system with advanced filtering and personalized recommendations",
+      details: ["Advanced AI matching algorithm", "Real-time availability scanning", "3D vehicle visualization"]
     },
     {
       step: 2,
       icon: Calendar,
-      title: "Book Your Tesla",
-      description: "Select dates, choose subscription plans, and customize your experience",
-      details: ["Flexible booking options", "Multiple subscription plans", "Instant confirmation"]
+      title: "Seamless Booking",
+      description: "Book your premium Tesla through our streamlined reservation system with flexible plans",
+      details: ["Instant booking confirmation", "Flexible subscription options", "Smart scheduling system"]
     },
     {
       step: 3,
       icon: CreditCard,
-      title: "Secure Payment",
-      description: "Complete your booking with our secure, encrypted payment system",
-      details: ["Multiple payment methods", "Flexible payment options", "Transparent pricing"]
+      title: "Secure Processing",
+      description: "Complete transactions through our enterprise-grade security infrastructure",
+      details: ["Bank-level encryption", "Multiple payment methods", "Transparent pricing model"]
     },
     {
       step: 4,
       icon: Car,
-      title: "Vehicle Access",
-      description: "Get your Tesla delivered or pick it up from convenient locations",
-      details: ["Contactless pickup", "Mobile app integration", "Remote vehicle access"]
+      title: "Premium Access",
+      description: "Receive your Tesla through our white-glove delivery service or premium pickup locations",
+      details: ["Contactless key exchange", "Mobile app integration", "24/7 vehicle support"]
     }
   ];
 
   const features = [
     {
       icon: Smartphone,
-      title: "Mobile Control",
-      description: "Full vehicle control from your smartphone"
+      title: "Intelligent Control",
+      description: "Complete vehicle management through our advanced mobile platform"
     },
     {
       icon: DollarSign,
-      title: "Earn Money",
-      description: "Use your Tesla for Uber, DoorDash, and Lyft"
+      title: "Revenue Generation",
+      description: "Maximize earnings through integrated ride-sharing partnerships"
     },
     {
       icon: BarChart3,
-      title: "Analytics",
-      description: "Track earnings and optimize your usage"
+      title: "Performance Analytics",
+      description: "Real-time insights and optimization recommendations"
     },
     {
       icon: MapPin,
       title: "Charging Network",
-      description: "Access to extensive charging infrastructure"
+      description: "Access to premium charging infrastructure nationwide"
     },
     {
       icon: Users,
-      title: "Community",
-      description: "Connect with other Tesla enthusiasts"
+      title: "Elite Community",
+      description: "Connect with Tesla enthusiasts and industry professionals"
     },
     {
       icon: Shield,
-      title: "Insurance Included",
-      description: "Comprehensive coverage for peace of mind"
+      title: "Comprehensive Coverage",
+      description: "Premium insurance and roadside assistance included"
     }
   ];
 
@@ -111,121 +110,54 @@ const HowItWorks = () => {
         initial="hidden"
         animate="visible"
       >
-        {/* Hero Section */}
-        <motion.div className="text-center mb-16" variants={itemVariants}>
-          <h1 className="text-4xl md:text-6xl font-bold gradient-text mb-6">
-            How Unity Fleet Works
+        {/* Premium Hero Section */}
+        <motion.div className="text-center mb-20" variants={itemVariants}>
+          {/* Luxury Brand Badge */}
+          <PremiumCard variant="luxury" className="mb-8 px-6 py-3 inline-flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-unity-champagne" />
+            <span className="font-display font-semibold gradient-luxury-text">Premium Process</span>
+          </PremiumCard>
+
+          <h1 className="font-display text-4xl md:text-6xl font-bold gradient-text mb-6">
+            Automotive Excellence
+            <br />
+            <span className="gradient-purple-text">Redefined</span>
           </h1>
-          <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            Get behind the wheel of a Tesla in just a few simple steps. 
-            Our streamlined process makes electric vehicle access effortless.
+          <p className="font-body text-xl text-unity-platinum/80 max-w-3xl mx-auto leading-relaxed">
+            Experience the future of luxury electric vehicle access through our 
+            precision-engineered process, designed for discerning drivers.
           </p>
         </motion.div>
 
-        {/* Steps Section */}
-        <motion.div className="mb-20" variants={itemVariants}>
-          <h2 className="text-3xl font-bold text-center mb-12 gradient-purple-text">
-            Simple 4-Step Process
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.step}
-                variants={itemVariants}
-                whileHover={{ y: -10 }}
-                className="relative"
-              >
-                <Card className="glass-card gradient-border-subtle p-6 text-center h-full">
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className="w-8 h-8 rounded-full gradient-bg-primary flex items-center justify-center text-white font-bold">
-                      {step.step}
-                    </div>
-                  </div>
-                  <div className="w-16 h-16 rounded-full gradient-bg-primary flex items-center justify-center mx-auto mb-4 mt-4">
-                    <step.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 gradient-accent-text">{step.title}</h3>
-                  <p className="text-white/70 mb-4">{step.description}</p>
-                  <ul className="text-sm text-white/60 text-left space-y-1">
-                    {step.details.map((detail, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <CheckCircle className="w-3 h-3 text-green-400 flex-shrink-0" />
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-                
-                {/* Connection Line */}
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500" />
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Features Grid */}
-        <motion.div className="mb-16" variants={itemVariants}>
-          <h2 className="text-3xl font-bold text-center mb-12 gradient-purple-text">
-            Powerful Features
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Card className="glass-card gradient-border-subtle p-6 text-center hover:bg-white/5 transition-all duration-300">
-                  <div className="w-12 h-12 rounded-full gradient-bg-primary flex items-center justify-center mx-auto mb-4">
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-lg font-bold mb-2 gradient-accent-text">{feature.title}</h3>
-                  <p className="text-white/70 text-sm">{feature.description}</p>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div 
-          className="text-center glass-card gradient-border-flow p-12 rounded-xl relative overflow-hidden"
-          variants={itemVariants}
-        >
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-blue-500 to-purple-500 rounded-full blur-3xl" />
-          </div>
-          
-          <div className="relative z-10">
-            <Zap className="w-16 h-16 mx-auto mb-6 text-yellow-400" />
-            <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Ready to Go Electric?
+        {/* Automotive Dashboard Steps Section */}
+        <motion.div className="mb-24" variants={itemVariants}>
+          <div className="text-center mb-16">
+            <h2 className="font-display text-3xl font-bold gradient-luxury-text mb-4">
+              Precision-Engineered Process
             </h2>
-            <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
-              Join thousands of drivers who've made the switch to sustainable, 
-              intelligent transportation with Unity Fleet.
+            <p className="font-body text-unity-platinum/70 max-w-2xl mx-auto">
+              Four seamlessly integrated phases deliver automotive excellence
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg"
-                className="gradient-bg-primary hover:gradient-bg-secondary text-white px-8"
-                onClick={() => navigate('/vehicles')}
-              >
-                Browse Vehicles
-              </Button>
-              <Button 
-                size="lg"
-                variant="outline"
-                className="border-glass-border bg-glass hover:bg-glass-highlight px-8"
-                onClick={() => navigate('/pricing')}
-              >
-                View Pricing
-              </Button>
-            </div>
           </div>
+          <AutomotiveDashboardSection steps={steps} />
+        </motion.div>
+
+        {/* Luxury Features Panel */}
+        <motion.div className="mb-24" variants={itemVariants}>
+          <div className="text-center mb-16">
+            <h2 className="font-display text-3xl font-bold gradient-accent-text mb-4">
+              Luxury Features Suite
+            </h2>
+            <p className="font-body text-unity-platinum/70 max-w-2xl mx-auto">
+              Advanced capabilities designed for the modern electric lifestyle
+            </p>
+          </div>
+          <LuxuryFeaturePanel features={features} />
+        </motion.div>
+
+        {/* Premium CTA Section */}
+        <motion.div variants={itemVariants}>
+          <PremiumCTASection />
         </motion.div>
       </motion.div>
     </MainLayout>
