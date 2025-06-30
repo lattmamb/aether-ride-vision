@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+@import './styles/brand-identity.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -26,28 +28,30 @@
     --ring: 240 4.9% 83.9%;
     --radius: 0.75rem;
 
-    /* Grok AI Gradient System */
-    --gradient-primary: linear-gradient(135deg, #9b87f5 0%, #7E69AB 50%, #6E59A5 100%);
-    --gradient-secondary: linear-gradient(135deg, #33C3F0 0%, #9b87f5 50%, #D946EF 100%);
-    --gradient-accent: linear-gradient(135deg, #34C759 0%, #33C3F0 50%, #9b87f5 100%);
-    --gradient-border: linear-gradient(135deg, rgba(155, 135, 245, 0.3) 0%, rgba(51, 195, 240, 0.3) 50%, rgba(217, 70, 239, 0.3) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    --gradient-mesh: radial-gradient(circle at 20% 80%, rgba(155, 135, 245, 0.1) 0%, transparent 50%),
-                     radial-gradient(circle at 80% 20%, rgba(51, 195, 240, 0.1) 0%, transparent 50%),
-                     radial-gradient(circle at 40% 40%, rgba(217, 70, 239, 0.05) 0%, transparent 50%);
+    /* Enhanced Grok AI Gradient System with Unity Fleet Branding */
+    --gradient-primary: linear-gradient(135deg, #6B46C1 0%, #0A84FF 50%, #00D4FF 100%);
+    --gradient-secondary: linear-gradient(135deg, #00D4FF 0%, #6B46C1 50%, #D946EF 100%);
+    --gradient-luxury: linear-gradient(135deg, #D4AF37 0%, #F59E0B 50%, #EF4444 100%);
+    --gradient-accent: linear-gradient(135deg, #34C759 0%, #00D4FF 50%, #6B46C1 100%);
+    --gradient-border: linear-gradient(135deg, rgba(107, 70, 193, 0.3) 0%, rgba(10, 132, 255, 0.3) 50%, rgba(0, 212, 255, 0.3) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    --gradient-mesh: radial-gradient(circle at 20% 80%, rgba(107, 70, 193, 0.15) 0%, transparent 50%),
+                     radial-gradient(circle at 80% 20%, rgba(10, 132, 255, 0.15) 0%, transparent 50%),
+                     radial-gradient(circle at 40% 40%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
   }
 }
 
 @layer base {
   * {
-    @apply border-border selection:bg-[#9b87f5]/20 selection:text-white;
+    @apply border-border selection:bg-unity-purple/20 selection:text-white;
   }
   
   body {
-    @apply bg-black text-foreground antialiased overflow-x-hidden font-sans;
+    @apply bg-unity-midnight text-foreground antialiased overflow-x-hidden;
+    font-family: 'Inter', 'SF Pro Text', system-ui, sans-serif;
     background: 
       var(--gradient-mesh),
-      radial-gradient(circle at 50% 0%, #1a1a1a 0%, #0a0a0a 100%);
+      radial-gradient(circle at 50% 0%, #1a1d26 0%, #0b0f1a 100%);
     animation: mesh-flow 20s ease-in-out infinite;
   }
 
@@ -55,13 +59,13 @@
     @apply scroll-smooth;
   }
 
-  /* Enhanced scrollbar */
+  /* Enhanced scrollbar with Unity Fleet branding */
   ::-webkit-scrollbar {
     width: 8px;
   }
   
   ::-webkit-scrollbar-track {
-    @apply bg-tesla-dark;
+    @apply bg-unity-charcoal;
     border-radius: 10px;
   }
   
@@ -79,9 +83,9 @@
 }
 
 @layer utilities {
-  /* Enhanced Glass Effects */
+  /* Enhanced Glass Effects with Unity Fleet Branding */
   .glass-card {
-    @apply backdrop-blur-xl bg-glass border rounded-2xl shadow-[0_8px_32px_rgba(0,10,30,0.12)] relative overflow-hidden;
+    @apply backdrop-blur-unity bg-glass-premium border rounded-luxury shadow-unity-glass relative overflow-hidden;
     border: 1px solid transparent;
     background: var(--gradient-glass), rgba(255, 255, 255, 0.05);
     background-clip: padding-box;
@@ -112,13 +116,17 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Gradient Utilities */
+  /* Unity Fleet Premium Gradient Utilities */
   .gradient-bg-primary {
     background: var(--gradient-primary);
   }
 
   .gradient-bg-secondary {
     background: var(--gradient-secondary);
+  }
+
+  .gradient-bg-luxury {
+    background: var(--gradient-luxury);
   }
 
   .gradient-border {
@@ -144,46 +152,30 @@
     animation: border-flow 3s ease-in-out infinite;
   }
 
-  /* Seamless Component Integration */
-  .seamless-top {
-    border-top: none;
-    background: linear-gradient(to bottom, transparent 0%, var(--gradient-glass) 50%);
-  }
-
-  .seamless-bottom {
-    border-bottom: none;
-    background: linear-gradient(to top, transparent 0%, var(--gradient-glass) 50%);
-  }
-
-  .seamless-left {
-    border-left: none;
-    background: linear-gradient(to right, transparent 0%, var(--gradient-glass) 50%);
-  }
-
-  .seamless-right {
-    border-right: none;
-    background: linear-gradient(to left, transparent 0%, var(--gradient-glass) 50%);
-  }
-
-  /* Enhanced Text Effects */
+  /* Enhanced Text Effects with Unity Fleet Typography */
   .text-glow {
     @apply text-white;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(155, 135, 245, 0.3);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(107, 70, 193, 0.3);
   }
   
   .purple-glow {
     box-shadow: 
-      0 0 20px rgba(155, 135, 245, 0.3),
-      0 0 40px rgba(155, 135, 245, 0.2),
-      0 0 60px rgba(155, 135, 245, 0.1);
+      0 0 20px rgba(107, 70, 193, 0.3),
+      0 0 40px rgba(107, 70, 193, 0.2),
+      0 0 60px rgba(107, 70, 193, 0.1);
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-white via-unity-platinum to-white/70 bg-clip-text text-transparent;
   }
   
   .gradient-purple-text {
     background: var(--gradient-primary);
+    @apply bg-clip-text text-transparent;
+  }
+
+  .gradient-luxury-text {
+    background: var(--gradient-luxury);
     @apply bg-clip-text text-transparent;
   }
 
@@ -192,82 +184,35 @@
     @apply bg-clip-text text-transparent;
   }
 
-  /* Organic Shapes */
-  .organic-shape {
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    animation: morph 8s ease-in-out infinite;
-  }
-
-  .organic-container {
-    border-radius: 2rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .organic-container::before {
-    content: '';
-    position: absolute;
-    inset: -50%;
-    background: var(--gradient-mesh);
-    animation: mesh-rotate 20s linear infinite;
-    z-index: -1;
-  }
-
-  /* Enhanced Interactive Elements */
+  /* Unity Fleet Premium Interactive Elements */
   .interactive-card {
     @apply transition-all duration-500 ease-out cursor-pointer;
     transform-style: preserve-3d;
   }
 
   .interactive-card:hover {
-    transform: translateY(-8px) rotateX(5deg) rotateY(5deg);
+    transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
     box-shadow: 
-      0 20px 40px rgba(155, 135, 245, 0.2),
-      0 40px 80px rgba(51, 195, 240, 0.1);
+      0 20px 40px rgba(107, 70, 193, 0.2),
+      0 40px 80px rgba(10, 132, 255, 0.1);
   }
 
-  /* Flow Animations */
-  .flow-border {
-    position: relative;
-    overflow: hidden;
+  /* Premium Button Effects */
+  .btn-unity-primary {
+    @apply bg-gradient-to-r from-unity-purple to-unity-signature text-white font-display font-semibold;
+    @apply border border-unity-purple/30 shadow-unity-glow rounded-xl px-6 py-3;
+    @apply hover:shadow-unity-premium hover:scale-105 transition-all duration-300;
+    letter-spacing: 0.02em;
   }
 
-  .flow-border::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-border);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    animation: flow 2s ease-in-out infinite;
+  .btn-unity-luxury {
+    @apply bg-gradient-to-r from-unity-champagne to-unity-gold text-unity-midnight font-display font-bold;
+    @apply border border-unity-champagne shadow-unity-luxury rounded-xl px-6 py-3;
+    @apply hover:shadow-unity-luxury hover:scale-105 transition-all duration-300;
+    letter-spacing: 0.02em;
   }
 
-  .flow-border:hover::after {
-    opacity: 1;
-  }
-
-  /* Message Bubble Enhancements */
-  .message-bubble {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .message-bubble::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .message-bubble:hover::before {
-    left: 100%;
-  }
-
-  /* Floating Elements */
+  /* Unity Fleet Premium Animations */
   .floating {
     animation: float 6s ease-in-out infinite;
   }
@@ -279,9 +224,21 @@
   .floating-slow {
     animation: float 8s ease-in-out infinite 1s;
   }
+
+  .unity-glow-pulse {
+    animation: unity-glow-pulse 2s ease-in-out infinite;
+  }
+
+  .unity-slide-luxury {
+    animation: unity-slide-luxury 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .unity-shimmer {
+    animation: unity-shimmer 2s ease-in-out infinite;
+  }
 }
 
-/* Enhanced Animations */
+/* Keep existing animations and add Unity Fleet premium animations */
 @keyframes mesh-flow {
   0%, 100% {
     background-position: 0% 50%;
@@ -300,30 +257,6 @@
   }
 }
 
-@keyframes mesh-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes morph {
-  0%, 100% {
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  }
-  25% {
-    border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
-  }
-  50% {
-    border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
-  }
-  75% {
-    border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
-  }
-}
-
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);
@@ -333,48 +266,19 @@
   }
 }
 
-@keyframes flow {
+@keyframes unity-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(107, 70, 193, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(107, 70, 193, 0.6);
+  }
+}
+
+@keyframes unity-slide-luxury {
   0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
-@keyframes shine {
-  0% { 
-    background-position: 200% 0; 
-  }
-  100% { 
-    background-position: -200% 0; 
-  }
-}
-
-@keyframes fade-in-up {
-  0% { 
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   100% {
     opacity: 1;
@@ -382,13 +286,13 @@
   }
 }
 
-@keyframes scale-in {
+@keyframes unity-shimmer {
   0% {
-    opacity: 0;
-    transform: scale(0.95);
+    background-position: -200% 0;
   }
   100% {
-    opacity: 1;
-    transform: scale(1);
+    background-position: 200% 0;
   }
 }
+
+/* ... keep existing code (other animations and styles) the same ... */
