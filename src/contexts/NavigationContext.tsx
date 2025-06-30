@@ -23,7 +23,7 @@ export const useNavigation = () => {
 
 export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
-  const [navigationStyle, setNavigationStyle] = useState<'dock' | 'animated'>('dock');
+  const [navigationStyle, setNavigationStyle] = useState<'dock' | 'animated'>('animated');
   const [showReflections, setShowReflections] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -45,27 +45,10 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     return () => window.removeEventListener('resize', checkDeviceCapabilities);
   }, []);
 
-  // Set navigation style based on route - chat page uses animated (expandable) navbar
+  // Use animated navigation for all pages
   useEffect(() => {
-    const routeStyles: Record<string, 'dock' | 'animated'> = {
-      '/': 'animated',
-      '/pricing': 'animated',
-      '/chat': 'animated',  // Chat page uses expandable navigation
-      '/vehicles': 'dock',
-      '/dashboard': 'dock',
-      '/about': 'animated',
-      '/locations': 'dock'
-    };
-
-    const newStyle = routeStyles[location.pathname] || 'dock';
-    if (newStyle !== navigationStyle) {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setNavigationStyle(newStyle);
-        setIsTransitioning(false);
-      }, 300);
-    }
-  }, [location.pathname, navigationStyle]);
+    setNavigationStyle('animated');
+  }, [location.pathname]);
 
   return (
     <NavigationContext.Provider value={{

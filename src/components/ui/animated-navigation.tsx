@@ -14,6 +14,7 @@ const navItems = [
   { name: "Locations", href: "/locations" },
   { name: "About", href: "/about" },
   { name: "Dashboard", href: "/dashboard" },
+  { name: "Chat", href: "/chat" },
 ];
 
 const EXPAND_SCROLL_THRESHOLD = 80;
@@ -116,7 +117,7 @@ export function AnimatedNavigation() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+    <div className="fixed top-6 right-6 z-50">
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={isExpanded ? "expanded" : "collapsed"}
