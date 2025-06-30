@@ -1,186 +1,238 @@
 
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
-import { Button } from '@/components/ui/button';
-import { Award, Users, Shield, Leaf, Gauge, Clock } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import PageTransition from '@/components/layout/PageTransition';
+import { motion } from 'framer-motion';
+import { Car, Users, Award, Globe, Battery, Zap, Shield, Heart } from 'lucide-react';
 
 const About = () => {
-  const navigate = useNavigate();
+  const achievements = [
+    { icon: Car, value: '50,000+', label: 'Vehicles Delivered', color: 'text-unity-signature' },
+    { icon: Users, value: '25,000+', label: 'Happy Customers', color: 'text-unity-teal' },
+    { icon: Globe, value: '100+', label: 'Cities Served', color: 'text-unity-champagne' },
+    { icon: Battery, value: '10M+', label: 'CO2 Saved (lbs)', color: 'text-green-400' }
+  ];
+
+  const leadership = [
+    {
+      name: 'Marcus Chen',
+      role: 'CEO & Founder',
+      bio: 'Former Tesla executive with 15 years in automotive innovation',
+      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+    },
+    {
+      name: 'Sarah Rodriguez',
+      role: 'CTO',
+      bio: 'AI and autonomous vehicle systems expert from Google',
+      image: 'https://images.unsplash.com/photo-1494790108755-2616b612c035?w=400&h=400&fit=crop&crop=face'
+    },
+    {
+      name: 'David Park',
+      role: 'Head of Operations',
+      bio: 'Former Uber fleet operations director with global scaling experience',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'
+    }
+  ];
+
+  const timeline = [
+    { year: '2019', title: 'Founded', description: 'Unity Fleet started with a vision to democratize electric vehicle access' },
+    { year: '2020', title: 'First Fleet', description: 'Launched with 100 Tesla vehicles in San Francisco Bay Area' },
+    { year: '2021', title: 'AI Integration', description: 'Introduced AI-powered vehicle matching and predictive maintenance' },
+    { year: '2022', title: 'National Expansion', description: 'Expanded to 25 major cities across the United States' },
+    { year: '2023', title: 'Sustainability Focus', description: 'Achieved carbon-neutral operations and 10M lbs CO2 saved' },
+    { year: '2024', title: 'Innovation Leader', description: 'Recognized as the premier electric vehicle subscription platform' }
+  ];
+
+  const values = [
+    { icon: Zap, title: 'Innovation', description: 'Pioneering the future of mobility through cutting-edge technology' },
+    { icon: Shield, title: 'Trust', description: 'Building lasting relationships through transparency and reliability' },
+    { icon: Heart, title: 'Sustainability', description: 'Committed to reducing environmental impact for future generations' },
+    { icon: Users, title: 'Community', description: 'Creating a connected ecosystem of electric vehicle enthusiasts' }
+  ];
 
   return (
-    <MainLayout>
-      <div className="container mx-auto px-4 py-16 mt-14 md:mt-20">
-        {/* Header */}
-        <div className="mb-16 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">About CarFleet</h1>
-          <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            Redefining vehicle ownership through innovative subscription services and sustainable transportation solutions.
-          </p>
-        </div>
-        
-        {/* Our Story */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-            <p className="text-lg text-white/80 mb-4">
-              Founded in 2023, CarFleet emerged from a simple vision: to transform the way people 
-              access and experience electric vehicles. We recognized that traditional ownership and 
-              leasing models weren't aligned with the rapidly evolving EV market and consumer needs.
-            </p>
-            <p className="text-lg text-white/80 mb-6">
-              Our team of automotive enthusiasts, tech innovators, and sustainability advocates came 
-              together to create a flexible subscription service that puts customers in control of their 
-              mobility choices while accelerating the transition to sustainable transportation.
-            </p>
-            <Button 
-              className="bg-tesla-blue hover:bg-tesla-blue/90 text-white"
-              onClick={() => navigate('/vehicles')}
-            >
-              Explore Our Fleet
-            </Button>
-          </div>
-          <div className="glass-card p-0 overflow-hidden h-[400px] flex items-center justify-center">
-            {/* Placeholder for company image */}
-            <div className="text-center p-8">
-              <div className="text-8xl font-bold gradient-text mb-4">CarFleet</div>
-              <p className="text-white/70">Electric vehicle subscription service</p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Our Mission */}
-        <div className="glass-card p-8 md:p-12 mb-24 text-center">
-          <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
-          <p className="text-xl text-white/80 max-w-4xl mx-auto">
-            "To accelerate the world's transition to sustainable transportation by making electric 
-            vehicles accessible to everyone through flexible, hassle-free subscription services."
-          </p>
-        </div>
-        
-        {/* Core Values */}
-        <div className="mb-24">
-          <h2 className="text-3xl font-bold mb-10 text-center">Our Core Values</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-card p-6 text-center">
-              <div className="rounded-full bg-tesla-blue/20 p-4 inline-flex mb-6">
-                <Leaf className="h-8 w-8 text-tesla-blue" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Sustainability</h3>
-              <p className="text-white/70">
-                We're committed to reducing carbon emissions and promoting eco-friendly 
-                transportation options for a greener future.
-              </p>
-            </div>
-            
-            <div className="glass-card p-6 text-center">
-              <div className="rounded-full bg-tesla-blue/20 p-4 inline-flex mb-6">
-                <Clock className="h-8 w-8 text-tesla-blue" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Flexibility</h3>
-              <p className="text-white/70">
-                Our subscription model adapts to your changing needs, giving you the freedom 
-                to switch vehicles or pause your subscription when needed.
-              </p>
-            </div>
-            
-            <div className="glass-card p-6 text-center">
-              <div className="rounded-full bg-tesla-blue/20 p-4 inline-flex mb-6">
-                <Shield className="h-8 w-8 text-tesla-blue" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Transparency</h3>
-              <p className="text-white/70">
-                We believe in clear, straightforward pricing with no hidden fees or 
-                long-term commitments that lock you in.
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Why Choose Us */}
-        <div className="mb-24">
-          <h2 className="text-3xl font-bold mb-10 text-center">Why Choose CarFleet</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="flex items-start gap-4">
-              <div className="rounded-full bg-tesla-blue/20 p-2 flex-shrink-0">
-                <Award className="h-6 w-6 text-tesla-blue" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Premium Vehicle Selection</h3>
-                <p className="text-white/70">
-                  Access to the latest Tesla models, regularly maintained and updated to provide 
-                  you with the best electric driving experience.
+    <MainLayout useAnimatedNav={true}>
+      <PageTransition>
+        <div className="min-h-screen bg-unity-midnight">
+          {/* Hero Section */}
+          <section className="relative py-32 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-unity-purple/10 to-unity-teal/10" />
+            <div className="container mx-auto px-4 relative z-10">
+              <motion.div 
+                className="text-center max-w-4xl mx-auto"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <h1 className="text-6xl md:text-7xl font-bold mb-8 gradient-luxury-text font-display">
+                  Revolutionizing Mobility
+                </h1>
+                <p className="text-xl md:text-2xl text-unity-platinum/80 mb-12 leading-relaxed font-body">
+                  Unity Fleet is pioneering the future of transportation through innovative electric vehicle subscriptions, 
+                  making premium Tesla experiences accessible to everyone while building a sustainable tomorrow.
                 </p>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Achievements Section */}
+          <section className="py-20 bg-gradient-to-br from-unity-charcoal/30 to-unity-midnight">
+            <div className="container mx-auto px-4">
+              <motion.h2 
+                className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-accent-text font-display"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                Our Impact
+              </motion.h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                {achievements.map((achievement, index) => (
+                  <motion.div
+                    key={achievement.label}
+                    className="glass-card p-8 text-center"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <achievement.icon className={`w-12 h-12 mx-auto mb-4 ${achievement.color}`} />
+                    <div className="text-3xl md:text-4xl font-bold text-white mb-2 font-display">
+                      {achievement.value}
+                    </div>
+                    <div className="text-unity-platinum/80 font-body">{achievement.label}</div>
+                  </motion.div>
+                ))}
               </div>
             </div>
-            
-            <div className="flex items-start gap-4">
-              <div className="rounded-full bg-tesla-blue/20 p-2 flex-shrink-0">
-                <Users className="h-6 w-6 text-tesla-blue" />
+          </section>
+
+          {/* Leadership Team */}
+          <section className="py-20">
+            <div className="container mx-auto px-4">
+              <motion.h2 
+                className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-luxury-text font-display"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                Leadership Team
+              </motion.h2>
+              <div className="grid md:grid-cols-3 gap-8">
+                {leadership.map((member, index) => (
+                  <motion.div
+                    key={member.name}
+                    className="glass-card p-8 text-center"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.2 }}
+                  >
+                    <img 
+                      src={member.image} 
+                      alt={member.name}
+                      className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-unity-signature/20"
+                    />
+                    <h3 className="text-2xl font-bold text-white mb-2 font-display">{member.name}</h3>
+                    <p className="text-unity-signature font-semibold mb-4 font-body">{member.role}</p>
+                    <p className="text-unity-platinum/80 font-body">{member.bio}</p>
+                  </motion.div>
+                ))}
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Exceptional Customer Service</h3>
-                <p className="text-white/70">
-                  Our dedicated team is available 24/7 to assist with any questions or issues 
-                  you may encounter during your subscription.
+            </div>
+          </section>
+
+          {/* Company Timeline */}
+          <section className="py-20 bg-gradient-to-br from-unity-charcoal/20 to-unity-midnight">
+            <div className="container mx-auto px-4">
+              <motion.h2 
+                className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-accent-text font-display"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                Our Journey
+              </motion.h2>
+              <div className="max-w-4xl mx-auto">
+                {timeline.map((event, index) => (
+                  <motion.div
+                    key={event.year}
+                    className="flex items-start mb-12 last:mb-0"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <div className="flex-shrink-0 w-20 h-20 rounded-full bg-gradient-to-r from-unity-signature to-unity-teal flex items-center justify-center mr-8">
+                      <span className="text-white font-bold font-display">{event.year}</span>
+                    </div>
+                    <div className="flex-grow">
+                      <h3 className="text-2xl font-bold text-white mb-2 font-display">{event.title}</h3>
+                      <p className="text-unity-platinum/80 font-body">{event.description}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Values Section */}
+          <section className="py-20">
+            <div className="container mx-auto px-4">
+              <motion.h2 
+                className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-luxury-text font-display"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                Our Values
+              </motion.h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {values.map((value, index) => (
+                  <motion.div
+                    key={value.title}
+                    className="glass-card p-8 text-center hover:scale-105 transition-transform duration-300"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <value.icon className="w-16 h-16 mx-auto mb-6 text-unity-signature" />
+                    <h3 className="text-xl font-bold text-white mb-4 font-display">{value.title}</h3>
+                    <p className="text-unity-platinum/80 font-body">{value.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Call to Action */}
+          <section className="py-20 bg-gradient-to-br from-unity-signature/10 to-unity-teal/10">
+            <div className="container mx-auto px-4 text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-8 gradient-luxury-text font-display">
+                  Join the Revolution
+                </h2>
+                <p className="text-xl text-unity-platinum/80 mb-12 max-w-3xl mx-auto font-body">
+                  Be part of the future of transportation. Experience the freedom, sustainability, 
+                  and innovation that comes with Unity Fleet's premium electric vehicle subscriptions.
                 </p>
-              </div>
+                <motion.button
+                  className="px-12 py-4 bg-gradient-to-r from-unity-signature to-unity-teal text-white font-bold text-lg rounded-xl hover:shadow-unity-glow transition-all duration-300 font-display"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Start Your Journey
+                </motion.button>
+              </motion.div>
             </div>
-            
-            <div className="flex items-start gap-4">
-              <div className="rounded-full bg-tesla-blue/20 p-2 flex-shrink-0">
-                <Gauge className="h-6 w-6 text-tesla-blue" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Convenient & Fast</h3>
-                <p className="text-white/70">
-                  From application to delivery, our streamlined process gets you behind the wheel 
-                  of your new Tesla in as little as 24 hours.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-4">
-              <div className="rounded-full bg-tesla-blue/20 p-2 flex-shrink-0">
-                <Shield className="h-6 w-6 text-tesla-blue" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">All-Inclusive Subscriptions</h3>
-                <p className="text-white/70">
-                  Insurance, maintenance, roadside assistance, and charging credits all 
-                  bundled into one simple monthly payment.
-                </p>
-              </div>
-            </div>
-          </div>
+          </section>
         </div>
-        
-        {/* Call to Action */}
-        <div className="glass-card p-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Join the Future of Mobility?</h2>
-          <p className="text-lg text-white/70 mb-6 max-w-2xl mx-auto">
-            Experience the freedom of electric vehicle subscription with CarFleet. 
-            No long-term commitment, no hidden fees, just pure driving pleasure.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button 
-              className="bg-tesla-blue hover:bg-tesla-blue/90 text-white"
-              onClick={() => navigate('/vehicles')}
-            >
-              Browse Vehicles
-            </Button>
-            <Button 
-              variant="outline" 
-              className="border-tesla-blue/30 hover:bg-tesla-blue/20"
-              onClick={() => navigate('/pricing')}
-            >
-              View Pricing
-            </Button>
-          </div>
-        </div>
-      </div>
+      </PageTransition>
     </MainLayout>
   );
 };
