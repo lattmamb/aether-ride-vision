@@ -1,25 +1,25 @@
+
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, Zap, Shield, Sparkles } from "lucide-react";
+import { ArrowDown, Zap, Shield, Sparkles, Play } from "lucide-react";
 import AutomotiveButton from "@/components/ui/AutomotiveButton";
 import PremiumCard from "@/components/ui/PremiumCard";
 import HUDDisplay from "@/components/ui/HUDDisplay";
 import VideoBackground from "@/components/ui/VideoBackground";
+import { motion } from "framer-motion";
+
 const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+
+  // Parallax mouse movement effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!heroRef.current) return;
-      const {
-        clientX,
-        clientY
-      } = e;
-      const {
-        innerWidth,
-        innerHeight
-      } = window;
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
       const moveX = (clientX - innerWidth / 2) / 50;
       const moveY = (clientY - innerHeight / 2) / 50;
+      
       const bgElements = heroRef.current.querySelectorAll('.parallax-bg');
       bgElements.forEach(element => {
         if (element instanceof HTMLElement) {
@@ -27,124 +27,143 @@ const Hero: React.FC = () => {
         }
       });
     };
+
     document.addEventListener('mousemove', handleMouseMove);
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
-  return <div ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Video Background */}
-      <VideoBackground src="https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Homepage-Demo-Drive-Desktop.mp4" fallbackImage="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png" className="absolute inset-0 w-full h-full" overlay={true} overlayOpacity={0.6} autoPlay={true} muted={true} loop={true} />
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        type: "spring",
+        damping: 20,
+        stiffness: 100
+      }
+    }
+  };
+
+  return (
+    <div ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Tesla-style Video Background with improved overlay */}
+      <VideoBackground 
+        src="https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Homepage-Demo-Drive-Desktop.mp4" 
+        fallbackImage="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png" 
+        className="absolute inset-0 w-full h-full" 
+        overlay={true} 
+        overlayOpacity={0.7} 
+        autoPlay={true} 
+        muted={true} 
+        loop={true} 
+      />
       
-      {/* Premium background blur effects with Unity Fleet colors */}
+      {/* Enhanced background effects with Tesla-inspired gradients */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-unity-purple/20 rounded-full blur-[120px] parallax-bg animate-unity-glow"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-unity-signature/20 rounded-full blur-[120px] parallax-bg animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-unity-teal/10 rounded-full blur-[100px] parallax-bg animate-unity-rotate"></div>
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-radial from-white/5 via-transparent to-transparent rounded-full blur-3xl parallax-bg animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-radial from-unity-signature/10 via-transparent to-transparent rounded-full blur-3xl parallax-bg"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-conic from-transparent via-unity-purple/5 to-transparent rounded-full blur-3xl parallax-bg animate-spin-slow"></div>
       </div>
       
-      {/* Premium gradient lines */}
-      <div className="absolute inset-x-20 top-40 z-0 bg-gradient-to-r from-transparent via-unity-signature to-transparent h-[2px] w-3/4 blur-sm" />
-      <div className="absolute inset-x-20 top-40 z-0 bg-gradient-to-r from-transparent via-unity-signature to-transparent h-px w-3/4" />
-      <div className="absolute inset-x-60 top-40 z-0 bg-gradient-to-r from-transparent via-unity-purple to-transparent h-[5px] w-1/4 blur-sm" />
-      <div className="absolute inset-x-60 top-40 z-0 bg-gradient-to-r from-transparent via-unity-purple to-transparent h-px w-1/4" />
+      {/* Tesla-style gradient accent lines */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      </div>
       
-      {/* Main content container */}
-      <div className="container relative z-10 mx-auto px-4 py-16 md:py-32">
-        <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
+      {/* Main content with Tesla-inspired minimal layout */}
+      <motion.div 
+        className="container relative z-10 mx-auto px-6 py-20"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="flex flex-col items-center justify-center text-center max-w-5xl mx-auto space-y-12">
           
-          {/* Premium Brand Badge */}
-          <PremiumCard variant="luxury" className="mb-8 px-6 py-3 inline-flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-unity-champagne" />
-            <span className="font-display font-semibold gradient-luxury-text">Premium Electric Fleet</span>
-          </PremiumCard>
+          {/* Tesla-style minimal badge */}
+          <motion.div variants={itemVariants}>
+            <PremiumCard variant="luxury" className="px-8 py-4 inline-flex items-center gap-3 backdrop-blur-xl bg-white/5 border border-white/10">
+              <Sparkles className="w-5 h-5 text-white" />
+              <span className="font-display font-light text-white tracking-wide text-sm uppercase">Premium Electric Fleet</span>
+            </PremiumCard>
+          </motion.div>
 
-          {/* Hero Title with Premium Typography */}
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-6 relative z-20">
-            <span className="gradient-text">Experience the Future of</span>
-            <br />
-            <span className="gradient-purple-text">Electric Mobility</span>
-          </h1>
+          {/* Tesla-style bold, minimal headline */}
+          <motion.div variants={itemVariants} className="space-y-6">
+            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light mb-8 text-white leading-none tracking-tight">
+              <span className="block">Experience</span>
+              <span className="block font-medium">Electric Excellence</span>
+            </h1>
+            
+            <p className="font-body text-xl md:text-2xl text-white/80 max-w-3xl leading-relaxed font-light">
+              Premium electric vehicles. Sustainable luxury. Uncompromising performance.
+            </p>
+          </motion.div>
           
-          {/* Premium Tagline */}
-          <p className="font-body text-xl md:text-2xl text-unity-platinum/80 mb-8 max-w-3xl leading-relaxed">
-            Discover luxury redefined through sustainable innovation. 
-            Unity Fleet delivers premium electric vehicles with uncompromising elegance and performance.
-          </p>
+          {/* Tesla-style minimal stats */}
+          <motion.div variants={itemVariants} className="grid grid-cols-3 gap-8 max-w-2xl w-full">
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-light text-white mb-2">500+</div>
+              <div className="text-sm text-white/60 uppercase tracking-wider">Miles Range</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-light text-white mb-2">5★</div>
+              <div className="text-sm text-white/60 uppercase tracking-wider">Safety Rating</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-light text-white mb-2">25+</div>
+              <div className="text-sm text-white/60 uppercase tracking-wider">Fleet Models</div>
+            </div>
+          </motion.div>
           
-          {/* Premium Stats Display */}
-          <div className="grid grid-cols-3 gap-4 mb-12 max-w-2xl w-full">
-            <HUDDisplay label="Range" value="500+" unit="miles" status="success" icon={<Zap className="w-4 h-4" />} />
-            <HUDDisplay label="Safety" value="5" unit="star" status="normal" icon={<Shield className="w-4 h-4" />} />
-            <HUDDisplay label="Fleet" value="25+" unit="models" status="success" icon={<Sparkles className="w-4 h-4" />} />
-          </div>
-          
-          {/* Premium Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6">
+          {/* Tesla-style CTA buttons */}
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 pt-8">
             <Link to="/vehicles">
-              <AutomotiveButton variant="primary" size="lg" icon={<Zap className="w-5 h-5" />}>
-                Explore Premium Fleet
+              <AutomotiveButton variant="primary" size="lg" className="px-12 py-4 text-lg font-light tracking-wide">
+                Explore Fleet
               </AutomotiveButton>
             </Link>
             
             <Link to="/how-it-works">
-              <AutomotiveButton variant="luxury" size="lg" icon={<Sparkles className="w-5 h-5" />}>
-                Discover Excellence
+              <AutomotiveButton variant="ghost" size="lg" className="px-12 py-4 text-lg font-light tracking-wide border-white/20 text-white hover:bg-white/10">
+                Learn More
               </AutomotiveButton>
             </Link>
-          </div>
+          </motion.div>
 
-          {/* Premium Feature Highlights */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 w-full max-w-4xl">
-            <PremiumCard variant="default" className="p-6 text-center" hover>
-              <div className="w-12 h-12 bg-unity-signature/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-6 h-6 text-unity-signature" />
-              </div>
-              <h3 className="font-display font-semibold text-lg gradient-accent-text mb-2">
-                Instant Performance
-              </h3>
-              <p className="font-body text-unity-platinum/70 text-sm">
-                Experience instant torque and whisper-quiet acceleration
-              </p>
-            </PremiumCard>
-
-            <PremiumCard variant="default" className="p-6 text-center" hover>
-              <div className="w-12 h-12 bg-unity-champagne/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-6 h-6 text-unity-champagne" />
-              </div>
-              <h3 className="font-display font-semibold text-lg gradient-luxury-text mb-2">
-                Premium Safety
-              </h3>
-              <p className="font-body text-unity-platinum/70 text-sm">
-                Advanced autopilot and 5-star safety ratings across all models
-              </p>
-            </PremiumCard>
-
-            <PremiumCard variant="default" className="p-6 text-center" hover>
-              <div className="w-12 h-12 bg-unity-teal/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Sparkles className="w-6 h-6 text-unity-teal" />
-              </div>
-              <h3 className="font-display font-semibold text-lg gradient-accent-text mb-2">
-                Luxury Experience
-              </h3>
-              <p className="font-body text-unity-platinum/70 text-sm">
-                Premium interiors with cutting-edge technology integration
-              </p>
-            </PremiumCard>
-          </div>
         </div>
-      </div>
+      </motion.div>
       
-      {/* Enhanced radial gradient mask */}
-      <div className="absolute inset-0 w-full h-full bg-unity-midnight [mask-image:absolute "></div>
-      
-      {/* Premium scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="flex flex-col items-center gap-2 animate-bounce">
-          <span className="font-display text-xs text-unity-platinum/60 uppercase tracking-widest">Scroll</span>
-          <ArrowDown className="h-6 w-6 text-unity-signature" />
+      {/* Tesla-style scroll indicator */}
+      <motion.div 
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.8 }}
+      >
+        <div className="flex flex-col items-center animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full p-1 mb-2">
+            <div className="w-1 h-3 bg-white/50 rounded-full mx-auto animate-pulse"></div>
+          </div>
+          <ArrowDown className="h-4 w-4 text-white/50" />
         </div>
-      </div>
-    </div>;
+      </motion.div>
+    </div>
+  );
 };
+
 export default Hero;

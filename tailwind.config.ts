@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -79,13 +78,13 @@ export default {
         // Enhanced Tesla colors with luxury variants
         tesla: {
           blue: "#0A84FF",
-          purple: "#6B46C1", // Updated to luxury purple
+          purple: "#6B46C1",
           brightPurple: "#8B5CF6",
           deepPurple: "#4C1D95",
           red: "#FF3B30",
           green: "#34C759",
           dark: {
-            DEFAULT: "#0B0F1A", // Updated to Unity midnight
+            DEFAULT: "#0B0F1A",
             50: "rgba(11, 15, 26, 0.5)",
             80: "rgba(11, 15, 26, 0.8)",
           }
@@ -126,6 +125,12 @@ export default {
         'body': ['Inter', 'SF Pro Text', 'system-ui', 'sans-serif'],
         'accent': ['Playfair Display', 'Georgia', 'serif'],
         'mono': ['JetBrains Mono', 'Monaco', 'Consolas', 'monospace']
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'tesla-gradient': 'linear-gradient(135deg, #000000 0%, #0B0F1A 50%, #1A1D26 100%)',
+        'tesla-accent': 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
       },
 			keyframes: {
 				'accordion-down': {
@@ -183,6 +188,23 @@ export default {
             transform: 'scale(1)'
           }
         },
+        // Tesla-inspired animations
+        'tesla-scroll': {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-10px)' }
+        },
+        'tesla-glow': {
+          '0%, 100%': { 
+            boxShadow: '0 0 20px rgba(255, 255, 255, 0.1)' 
+          },
+          '50%': { 
+            boxShadow: '0 0 40px rgba(255, 255, 255, 0.2)' 
+          }
+        },
+        'spin-slow': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' }
+        },
         // Unity Fleet Premium Animations
         'unity-glow-pulse': {
           '0%, 100%': {
@@ -220,6 +242,10 @@ export default {
         'gradient-flow': 'gradient-flow 8s ease infinite',
         'fade-in-up': 'fade-in-up 0.5s ease-out',
         'scale-in': 'scale-in 0.3s ease-out',
+        // Tesla-inspired animations
+        'tesla-scroll': 'tesla-scroll 2s ease-in-out infinite alternate',
+        'tesla-glow': 'tesla-glow 3s ease-in-out infinite',
+        'spin-slow': 'spin-slow 20s linear infinite',
         // Unity Fleet Premium Animations
         'unity-glow': 'unity-glow-pulse 2s ease-in-out infinite',
         'unity-slide': 'unity-slide-luxury 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -230,6 +256,8 @@ export default {
         'inner-glow': 'inset 0 0 20px 0 rgba(107, 70, 193, 0.15)',
         'card-hover': '0 8px 30px rgba(107, 70, 193, 0.2)',
         'purple-glow': '0 0 20px rgba(107, 70, 193, 0.4)',
+        'tesla-glow': '0 0 30px rgba(255, 255, 255, 0.1)',
+        'tesla-card': '0 8px 32px rgba(0, 0, 0, 0.3)',
         'unity-premium': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
         'unity-glow': '0 0 30px rgba(107, 70, 193, 0.3)',
         'unity-luxury': '0 20px 40px rgba(212, 175, 55, 0.2)',
@@ -238,6 +266,15 @@ export default {
       backdropBlur: {
         'unity': '20px',
         'luxury': '24px'
+      },
+      letterSpacing: {
+        'tighter': '-0.05em',
+        'tight': '-0.025em',
+        'normal': '0em',
+        'wide': '0.025em',
+        'wider': '0.05em',
+        'widest': '0.1em',
+        'tesla': '-0.02em'
       }
 		}
 	},

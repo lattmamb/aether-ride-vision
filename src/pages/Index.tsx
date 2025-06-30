@@ -44,7 +44,6 @@ const Index = () => {
     setFilteredVehicles(results);
   };
 
-  // Sample gallery items for interactive showcase
   const showcaseItems = [
     {
       type: 'image' as const,
@@ -65,15 +64,23 @@ const Index = () => {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.1,
+        delayChildren: 0.2,
         staggerChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
+    hidden: { y: 40, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 100
+      }
+    }
   };
 
   return (
@@ -84,102 +91,176 @@ const Index = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
+            className="overflow-hidden"
           >
             {/* Hero Section */}
             <motion.div variants={itemVariants}>
               <Hero />
             </motion.div>
 
-            {/* Search Section */}
-            <motion.div 
-              className="container mx-auto px-4 pt-8"
+            {/* Tesla-style spacer */}
+            <div className="h-20 md:h-32 bg-gradient-to-b from-black to-unity-midnight" />
+
+            {/* Search Section with Tesla-style minimal design */}
+            <motion.section 
+              className="py-16 md:py-24 bg-unity-midnight"
               variants={itemVariants}
             >
-              <SearchFilter onSearch={handleSearch} />
-            </motion.div>
+              <div className="container mx-auto px-6">
+                <div className="max-w-4xl mx-auto">
+                  <SearchFilter onSearch={handleSearch} />
+                </div>
+              </div>
+            </motion.section>
 
             {/* Tesla Vehicles Parallax Showcase */}
             <motion.div variants={itemVariants}>
               <TeslaVehiclesParallax />
             </motion.div>
             
-            {/* Tesla Cards Carousel */}
-            <motion.div 
-              className="bg-gradient-to-br from-tesla-dark-80 to-unity-charcoal py-16"
-              variants={itemVariants}
-            >
-              <TeslaCardCarousel />
-            </motion.div>
+            {/* Tesla-style minimal section divider */}
+            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
             
-            {/* SparklesPreviewTesla Showcase */}
-            <motion.div variants={itemVariants}>
-              <SparklesPreviewTesla />
-            </motion.div>
-
-            {/* Interactive Gallery */}
+            {/* Available Vehicles Section with Tesla-inspired layout */}
             <motion.section 
-              className="py-20 bg-gradient-to-br from-unity-charcoal/30 to-unity-midnight"
+              className="py-24 md:py-32 bg-unity-midnight"
               variants={itemVariants}
             >
-              <div className="container mx-auto px-4">
-                <div className="mb-12 text-center">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Tesla Gallery</h2>
-                  <p className="text-xl text-white/80 max-w-4xl mx-auto mb-10 leading-relaxed">
-                    Experience our Tesla collection through immersive imagery showcasing design and innovation
-                  </p>
-                </div>
-                
-                <InteractiveGallery
-                  items={showcaseItems}
-                  columns={2}
-                  aspectRatio={16/9}
-                />
-              </div>
-            </motion.section>
-            
-            {/* Available Vehicles Section */}
-            <motion.section 
-              className="py-20 bg-gradient-to-br from-unity-charcoal/20 to-unity-midnight"
-              variants={itemVariants}
-            >
-              <div className="container mx-auto px-4">
-                <div className="mb-12 text-center">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Available Now</h2>
-                  <p className="text-xl text-white/80 mb-10 text-center max-w-4xl mx-auto leading-relaxed">
-                    Browse our current inventory of Tesla vehicles ready for immediate rental.
-                    Select your perfect electric ride and experience the future today.
-                  </p>
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-20">
+                  <motion.h2 
+                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    Available Now
+                  </motion.h2>
+                  <motion.p 
+                    className="text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    Browse our current inventory of premium electric vehicles ready for immediate rental.
+                  </motion.p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                   {filteredVehicles.map((vehicle, index) => (
                     <motion.div
                       key={vehicle.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="card-enhanced"
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ 
+                        delay: index * 0.1,
+                        type: "spring",
+                        damping: 25,
+                        stiffness: 100
+                      }}
+                      viewport={{ once: true }}
+                      className="group"
                     >
-                      <VehicleCard vehicle={vehicle} />
+                      <div className="transform transition-all duration-500 hover:scale-105">
+                        <VehicleCard vehicle={vehicle} />
+                      </div>
                     </motion.div>
                   ))}
                 </div>
               </div>
             </motion.section>
 
-            {/* Featured 3D Vehicle */}
+            {/* Tesla Cards Carousel with enhanced styling */}
             <motion.section 
-              className="py-20 bg-gradient-to-br from-tesla-dark-50 to-unity-charcoal"
+              className="py-24 bg-gradient-to-b from-unity-midnight to-unity-charcoal"
               variants={itemVariants}
             >
-              <div className="container mx-auto px-4">
-                <div className="mb-12 text-center">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Featured Vehicle</h2>
-                  <p className="text-xl text-white/80 max-w-4xl mx-auto mb-10 leading-relaxed">
-                    Experience our interactive 3D showcase of Tesla's finest vehicles with immersive details.
-                  </p>
+              <TeslaCardCarousel />
+            </motion.section>
+            
+            {/* SparklesPreviewTesla Showcase */}
+            <motion.div variants={itemVariants}>
+              <SparklesPreviewTesla />
+            </motion.div>
+
+            {/* Interactive Gallery with Tesla-style presentation */}
+            <motion.section 
+              className="py-24 md:py-32 bg-unity-charcoal"
+              variants={itemVariants}
+            >
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-20">
+                  <motion.h2 
+                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    Gallery
+                  </motion.h2>
+                  <motion.p 
+                    className="text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    Experience our collection through immersive imagery showcasing design and innovation.
+                  </motion.p>
                 </div>
-                <ThreeDCardDemo />
+                
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  <InteractiveGallery
+                    items={showcaseItems}
+                    columns={2}
+                    aspectRatio={16/9}
+                  />
+                </motion.div>
+              </div>
+            </motion.section>
+            
+            {/* Featured 3D Vehicle with Tesla-style minimal approach */}
+            <motion.section 
+              className="py-24 md:py-32 bg-gradient-to-b from-unity-charcoal to-unity-midnight"
+              variants={itemVariants}
+            >
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-20">
+                  <motion.h2 
+                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    Experience
+                  </motion.h2>
+                  <motion.p 
+                    className="text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    Interactive showcase with immersive details.
+                  </motion.p>
+                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  <ThreeDCardDemo />
+                </motion.div>
               </div>
             </motion.section>
 
@@ -188,38 +269,79 @@ const Index = () => {
               <FeaturesSection />
             </motion.div>
             
-            {/* Map Section */}
+            {/* Map Section with Tesla-style minimal design */}
             <motion.section 
-              className="py-20 bg-gradient-to-br from-tesla-dark-80 to-unity-midnight"
+              className="py-24 md:py-32 bg-unity-midnight"
               variants={itemVariants}
             >
-              <div className="container mx-auto px-4">
-                <div className="mb-12 text-center">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Live Vehicle Tracking</h2>
-                  <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
-                    Track available vehicles and charging stations in real-time on our interactive map with live updates.
-                  </p>
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-20">
+                  <motion.h2 
+                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    Find Nearby
+                  </motion.h2>
+                  <motion.p 
+                    className="text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    Track available vehicles and charging stations in real-time.
+                  </motion.p>
                 </div>
                 
-                <div className="glass-card p-2 rounded-2xl">
-                  <Map className="w-full h-[600px] rounded-xl" />
-                </div>
+                <motion.div 
+                  className="max-w-6xl mx-auto backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-4"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  <Map className="w-full h-[600px] rounded-2xl" />
+                </motion.div>
               </div>
             </motion.section>
             
             {/* Tesla Models Section */}
             <motion.section 
-              className="py-20 bg-gradient-to-br from-unity-midnight to-unity-charcoal"
+              className="py-24 md:py-32 bg-gradient-to-b from-unity-midnight to-black"
               variants={itemVariants}
             >
-              <div className="container mx-auto px-4">
-                <div className="mb-12 text-center">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Tesla Models</h2>
-                  <p className="text-xl text-white/80 max-w-4xl mx-auto mb-10 leading-relaxed">
-                    Explore our complete lineup of premium electric vehicles. Click on any model to discover detailed specifications and features.
-                  </p>
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-20">
+                  <motion.h2 
+                    className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    Our Fleet
+                  </motion.h2>
+                  <motion.p 
+                    className="text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    Explore our complete lineup of premium electric vehicles.
+                  </motion.p>
                 </div>
-                <ExpandableCardDemoStandard />
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  <ExpandableCardDemoStandard />
+                </motion.div>
               </div>
             </motion.section>
           </motion.div>

@@ -3,18 +3,16 @@
 
 import * as React from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { Navigation, Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { name: "Home", href: "/" },
   { name: "Vehicles", href: "/vehicles" },
-  { name: "Pricing", href: "/pricing" },
-  { name: "Locations", href: "/locations" },
-  { name: "About", href: "/about" },
-  { name: "Dashboard", href: "/dashboard" },
-  { name: "Chat", href: "/chat" },
+  { name: "Energy", href: "/pricing" },
+  { name: "Charging", href: "/locations" },
+  { name: "Discover", href: "/about" },
+  { name: "Shop", href: "/dashboard" },
 ];
 
 const EXPAND_SCROLL_THRESHOLD = 80;
@@ -24,62 +22,88 @@ const containerVariants = {
     y: 0,
     opacity: 1,
     width: "auto",
+    backdrop: "blur(20px)",
     transition: {
-      y: { type: "spring", damping: 18, stiffness: 250 },
-      opacity: { duration: 0.3 },
       type: "spring",
-      damping: 20,
+      damping: 25,
       stiffness: 300,
-      staggerChildren: 0.07,
-      delayChildren: 0.2,
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
     },
   },
   collapsed: {
     y: 0,
-    opacity: 1,
+    opacity: 0.9,
     width: "3rem",
+    backdrop: "blur(10px)",
     transition: {
       type: "spring",
-      damping: 20,
+      damping: 25,
       stiffness: 300,
       when: "afterChildren",
-      staggerChildren: 0.05,
+      staggerChildren: 0.03,
       staggerDirection: -1,
     },
   },
 };
 
 const logoVariants = {
-  expanded: { opacity: 1, x: 0, rotate: 0, transition: { type: "spring", damping: 15 } },
-  collapsed: { opacity: 0, x: -25, rotate: -180, transition: { duration: 0.3 } },
+  expanded: { 
+    opacity: 1, 
+    x: 0, 
+    scale: 1,
+    transition: { type: "spring", damping: 20, stiffness: 300 } 
+  },
+  collapsed: { 
+    opacity: 0, 
+    x: -30, 
+    scale: 0.8,
+    transition: { duration: 0.2 } 
+  },
 };
 
 const itemVariants = {
-  expanded: { opacity: 1, x: 0, scale: 1, transition: { type: "spring", damping: 15 } },
-  collapsed: { opacity: 0, x: -20, scale: 0.95, transition: { duration: 0.2 } },
+  expanded: { 
+    opacity: 1, 
+    x: 0, 
+    scale: 1,
+    transition: { type: "spring", damping: 20, stiffness: 300 } 
+  },
+  collapsed: { 
+    opacity: 0, 
+    x: -15, 
+    scale: 0.9,
+    transition: { duration: 0.15 } 
+  },
 };
 
 const collapsedIconVariants = {
-  expanded: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
+  expanded: { 
+    opacity: 0, 
+    scale: 0.8, 
+    rotate: 90,
+    transition: { duration: 0.2 } 
+  },
   collapsed: { 
     opacity: 1, 
     scale: 1,
+    rotate: 0,
     transition: {
       type: "spring",
-      damping: 15,
+      damping: 20,
       stiffness: 300,
-      delay: 0.15,
+      delay: 0.1,
     }
   },
 };
 
 const UnityLogo = () => (
-  <div className="flex items-center gap-2">
+  <div className="flex items-center gap-3">
     <div className="w-8 h-8 relative flex items-center justify-center">
-      <div className="absolute w-8 h-8 rounded-full bg-gradient-to-r from-unity-signature to-unity-teal opacity-70 blur-[8px]"></div>
-      <div className="text-unity-signature font-bold text-xl relative z-10 font-display">U</div>
+      <div className="absolute w-8 h-8 rounded-full bg-gradient-to-r from-white to-white/80 opacity-20 blur-sm"></div>
+      <div className="text-white font-bold text-xl relative z-10 font-display tracking-tight">U</div>
     </div>
-    <span className="text-lg font-bold gradient-luxury-text font-display">
+    <span className="text-lg font-light text-white font-display tracking-wide">
       Unity Fleet
     </span>
   </div>
@@ -117,32 +141,31 @@ export function AnimatedNavigation() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="fixed top-6 right-6 z-50">
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
       <motion.nav
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -100, opacity: 0 }}
         animate={isExpanded ? "expanded" : "collapsed"}
         variants={containerVariants}
-        whileHover={!isExpanded ? { scale: 1.1 } : {}}
+        whileHover={!isExpanded ? { scale: 1.05, opacity: 1 } : {}}
         whileTap={!isExpanded ? { scale: 0.95 } : {}}
         onClick={handleNavClick}
         className={cn(
-          "flex items-center overflow-hidden rounded-2xl h-12",
-          "glass-card border border-unity-platinum/10",
-          "bg-unity-midnight/60 backdrop-blur-xl",
-          "shadow-unity-premium",
-          !isExpanded && "cursor-pointer justify-center unity-glow-pulse"
+          "flex items-center overflow-hidden rounded-full h-14 px-6",
+          "backdrop-blur-xl bg-black/20 border border-white/10",
+          "shadow-2xl shadow-black/20",
+          !isExpanded && "cursor-pointer justify-center w-14 px-0"
         )}
       >
         <motion.div
           variants={logoVariants}
-          className="flex-shrink-0 flex items-center pl-4 pr-2"
+          className="flex-shrink-0 flex items-center"
         >
           <UnityLogo />
         </motion.div>
         
         <motion.div
           className={cn(
-            "flex items-center gap-1 sm:gap-4 pr-4",
+            "flex items-center gap-8 ml-8",
             !isExpanded && "pointer-events-none"
           )}
         >
@@ -152,13 +175,21 @@ export function AnimatedNavigation() {
                 to={item.href}
                 onClick={(e) => e.stopPropagation()}
                 className={cn(
-                  "text-sm font-medium transition-all duration-300 px-3 py-1.5 rounded-lg font-body",
+                  "text-sm font-light transition-all duration-300 px-4 py-2 rounded-full",
+                  "tracking-wide font-body relative",
                   isActive(item.href)
-                    ? "text-unity-signature bg-unity-signature/20 shadow-unity-glow"
-                    : "text-unity-platinum/80 hover:text-unity-signature hover:bg-unity-platinum/10"
+                    ? "text-white bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/5"
                 )}
               >
                 {item.name}
+                {isActive(item.href) && (
+                  <motion.div
+                    layoutId="activeIndicator"
+                    className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
               </Link>
             </motion.div>
           ))}
@@ -169,7 +200,7 @@ export function AnimatedNavigation() {
             variants={collapsedIconVariants}
             animate={isExpanded ? "expanded" : "collapsed"}
           >
-            <Menu className="h-6 w-6 text-unity-signature" />
+            <Menu className="h-5 w-5 text-white" />
           </motion.div>
         </div>
       </motion.nav>
