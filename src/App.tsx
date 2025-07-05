@@ -10,6 +10,7 @@ import VehiclesList from "@/pages/VehiclesList";
 import VehicleDetails from "@/pages/VehicleDetails";
 import BookVehicle from "@/pages/BookVehicle";
 import BookingSuccess from "@/pages/BookingSuccess";
+import BookingProgress from "@/pages/BookingProgress";
 import Dashboard from "@/pages/Dashboard";
 import ComprehensiveDashboard from "@/pages/ComprehensiveDashboard";
 import Pricing from "@/pages/Pricing";
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/vehicles/:id" element={<VehicleDetails />} />
             <Route path="/book/:id" element={<BookVehicle />} />
             <Route path="/booking-success" element={<BookingSuccess />} />
+            <Route path="/booking-progress" element={<BookingProgress />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/comprehensive-dashboard" element={<ComprehensiveDashboard />} />
             <Route path="/vehicle-management" element={<VehicleManagement />} />

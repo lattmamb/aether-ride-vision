@@ -2,8 +2,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, BarChart3 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const ActionButtons: React.FC = () => {
   const navigate = useNavigate();
@@ -16,15 +17,21 @@ const ActionButtons: React.FC = () => {
         visible: { y: 0, opacity: 1 }
       }}
     >
+      <Button asChild className="bg-unity-purple hover:bg-unity-purple/90 text-white px-8 py-3">
+        <Link to="/booking-progress" className="flex items-center gap-2">
+          <BarChart3 className="w-5 h-5" />
+          Track Progress
+        </Link>
+      </Button>
       <Button 
         variant="outline" 
-        className="border-[#9b87f5]/30 hover:bg-[#9b87f5]/20 text-white"
+        className="border-unity-purple/30 hover:bg-unity-purple/20 text-white px-8 py-3"
         onClick={() => navigate('/dashboard')}
       >
         Go to Dashboard
       </Button>
       <Button 
-        className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+        className="bg-unity-signature hover:bg-unity-signature/90 text-white px-8 py-3"
         onClick={() => navigate('/')}
       >
         Back to Home <ArrowRight className="ml-2 h-4 w-4" />

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AnimatedNavigation } from '@/components/ui/animated-navigation';
+import UnityNavbar from '@/components/UnityNavbar';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/layout/PageTransition';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
@@ -26,23 +26,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-unity-midnight text-unity-platinum">
-        {/* Enhanced Navigation with accessibility improvements */}
-        {showNavbar && (
-          <AnimatePresence mode="wait">
-            {!isTransitioning && (
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <nav role="navigation" aria-label="Main navigation">
-                  <AnimatedNavigation />
-                </nav>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        )}
+        {/* Unity Navigation */}
+        {showNavbar && <UnityNavbar />}
         
         {/* Skip to main content link for accessibility */}
         <a 
