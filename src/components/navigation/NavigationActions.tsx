@@ -21,37 +21,37 @@ const NavigationActions: React.FC<NavigationActionsProps> = ({ onBookNow, isMobi
   if (isMobile) {
     return (
       <div className="flex flex-col gap-2 pt-2 border-t border-white/10 w-full">
-        <Link to="/chat" onClick={onItemClick}>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="w-full border-[#9b87f5]/30 text-white flex items-center gap-2"
-          >
-            <MessageSquare className="w-4 h-4" />
-            AI Assistant
-          </Button>
-        </Link>
-        <Link to="/dashboard" onClick={onItemClick}>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className={`w-full border-[#9b87f5]/30 flex items-center gap-2 ${
-              isActiveRoute('/dashboard') ? 'bg-[#9b87f5]/20 text-white' : 'text-white'
-            }`}
-          >
-            <User className="w-4 h-4" />
-            Dashboard
-          </Button>
-        </Link>
-        <Button 
-          className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+        <button 
+          onClick={() => {
+            onItemClick?.();
+            window.location.href = '/chat';
+          }}
+          className="w-full px-4 py-2 rounded-md border border-[#9b87f5]/30 text-white flex items-center gap-2 transition-colors"
+        >
+          <MessageSquare className="w-4 h-4" />
+          AI Assistant
+        </button>
+        <button 
+          onClick={() => {
+            onItemClick?.();
+            window.location.href = '/dashboard';
+          }}
+          className={`w-full px-4 py-2 rounded-md border border-[#9b87f5]/30 flex items-center gap-2 transition-colors ${
+            isActiveRoute('/dashboard') ? 'bg-[#9b87f5]/20 text-white' : 'text-white'
+          }`}
+        >
+          <User className="w-4 h-4" />
+          Dashboard
+        </button>
+        <button 
+          className="w-full px-4 py-2 rounded-md bg-[#9b87f5] hover:bg-[#7E69AB] text-white transition-colors"
           onClick={() => {
             onBookNow();
             onItemClick?.();
           }}
         >
           Book Now
-        </Button>
+        </button>
       </div>
     );
   }
@@ -59,32 +59,29 @@ const NavigationActions: React.FC<NavigationActionsProps> = ({ onBookNow, isMobi
   return (
     <div className="flex items-center gap-4">
       <Link to="/chat">
-        <NavbarButton 
-          variant="secondary" 
-          className="flex items-center gap-2 text-white/80 hover:text-white bg-transparent"
+        <button 
+          className="px-4 py-2 rounded-md text-white/80 hover:text-white bg-transparent transition-colors flex items-center gap-2"
         >
           <MessageSquare className="w-4 h-4" />
           AI Assistant
-        </NavbarButton>
+        </button>
       </Link>
       <Link to="/dashboard">
-        <NavbarButton 
-          variant="secondary"
-          className={`flex items-center gap-2 border-[#9b87f5]/30 hover:bg-[#9b87f5]/20 ${
-            isActiveRoute('/dashboard') ? 'bg-[#9b87f5]/20 text-white' : 'text-white/80'
+        <button 
+          className={`px-4 py-2 rounded-md border border-[#9b87f5]/30 hover:bg-[#9b87f5]/20 flex items-center gap-2 transition-colors ${
+            isActiveRoute('/dashboard') ? 'bg-[#9b87f5]/20 text-white' : 'text-white/80 hover:text-white'
           }`}
         >
           <User className="w-4 h-4" />
           Dashboard
-        </NavbarButton>
+        </button>
       </Link>
-      <NavbarButton 
-        variant="gradient"
-        className="bg-gradient-to-r from-[#9b87f5] to-[#7E69AB] text-white hover:from-[#7E69AB] hover:to-[#6E59A5]"
+      <button 
+        className="px-4 py-2 rounded-md bg-gradient-to-r from-[#9b87f5] to-[#7E69AB] text-white hover:from-[#7E69AB] hover:to-[#6E59A5] transition-all font-medium"
         onClick={onBookNow}
       >
         Book Now
-      </NavbarButton>
+      </button>
     </div>
   );
 };
