@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -62,76 +63,45 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-        // Unity Fleet Premium Brand Colors
-        unity: {
-          midnight: "#0B0F1A",
-          charcoal: "#1A1D26",
-          platinum: "#E8E9EA",
-          champagne: "#D4AF37",
-          signature: "#0A84FF",
-          teal: "#00D4FF",
-          purple: "#6B46C1",
-          'deep-purple': "#4C1D95",
-          gold: "#F59E0B",
-          carbon: "#111827"
-        },
-        // Enhanced Tesla colors with luxury variants
+        // Updated custom colors for our app
         tesla: {
           blue: "#0A84FF",
-          purple: "#6B46C1",
+          purple: "#9b87f5", // New primary brand color
           brightPurple: "#8B5CF6",
-          deepPurple: "#4C1D95",
+          deepPurple: "#6E59A5",
           red: "#FF3B30",
           green: "#34C759",
           dark: {
-            DEFAULT: "#0B0F1A",
-            50: "rgba(11, 15, 26, 0.5)",
-            80: "rgba(11, 15, 26, 0.8)",
+            DEFAULT: "#121212",
+            50: "rgba(18, 18, 18, 0.5)",
+            80: "rgba(18, 18, 18, 0.8)",
           }
         },
         glass: {
           DEFAULT: "rgba(255, 255, 255, 0.05)",
           border: "rgba(255, 255, 255, 0.1)",
           highlight: "rgba(255, 255, 255, 0.2)",
-          premium: "rgba(255, 255, 255, 0.15)",
-          luxury: "rgba(212, 175, 55, 0.1)"
         },
         brand: {
           purple: {
-            DEFAULT: "#6B46C1",
+            DEFAULT: "#9b87f5",
             light: "#D6BCFA",
-            dark: "#4C1D95",
-            deeper: "#3B0764"
+            dark: "#7E69AB",
+            deeper: "#6E59A5"
           },
           accent: {
-            blue: "#0A84FF",
-            teal: "#00D4FF",
+            blue: "#33C3F0",
             green: "#34C759",
-            orange: "#F59E0B",
-            pink: "#D946EF",
-            gold: "#D4AF37"
+            orange: "#F97316",
+            pink: "#D946EF"
           }
         }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)',
-        'luxury': '20px',
-        'premium': '24px'
+				sm: 'calc(var(--radius) - 4px)'
 			},
-      fontFamily: {
-        'display': ['Orbitron', 'SF Pro Display', 'system-ui', 'sans-serif'],
-        'body': ['Inter', 'SF Pro Text', 'system-ui', 'sans-serif'],
-        'accent': ['Playfair Display', 'Georgia', 'serif'],
-        'mono': ['JetBrains Mono', 'Monaco', 'Consolas', 'monospace']
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'tesla-gradient': 'linear-gradient(135deg, #000000 0%, #0B0F1A 50%, #1A1D26 100%)',
-        'tesla-accent': 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
-      },
 			keyframes: {
 				'accordion-down': {
 					from: { height: '0' },
@@ -187,50 +157,6 @@ export default {
             opacity: '1',
             transform: 'scale(1)'
           }
-        },
-        // Tesla-inspired animations
-        'tesla-scroll': {
-          '0%': { transform: 'translateY(0)' },
-          '100%': { transform: 'translateY(-10px)' }
-        },
-        'tesla-glow': {
-          '0%, 100%': { 
-            boxShadow: '0 0 20px rgba(255, 255, 255, 0.1)' 
-          },
-          '50%': { 
-            boxShadow: '0 0 40px rgba(255, 255, 255, 0.2)' 
-          }
-        },
-        'spin-slow': {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' }
-        },
-        // Unity Fleet Premium Animations
-        'unity-glow-pulse': {
-          '0%, 100%': {
-            boxShadow: '0 0 20px rgba(107, 70, 193, 0.3)'
-          },
-          '50%': {
-            boxShadow: '0 0 40px rgba(107, 70, 193, 0.6)'
-          }
-        },
-        'unity-slide-luxury': {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(30px)'
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0)'
-          }
-        },
-        'unity-shimmer': {
-          '0%': { backgroundPosition: '-200% 0' },
-          '100%': { backgroundPosition: '200% 0' }
-        },
-        'unity-rotate-slow': {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' }
         }
 			},
 			animation: {
@@ -241,40 +167,12 @@ export default {
         'shine': 'shine 8s linear infinite',
         'gradient-flow': 'gradient-flow 8s ease infinite',
         'fade-in-up': 'fade-in-up 0.5s ease-out',
-        'scale-in': 'scale-in 0.3s ease-out',
-        // Tesla-inspired animations
-        'tesla-scroll': 'tesla-scroll 2s ease-in-out infinite alternate',
-        'tesla-glow': 'tesla-glow 3s ease-in-out infinite',
-        'spin-slow': 'spin-slow 20s linear infinite',
-        // Unity Fleet Premium Animations
-        'unity-glow': 'unity-glow-pulse 2s ease-in-out infinite',
-        'unity-slide': 'unity-slide-luxury 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-        'unity-shimmer': 'unity-shimmer 2s ease-in-out infinite',
-        'unity-rotate': 'unity-rotate-slow 20s linear infinite'
+        'scale-in': 'scale-in 0.3s ease-out'
 			},
       boxShadow: {
-        'inner-glow': 'inset 0 0 20px 0 rgba(107, 70, 193, 0.15)',
-        'card-hover': '0 8px 30px rgba(107, 70, 193, 0.2)',
-        'purple-glow': '0 0 20px rgba(107, 70, 193, 0.4)',
-        'tesla-glow': '0 0 30px rgba(255, 255, 255, 0.1)',
-        'tesla-card': '0 8px 32px rgba(0, 0, 0, 0.3)',
-        'unity-premium': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-        'unity-glow': '0 0 30px rgba(107, 70, 193, 0.3)',
-        'unity-luxury': '0 20px 40px rgba(212, 175, 55, 0.2)',
-        'unity-glass': '0 8px 32px rgba(0, 0, 0, 0.12)'
-      },
-      backdropBlur: {
-        'unity': '20px',
-        'luxury': '24px'
-      },
-      letterSpacing: {
-        'tighter': '-0.05em',
-        'tight': '-0.025em',
-        'normal': '0em',
-        'wide': '0.025em',
-        'wider': '0.05em',
-        'widest': '0.1em',
-        'tesla': '-0.02em'
+        'inner-glow': 'inset 0 0 20px 0 rgba(155, 135, 245, 0.15)',
+        'card-hover': '0 8px 30px rgba(155, 135, 245, 0.2)',
+        'purple-glow': '0 0 20px rgba(155, 135, 245, 0.4)'
       }
 		}
 	},

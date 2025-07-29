@@ -5,7 +5,7 @@ export const vehicles: Vehicle[] = [
     id: 'model-s',
     model: 'Model S',
     type: 'sedan',
-    image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png',
+    image: '/lovable-uploads/011215ed-22f9-4462-8492-3cdff3c58719.png',
     price: 249,
     priceUnit: '/mo',
     tagline: 'Premium electric sedan with incredible range',
@@ -23,87 +23,13 @@ export const vehicles: Vehicle[] = [
     },
     available: true,
     colors: ['#FFFFFF', '#000000', '#C0C0C0', '#FF0000', '#0000FF'],
-    colorImages: {
-      '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png',
-      '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Pearl-White.png',
-      '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Midnight-Silver.png',
-      '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Red-Multi-Coat.png',
-      '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Deep-Blue.png'
-    },
-    angleImages: {
-      0: {
-        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Main-Hero-Desktop-LHD.png',
-        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Pearl-White.png',
-        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Midnight-Silver.png',
-        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Red-Multi-Coat.png',
-        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Hero-Desktop-Deep-Blue.png'
-      },
-      45: {
-        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-White.png',
-        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Black.png',
-        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Silver.png',
-        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Red.png',
-        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Blue.png'
-      },
-      90: {
-        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-White.png',
-        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Black.png',
-        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Silver.png',
-        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Red.png',
-        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Blue.png'
-      },
-      135: {
-        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-White.png',
-        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Black.png',
-        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Silver.png',
-        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Red.png',
-        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Blue.png'
-      },
-      180: {
-        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-White.png',
-        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-Black.png',
-        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-Silver.png',
-        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-Red.png',
-        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-View-Blue.png'
-      },
-      225: {
-        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-White.png',
-        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Black.png',
-        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Silver.png',
-        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Red.png',
-        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Rear-Side-Blue.png'
-      },
-      270: {
-        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-White.png',
-        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Black.png',
-        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Silver.png',
-        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Red.png',
-        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Profile-View-Blue.png'
-      },
-      315: {
-        '#FFFFFF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-White.png',
-        '#000000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Black.png',
-        '#C0C0C0': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Silver.png',
-        '#FF0000': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Red.png',
-        '#0000FF': 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Side-View-Blue.png'
-      }
-    },
-    interiorImages: {
-      0: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Dashboard.png',
-      45: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Side.png',
-      90: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Profile.png',
-      135: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Rear.png',
-      180: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Back.png',
-      225: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Rear.png',
-      270: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Profile.png',
-      315: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Interior-Side.png'
-    }
+    colorImages: {}
   },
   {
     id: 'model-3',
     model: 'Model 3',
     type: 'sedan',
-    image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&h=600&fit=crop',
+    image: '/lovable-uploads/7d31401b-90e8-420a-ac1a-0553b705632e.png',
     price: 189,
     priceUnit: '/mo',
     tagline: 'Affordable electric sedan with amazing value',
@@ -122,16 +48,16 @@ export const vehicles: Vehicle[] = [
     available: true,
     colors: ['#FFFFFF', '#FF0000', '#0000FF'],
     colorImages: {
-      '#FFFFFF': 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&h=600&fit=crop',
-      '#FF0000': 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=600&fit=crop',
-      '#0000FF': 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=600&fit=crop'
+      '#FFFFFF': '/lovable-uploads/47d60302-d1d8-4ed9-8a86-587ee94631b8.png',
+      '#FF0000': '/lovable-uploads/7d31401b-90e8-420a-ac1a-0553b705632e.png',
+      '#0000FF': '/lovable-uploads/69f7e81d-c631-418d-b38c-f1eedf3c0f12.png',
     }
   },
   {
     id: 'model-x',
     model: 'Model X',
     type: 'suv',
-    image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&h=600&fit=crop',
+    image: '/lovable-uploads/87310600-2a51-4edd-a0b3-4ae26fc44398.png',
     price: 299,
     priceUnit: '/mo',
     tagline: 'Premium SUV with falcon wing doors',
@@ -148,19 +74,13 @@ export const vehicles: Vehicle[] = [
       acceleration: 3.8,
     },
     available: true,
-    colors: ['#FFFFFF', '#000000', '#C0C0C0', '#0000FF'],
-    colorImages: {
-      '#FFFFFF': 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&h=600&fit=crop',
-      '#000000': 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop',
-      '#C0C0C0': 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop',
-      '#0000FF': 'https://images.unsplash.com/photo-1599912027611-404295ca7727?w=800&h=600&fit=crop'
-    }
+    colors: ['#FFFFFF', '#000000', '#C0C0C0', '#0000FF']
   },
   {
     id: 'model-y',
     model: 'Model Y',
     type: 'suv',
-    image: 'https://images.unsplash.com/photo-1599912027611-404295ca7727?w=800&h=600&fit=crop',
+    image: '/lovable-uploads/e42401ea-2fd0-4cf6-aeda-6103d873b447.png',
     price: 199,
     priceUnit: '/mo',
     tagline: 'Versatile electric crossover SUV',
@@ -177,19 +97,13 @@ export const vehicles: Vehicle[] = [
       acceleration: 4.8,
     },
     available: true,
-    colors: ['#FFFFFF', '#000000', '#C0C0C0', '#FF0000'],
-    colorImages: {
-      '#FFFFFF': 'https://images.unsplash.com/photo-1599912027611-404295ca7727?w=800&h=600&fit=crop',
-      '#000000': 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop',
-      '#C0C0C0': 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop',
-      '#FF0000': 'https://images.unsplash.com/photo-1617886903355-9354bb57751f?w=800&h=600&fit=crop'
-    }
+    colors: ['#FFFFFF', '#000000', '#C0C0C0', '#FF0000']
   },
   {
     id: 'cybertruck',
     model: 'Cybertruck',
     type: 'truck',
-    image: 'https://images.unsplash.com/photo-1609258521614-c7dac3da4ad7?w=800&h=600&fit=crop',
+    image: '/lovable-uploads/02bed47b-1f8e-4f76-96e0-fe121baef92e.png',
     price: 349,
     priceUnit: '/mo',
     tagline: 'Futuristic electric pickup truck',
@@ -206,10 +120,7 @@ export const vehicles: Vehicle[] = [
       acceleration: 2.9,
     },
     available: true,
-    colors: ['#C0C0C0'],
-    colorImages: {
-      '#C0C0C0': 'https://images.unsplash.com/photo-1609258521614-c7dac3da4ad7?w=800&h=600&fit=crop'
-    }
+    colors: ['#C0C0C0']
   }
 ];
 

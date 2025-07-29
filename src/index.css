@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap');
-@import './styles/brand-identity.css';
-@import './styles/enhanced-polish.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,265 +25,90 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
     --radius: 0.75rem;
-
-    /* Enhanced Grok AI Gradient System with Unity Fleet Branding */
-    --gradient-primary: linear-gradient(135deg, #6B46C1 0%, #0A84FF 50%, #00D4FF 100%);
-    --gradient-secondary: linear-gradient(135deg, #00D4FF 0%, #6B46C1 50%, #D946EF 100%);
-    --gradient-luxury: linear-gradient(135deg, #D4AF37 0%, #F59E0B 50%, #EF4444 100%);
-    --gradient-accent: linear-gradient(135deg, #34C759 0%, #00D4FF 50%, #6B46C1 100%);
-    --gradient-border: linear-gradient(135deg, rgba(107, 70, 193, 0.3) 0%, rgba(10, 132, 255, 0.3) 50%, rgba(0, 212, 255, 0.3) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-    --gradient-mesh: radial-gradient(circle at 20% 80%, rgba(107, 70, 193, 0.08) 0%, transparent 50%),
-                     radial-gradient(circle at 80% 20%, rgba(10, 132, 255, 0.08) 0%, transparent 50%),
-                     radial-gradient(circle at 40% 40%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
-
-    /* Button Ripple Colors */
-    --button-ripple-color: rgba(107, 70, 193, 0.3);
   }
 }
 
 @layer base {
   * {
-    @apply border-border selection:bg-unity-purple/20 selection:text-white;
+    @apply border-border selection:bg-[#9b87f5]/20 selection:text-white;
   }
   
   body {
-    @apply bg-unity-midnight text-foreground antialiased overflow-x-hidden;
-    font-family: 'Inter', 'SF Pro Text', system-ui, sans-serif;
-    background: 
-      var(--gradient-mesh),
-      radial-gradient(circle at 50% 0%, #1a1d26 0%, #0b0f1a 100%);
-    animation: mesh-flow 30s ease-in-out infinite;
+    @apply bg-black text-foreground antialiased overflow-x-hidden font-sans;
+    background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #0a0a0a 100%);
   }
 
   html {
     @apply scroll-smooth;
   }
 
-  /* Ripple Button Animation Keyframes */
-  .animate-js-ripple-effect {
-    animation: js-ripple-animation var(--ripple-duration, 600ms) ease-out forwards;
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-tesla-dark;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#9b87f5]/50 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#9b87f5]/80;
   }
 }
 
 @layer utilities {
-  /* Enhanced Glass Effects with Unity Fleet Branding */
   .glass-card {
-    @apply backdrop-blur-unity bg-glass-premium border rounded-luxury shadow-unity-glass relative overflow-hidden;
-    border: 1px solid transparent;
-    background: var(--gradient-glass), rgba(255, 255, 255, 0.05);
-    background-clip: padding-box;
-  }
-  
-  .glass-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    background: var(--gradient-border);
-    border-radius: inherit;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    pointer-events: none;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
-  }
-
-  .glass-card:hover::before {
-    opacity: 1;
-    animation: border-flow 3s ease-in-out infinite;
+    @apply backdrop-blur-lg bg-glass border border-glass-border rounded-2xl shadow-[0_8px_32px_rgba(0,10,30,0.12)];
   }
   
   .glass-effect {
-    @apply backdrop-blur-md border rounded-xl;
-    background: var(--gradient-glass);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply backdrop-blur-md bg-glass/30 border border-glass-border;
   }
 
-  /* Unity Fleet Premium Gradient Utilities */
-  .gradient-bg-primary {
-    background: var(--gradient-primary);
-  }
-
-  .gradient-bg-secondary {
-    background: var(--gradient-secondary);
-  }
-
-  .gradient-bg-luxury {
-    background: var(--gradient-luxury);
-  }
-
-  .gradient-border {
-    border: 1px solid transparent;
-    background: var(--gradient-border) border-box;
-    background-clip: border-box;
-  }
-
-  .gradient-border-animated {
-    position: relative;
-    border: 1px solid transparent;
-  }
-
-  .gradient-border-animated::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    background: var(--gradient-border);
-    border-radius: inherit;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    animation: border-flow 3s ease-in-out infinite;
-  }
-
-  /* Enhanced Text Effects with Unity Fleet Typography */
   .text-glow {
-    @apply text-white;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(107, 70, 193, 0.3);
+    @apply text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)];
   }
   
   .purple-glow {
-    box-shadow: 
-      0 0 20px rgba(107, 70, 193, 0.3),
-      0 0 40px rgba(107, 70, 193, 0.2),
-      0 0 60px rgba(107, 70, 193, 0.1);
+    @apply shadow-[0_0_15px_rgba(155,135,245,0.5)];
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-white via-unity-platinum to-white/70 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent;
   }
   
   .gradient-purple-text {
-    background: var(--gradient-primary);
-    @apply bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#9b87f5] via-[#7E69AB] to-[#6E59A5] bg-clip-text text-transparent;
   }
 
-  .gradient-luxury-text {
-    background: var(--gradient-luxury);
-    @apply bg-clip-text text-transparent;
+  .shine-effect {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background-size: 200% auto;
+    @apply animate-shine;
   }
-
-  .gradient-accent-text {
-    background: var(--gradient-secondary);
-    @apply bg-clip-text text-transparent;
+  
+  /* New utility classes for consistent styling */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.2)] hover:border-[#9b87f5]/20;
   }
-
-  /* Unity Fleet Premium Interactive Elements */
-  .interactive-card {
-    @apply transition-all duration-500 ease-out cursor-pointer;
-    transform-style: preserve-3d;
+  
+  .button-glow {
+    @apply relative overflow-hidden;
   }
-
-  .interactive-card:hover {
-    transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
-    box-shadow: 
-      0 20px 40px rgba(107, 70, 193, 0.2),
-      0 40px 80px rgba(10, 132, 255, 0.1);
+  
+  .button-glow:after {
+    @apply content-[''] absolute top-0 left-0 w-full h-full bg-white/10 transform scale-x-0 origin-bottom-left transition-transform duration-500;
   }
-
-  /* Unity Fleet Premium Animations */
-  .floating {
-    animation: float 6s ease-in-out infinite;
+  
+  .button-glow:hover:after {
+    @apply scale-x-100;
   }
-
-  .floating-delayed {
-    animation: float 6s ease-in-out infinite 2s;
-  }
-
-  .floating-slow {
-    animation: float 8s ease-in-out infinite 1s;
-  }
-
-  .unity-glow-pulse {
-    animation: unity-glow-pulse 2s ease-in-out infinite;
-  }
-
-  .unity-slide-luxury {
-    animation: unity-slide-luxury 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .unity-shimmer {
-    animation: unity-shimmer 2s ease-in-out infinite;
-  }
-
-  /* Unity Fleet Button Ripple Effects */
-  .unity-ripple {
-    --button-ripple-color: rgba(107, 70, 193, 0.3);
-  }
-
-  .unity-ripple-gold {
-    --button-ripple-color: rgba(212, 175, 55, 0.3);
-  }
-
-  .unity-ripple-teal {
-    --button-ripple-color: rgba(10, 132, 255, 0.3);
-  }
-}
-
-/* Enhanced animations */
-@keyframes mesh-flow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes border-flow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-@keyframes unity-glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(107, 70, 193, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(107, 70, 193, 0.6);
-  }
-}
-
-@keyframes unity-slide-luxury {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes unity-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes js-ripple-animation {
-  0% { 
-    transform: scale(0); 
-    opacity: 1; 
-  }
-  100% { 
-    transform: scale(1); 
-    opacity: 0; 
+  
+  .text-balance {
+    text-wrap: balance;
   }
 }

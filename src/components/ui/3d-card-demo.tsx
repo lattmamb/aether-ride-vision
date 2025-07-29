@@ -11,7 +11,7 @@ export default function ThreeDCardDemo() {
           translateZ="50"
           className="text-xl font-bold text-white"
         >
-          Experience Tesla Model S
+          Experience Electric Vehicles
         </CardItem>
         <CardItem
           as="p"
@@ -21,11 +21,11 @@ export default function ThreeDCardDemo() {
           Hover over this card to unleash the power of 3D perspective
         </CardItem>
         <CardItem translateZ="100" className="w-full mt-4">
-          <img
-            src="/lovable-uploads/011215ed-22f9-4462-8492-3cdff3c58719.png"
-            className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-            alt="Tesla Model S"
-          />
+          <div className="h-60 w-full flex items-center justify-center rounded-xl group-hover/card:shadow-xl bg-glass-highlight/20">
+            <div className="text-white/50 text-lg">
+              [Vehicle Image]
+            </div>
+          </div>
         </CardItem>
         <div className="flex justify-between items-center mt-20">
           <CardItem
