@@ -1,7 +1,4 @@
-
-import React, { useRef, useEffect } from 'react';
-import * as THREE from 'three';
-import ThreeGlobe from 'three-globe';
+import React from 'react';
 
 interface WorldProps {
   data: any[];
@@ -30,159 +27,31 @@ interface WorldProps {
 }
 
 export const World: React.FC<WorldProps> = ({ data, globeConfig }) => {
-  const globeEl = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!globeEl.current) return;
-
-    let myGlobe: any;
-
-    // Initialize ThreeGlobe
-    try {
-      myGlobe = new ThreeGlobe({
-        waitForGlobeReady: true,
-        animateIn: true,
-      })
-        .globeImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-night.jpg')
-        .bumpImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-topology.png')
-        .arcsData(data)
-        .arcStartLat((d: any) => d.startLat)
-        .arcStartLng((d: any) => d.startLng)
-        .arcEndLat((d: any) => d.endLat)
-        .arcEndLng((d: any) => d.endLng)
-        .arcColor((d: any) => d.color)
-        .arcDashLength(globeConfig.arcLength)
-        .arcDashGap(0.5)
-        .arcDashInitialGap(() => Math.random())
-        .arcDashAnimateTime(globeConfig.arcTime)
-        .arcStroke(0.5)
-        .arcAltitude((d: any) => {
-          return d.arcAlt;
-        });
-
-      // Apply atmosphere if supported
-      if (typeof myGlobe.atmosphereColor === 'function') {
-        myGlobe.atmosphereColor(globeConfig.atmosphereColor);
-        myGlobe.atmosphereAltitude(globeConfig.atmosphereAltitude);
-      }
-    } catch (error) {
-      console.error("Failed to initialize ThreeGlobe:", error);
-      return;
-    }
-
-    // Setup scene
-    const scene = new THREE.Scene();
-    scene.add(myGlobe);
-    scene.background = new THREE.Color(globeConfig.globeColor);
-
-    const camera = new THREE.PerspectiveCamera();
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.position.z = 400;
-    camera.far = 1000;
-    camera.updateProjectionMatrix();
-
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    if (globeEl.current) {
-      globeEl.current.appendChild(renderer.domElement);
-    }
-
-    // Render loop
-    (function animate() {
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    })();
-
-    // Handle window resize
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (globeEl.current && renderer.domElement) {
-        globeEl.current.removeChild(renderer.domElement);
-      }
-    };
-  }, [data, globeConfig]);
-
-  return <div ref={globeEl} className="w-full h-full" />;
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-purple-900 via-blue-900 to-black rounded-lg flex items-center justify-center">
+      <div className="text-white text-center">
+        <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+          <div className="text-4xl">🌍</div>
+        </div>
+        <p className="text-lg font-semibold">Interactive Globe</p>
+        <p className="text-sm opacity-80">Global vehicle tracking coming soon</p>
+      </div>
+    </div>
+  );
 };
 
 const Globe = () => {
-  const globeEl = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!globeEl.current) return;
-
-    let myGlobe: any;
-
-    // Initialize ThreeGlobe
-    try {
-      myGlobe = new ThreeGlobe({
-        waitForGlobeReady: true,
-        animateIn: true,
-      })
-        .globeImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-night.jpg')
-        .bumpImageUrl('//unpkg.com/three-globe@2.28.0/example/img/earth-topology.png');
-
-      // Apply atmosphere if supported
-      if (typeof myGlobe.atmosphereColor === 'function') {
-        myGlobe.atmosphereColor('#3a228a');
-        myGlobe.atmosphereAltitude(0.85);
-      }
-    } catch (error) {
-      console.error("Failed to initialize ThreeGlobe:", error);
-      return;
-    }
-
-    // Setup scene
-    const scene = new THREE.Scene();
-    scene.add(myGlobe);
-    scene.background = new THREE.Color('#040d21');
-
-    const camera = new THREE.PerspectiveCamera();
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.position.z = 400;
-    camera.far = 1000;
-    camera.updateProjectionMatrix();
-
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    if (globeEl.current) {
-      globeEl.current.appendChild(renderer.domElement);
-    }
-
-    // Render loop
-    (function animate() {
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    })();
-
-    // Handle window resize
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (globeEl.current && renderer.domElement) {
-        globeEl.current.removeChild(renderer.domElement);
-      }
-    };
-  }, []);
-
-  return <div ref={globeEl} className="w-full h-full" />;
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-purple-900 via-blue-900 to-black rounded-lg flex items-center justify-center">
+      <div className="text-white text-center">
+        <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+          <div className="text-4xl">🌍</div>
+        </div>
+        <p className="text-lg font-semibold">Interactive Globe</p>
+        <p className="text-sm opacity-80">Global vehicle tracking coming soon</p>
+      </div>
+    </div>
+  );
 };
 
 export default Globe;
