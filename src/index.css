@@ -5,26 +5,52 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    /* Dark Professional Theme */
+    --background: 218 23% 8%;
+    --foreground: 210 40% 98%;
+    --card: 220 13% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 220 13% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217 19% 15%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 13.8% 15%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 217 19% 18%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 19% 18%;
+    --input: 217 19% 15%;
+    --ring: 224.3 76.3% 48%;
     --radius: 0.75rem;
+    
+    /* Dashboard Design System */
+    --sidebar-background: 220 20% 6%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-border: 217 19% 12%;
+    --sidebar-accent: 217 91% 60%;
+    --sidebar-accent-muted: 217 50% 35%;
+    
+    /* Card system */
+    --card-dark: 220 15% 9%;
+    --card-light: 220 13% 11%;
+    --card-border: 217 19% 16%;
+    --card-glow: 217 91% 60%;
+    
+    /* Status colors */
+    --status-success: 142 71% 45%;
+    --status-warning: 38 92% 50%;
+    --status-error: 0 84% 60%;
+    --status-info: 217 91% 60%;
+    
+    /* Interactive elements */
+    --interactive-hover: 217 19% 20%;
+    --interactive-active: 217 91% 60%;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -34,8 +60,8 @@
   }
   
   body {
-    @apply bg-black text-foreground antialiased overflow-x-hidden font-sans;
-    background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #0a0a0a 100%);
+    @apply bg-[#0a0b0d] text-foreground antialiased overflow-x-hidden font-sans;
+    background: linear-gradient(135deg, #0a0b0d 0%, #0d1117 50%, #0a0b0d 100%);
   }
 
   html {
@@ -61,12 +87,95 @@
 }
 
 @layer utilities {
+  /* Professional Dashboard Cards */
+  .dashboard-card {
+    @apply bg-card border border-card-border rounded-xl shadow-lg backdrop-blur-sm;
+    background: linear-gradient(135deg, hsl(var(--card-dark)) 0%, hsl(var(--card-light)) 100%);
+    border: 1px solid hsl(var(--card-border));
+  }
+  
+  .dashboard-card-hover {
+    @apply transition-all duration-300 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] hover:border-primary/30;
+  }
+  
+  .dashboard-sidebar {
+    @apply bg-[hsl(var(--sidebar-background))] border-r border-[hsl(var(--sidebar-border))];
+  }
+  
+  .dashboard-nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200;
+  }
+  
+  .dashboard-nav-item:hover {
+    @apply bg-[hsl(var(--interactive-hover))];
+  }
+  
+  .dashboard-nav-item.active {
+    @apply bg-primary/10 text-primary border-l-2 border-primary;
+  }
+  
+  /* Status indicators */
+  .status-indicator {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .status-success {
+    @apply bg-[hsl(var(--status-success))]/10 text-[hsl(var(--status-success))] border border-[hsl(var(--status-success))]/20;
+  }
+  
+  .status-warning {
+    @apply bg-[hsl(var(--status-warning))]/10 text-[hsl(var(--status-warning))] border border-[hsl(var(--status-warning))]/20;
+  }
+  
+  .status-error {
+    @apply bg-[hsl(var(--status-error))]/10 text-[hsl(var(--status-error))] border border-[hsl(var(--status-error))]/20;
+  }
+  
+  .status-info {
+    @apply bg-primary/10 text-primary border border-primary/20;
+  }
+  
+  /* Interactive elements */
+  .glass-panel {
+    @apply bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-md rounded-lg;
+  }
+  
+  .metric-card {
+    @apply dashboard-card p-4 space-y-2;
+  }
+  
+  .metric-value {
+    @apply text-2xl font-bold text-foreground;
+  }
+  
+  .metric-label {
+    @apply text-sm text-muted-foreground;
+  }
+  
+  .metric-trend {
+    @apply flex items-center gap-1 text-xs;
+  }
+  
+  /* Progressive disclosure patterns */
+  .expandable-section {
+    @apply border border-card-border rounded-lg overflow-hidden transition-all duration-300;
+  }
+  
+  .section-header {
+    @apply flex items-center justify-between p-4 bg-card/50 border-b border-card-border cursor-pointer;
+  }
+  
+  .section-content {
+    @apply p-4 bg-card;
+  }
+
+  /* Legacy glass utilities for backward compatibility */
   .glass-card {
-    @apply backdrop-blur-lg bg-glass border border-glass-border rounded-2xl shadow-[0_8px_32px_rgba(0,10,30,0.12)];
+    @apply dashboard-card;
   }
   
   .glass-effect {
-    @apply backdrop-blur-md bg-glass/30 border border-glass-border;
+    @apply glass-panel;
   }
 
   .text-glow {
@@ -74,7 +183,7 @@
   }
   
   .purple-glow {
-    @apply shadow-[0_0_15px_rgba(155,135,245,0.5)];
+    @apply shadow-[0_0_15px_rgba(59,130,246,0.5)];
   }
 
   .gradient-text {
@@ -82,7 +191,7 @@
   }
   
   .gradient-purple-text {
-    @apply bg-gradient-to-r from-[#9b87f5] via-[#7E69AB] to-[#6E59A5] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent;
   }
 
   .shine-effect {
@@ -93,7 +202,7 @@
   
   /* New utility classes for consistent styling */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.2)] hover:border-[#9b87f5]/20;
+    @apply dashboard-card-hover;
   }
   
   .button-glow {
