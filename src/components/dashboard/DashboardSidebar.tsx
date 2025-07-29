@@ -5,29 +5,31 @@ import {
   Car, 
   Calendar, 
   MapPin, 
-  CreditCard, 
   Settings, 
   HelpCircle,
   User,
   Bell,
-  Zap
+  BarChart3,
+  Users,
+  Wrench
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'My Vehicles', href: '/vehicles', icon: Car },
-  { name: 'Reservations', href: '/booking-progress', icon: Calendar },
-  { name: 'Locations', href: '/locations', icon: MapPin },
-  { name: 'Charging', href: '/charging', icon: Zap },
-  { name: 'Billing', href: '/billing', icon: CreditCard },
+  { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'Fleet Management', href: '/dashboard/fleet', icon: Car },
+  { name: 'Reservations', href: '/dashboard/reservations', icon: Calendar },
+  { name: 'User Management', href: '/dashboard/users', icon: Users },
+  { name: 'Analytics & Reports', href: '/dashboard/analytics', icon: BarChart3 },
+  { name: 'Locations & Stations', href: '/dashboard/locations', icon: MapPin },
+  { name: 'Maintenance', href: '/dashboard/maintenance', icon: Wrench },
 ];
 
 const secondaryNavigation = [
-  { name: 'Profile', href: '/profile', icon: User },
-  { name: 'Notifications', href: '/notifications', icon: Bell },
-  { name: 'Settings', href: '/settings', icon: Settings },
-  { name: 'Help & Support', href: '/help', icon: HelpCircle },
+  { name: 'Profile Settings', href: '/dashboard/profile', icon: User },
+  { name: 'Notifications', href: '/dashboard/notifications', icon: Bell },
+  { name: 'System Settings', href: '/dashboard/settings', icon: Settings },
+  { name: 'Help & Support', href: '/dashboard/help', icon: HelpCircle },
 ];
 
 interface DashboardSidebarProps {
@@ -59,8 +61,8 @@ export default function DashboardSidebar({ collapsed = false }: DashboardSidebar
           </div>
           {!collapsed && (
             <div>
-              <h2 className="font-bold text-lg">Aether Fleet</h2>
-              <p className="text-xs text-muted-foreground">Premium Electric</p>
+              <h2 className="font-bold text-lg">Fleet Manager</h2>
+              <p className="text-xs text-muted-foreground">Admin Dashboard</p>
             </div>
           )}
         </div>
@@ -74,8 +76,8 @@ export default function DashboardSidebar({ collapsed = false }: DashboardSidebar
           </div>
           {!collapsed && (
             <div className="flex-1 min-w-0">
-              <p className="font-medium text-sm truncate">Alexander Green</p>
-              <p className="text-xs text-muted-foreground truncate">Premium Member</p>
+              <p className="font-medium text-sm truncate">Fleet Administrator</p>
+              <p className="text-xs text-muted-foreground truncate">System Manager</p>
             </div>
           )}
         </div>
@@ -139,9 +141,9 @@ export default function DashboardSidebar({ collapsed = false }: DashboardSidebar
         <div className="glass-panel p-3 text-center">
           {!collapsed ? (
             <>
-              <div className="text-xs text-muted-foreground mb-1">Active Plan</div>
-              <div className="text-sm font-medium text-primary">Premium 6-Month</div>
-              <div className="text-xs text-muted-foreground">18 days remaining</div>
+              <div className="text-xs text-muted-foreground mb-1">System Status</div>
+              <div className="text-sm font-medium text-green-500">All Systems Online</div>
+              <div className="text-xs text-muted-foreground">76 vehicles active</div>
             </>
           ) : (
             <div className="w-2 h-2 bg-primary rounded-full mx-auto"></div>

@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import DashboardPro from "./pages/DashboardPro";
+import DashboardOverview from "./pages/DashboardOverview";
 import DashboardLayout from "./layouts/DashboardLayout";
 import VehicleDetails from "./pages/VehicleDetails";
 import VehiclesList from "./pages/VehiclesList";
@@ -31,9 +32,14 @@ const App = () => (
           <Route path="/" element={<Index />} />
           
           {/* Dashboard Routes with Sidebar Layout */}
-          <Route path="/dashboard/*" element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="pro" element={<DashboardPro />} />
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<DashboardOverview />} />
+            <Route path="fleet" element={<DashboardPro />} />
+            <Route path="reservations" element={<DashboardPro />} />
+            <Route path="users" element={<DashboardPro />} />
+            <Route path="analytics" element={<DashboardPro />} />
+            <Route path="locations" element={<DashboardPro />} />
+            <Route path="maintenance" element={<DashboardPro />} />
           </Route>
           
           {/* Regular Routes */}
