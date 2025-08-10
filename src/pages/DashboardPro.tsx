@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { useSEO } from '@/hooks/useSEO';
 import { 
   Car, 
   MapPin, 
@@ -21,6 +22,7 @@ import {
 } from 'lucide-react';
 
 export default function DashboardPro() {
+  useSEO({ title: 'Damage Assessment | Unity Fleet', description: 'Vehicle inspection and cost analysis.' });
   return (
     <div className="p-6 space-y-6">
       {/* Page Header */}
@@ -72,14 +74,14 @@ export default function DashboardPro() {
               </div>
               
               {/* Review Time */}
-              <div className="metric-card bg-orange-500/5 border-orange-500/20">
-                <div className="metric-value text-orange-500">2 weeks</div>
+              <div className="metric-card bg-brand-accent-orange/5 border-brand-accent-orange/20">
+                <div className="metric-value text-brand-accent-orange">2 weeks</div>
                 <div className="metric-label">for review</div>
               </div>
               
               {/* Damaged Parts */}
-              <div className="metric-card bg-red-500/5 border-red-500/20">
-                <div className="metric-value text-red-500">4 parts</div>
+              <div className="metric-card bg-destructive/5 border-destructive/20">
+                <div className="metric-value text-destructive">4 parts</div>
                 <div className="metric-label">damaged</div>
               </div>
             </div>
