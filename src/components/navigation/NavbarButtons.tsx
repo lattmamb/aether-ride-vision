@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
+import AppSwitcher from "@/components/navigation/AppSwitcher";
 import { Button } from "@/components/ui/button";
 import { User, Search } from "lucide-react";
 import { motion } from "framer-motion";
@@ -28,7 +28,7 @@ const NavbarButtons: React.FC<NavbarButtonsProps> = ({
         <Button 
           variant="ghost" 
           size="icon"
-          className={`text-white/90 hover:text-white hover:bg-white/10 ${searchOpen ? 'bg-white/10' : ''}`}
+          className={`text-foreground/80 hover:text-foreground hover:bg-foreground/10 ${searchOpen ? 'bg-foreground/10' : ''}`}
           onClick={toggleSearch}
         >
           <Search className="h-5 w-5" />
@@ -40,16 +40,7 @@ const NavbarButtons: React.FC<NavbarButtonsProps> = ({
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.4 }}
       >
-        <Link to="/dashboard">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className={`border-[#9b87f5]/30 hover:bg-[#9b87f5]/20 ${isActiveRoute('/dashboard') ? 'bg-[#9b87f5]/20' : ''}`}
-          >
-            <User className="w-4 h-4 mr-2" />
-            Dashboard
-          </Button>
-        </Link>
+        <AppSwitcher />
       </motion.div>
 
       <motion.div
@@ -60,7 +51,6 @@ const NavbarButtons: React.FC<NavbarButtonsProps> = ({
         whileTap={{ scale: 0.95 }}
       >
         <Button 
-          className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
           onClick={handleBookNow}
         >
           Book Now

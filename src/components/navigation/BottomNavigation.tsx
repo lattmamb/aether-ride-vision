@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, CarFront, PiggyBank, MapPin, Menu } from 'lucide-react';
+import { Home, CarFront, PiggyBank, MapPin, LayoutDashboard } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const BottomNavigation: React.FC = () => {
@@ -12,7 +12,7 @@ const BottomNavigation: React.FC = () => {
     { path: '/vehicles', label: 'Vehicles', icon: CarFront },
     { path: '/pricing', label: 'Pricing', icon: PiggyBank },
     { path: '/locations', label: 'Locations', icon: MapPin },
-    { path: '/menu', label: 'Menu', icon: Menu },
+    { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   ];
 
   const isActive = (path: string) => {
@@ -24,7 +24,7 @@ const BottomNavigation: React.FC = () => {
 
   return (
     <motion.div 
-      className="fixed bottom-0 left-0 right-0 md:hidden bg-black/80 backdrop-blur-lg z-40 border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.3)]"
+      className="fixed bottom-0 left-0 right-0 md:hidden bg-background/80 backdrop-blur-lg z-40 border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.3)]"
       initial={{ y: 100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
@@ -33,16 +33,8 @@ const BottomNavigation: React.FC = () => {
         {navItems.map((item) => (
           <Link
             key={item.path}
-            to={item.path === '/menu' ? '#' : item.path}
+            to={item.path}
             className="flex flex-col items-center justify-center py-2 relative"
-            onClick={(e) => {
-              if (item.path === '/menu') {
-                e.preventDefault();
-                // Toggle main navigation menu
-                const menuButton = document.querySelector('nav button') as HTMLButtonElement;
-                if (menuButton) menuButton.click();
-              }
-            }}
           >
             <div className={`flex flex-col items-center justify-center ${isActive(item.path) ? 'text-[#9b87f5]' : 'text-white/70'}`}>
               {isActive(item.path) && (

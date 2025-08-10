@@ -20,8 +20,16 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import BottomNavigation from "./components/navigation/BottomNavigation";
 import ErrorBoundary from "./components/common/ErrorBoundary";
+import CommandMenu from "./components/navigation/CommandMenu";
+import { useLastVisitedRoutes } from "./hooks/useLastVisitedRoutes";
 
 const queryClient = new QueryClient();
+
+function RouteMemorySync() {
+  useLastVisitedRoutes();
+  return null;
+}
+
 
 function BottomNavGuard() {
   const location = useLocation();
@@ -37,6 +45,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ErrorBoundary>
+          <RouteMemorySync />
+          <CommandMenu />
           <Routes>
             <Route path="/" element={<Index />} />
             

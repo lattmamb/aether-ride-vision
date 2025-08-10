@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar';
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs';
 
 export default function DashboardLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -21,6 +22,7 @@ export default function DashboardLayout() {
 
         {/* Page Content */}
         <main className="flex-1 overflow-auto bg-background">
+          <Breadcrumbs />
           <Outlet />
         </main>
       </div>

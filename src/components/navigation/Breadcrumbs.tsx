@@ -26,12 +26,18 @@ const routeMapping: RouteMapping = {
   'locations': { label: 'Locations', parent: '' },
   'about': { label: 'About', parent: '' },
   'dashboard': { label: 'Dashboard', parent: '' },
+  'fleet': { label: 'Fleet', parent: 'dashboard' },
+  'reservations': { label: 'Reservations', parent: 'dashboard' },
+  'users': { label: 'Users', parent: 'dashboard' },
+  'analytics': { label: 'Analytics', parent: 'dashboard' },
+  'maintenance': { label: 'Maintenance', parent: 'dashboard' },
   'book': { label: 'Book Vehicle', parent: 'vehicles' },
   'booking-success': { label: 'Booking Confirmation', parent: 'book' },
 };
 
 const Breadcrumbs: React.FC = () => {
   const location = useLocation();
+  const isDashboard = location.pathname.startsWith('/dashboard');
   const pathSegments = location.pathname.split('/').filter(segment => segment);
   
   // Build breadcrumb items
@@ -70,23 +76,23 @@ const Breadcrumbs: React.FC = () => {
 
   return (
     <motion.div 
-      className="container mx-auto px-4 pt-20 pb-2"
+      className={`${isDashboard ? 'px-6 pt-2 pb-2' : 'container mx-auto px-4 pt-20 pb-2'}`}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.4 }}
     >
-      <Breadcrumb className="text-white/60 bg-white/5 backdrop-blur-sm inline-flex px-3 py-2 rounded-lg">
+      <Breadcrumb className="bg-card/60 border border-border backdrop-blur-sm inline-flex px-3 py-2 rounded-lg text-muted-foreground">
         <BreadcrumbList>
           {breadcrumbItems.map((item, index) => (
             <React.Fragment key={item.path}>
               <BreadcrumbItem>
                 {item.isLast ? (
-                  <BreadcrumbPage className="text-white">{item.label}</BreadcrumbPage>
+                  <BreadcrumbPage className="text-foreground">{item.label}</BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink asChild>
                     <Link 
                       to={item.path} 
-                      className="text-white/70 hover:text-white transition-colors"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {index === 0 ? (
                         <span className="flex items-center">
