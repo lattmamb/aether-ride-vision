@@ -18,7 +18,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
-import { CalendarIcon, CreditCard, Check, Loader2 } from 'lucide-react';
+import { CalendarIcon, CreditCard, Check, Loader2, ArrowLeft, ArrowRight } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -28,6 +28,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useBooking } from '@/contexts/BookingContext';
+import ProgressStepper from '@/components/booking/ProgressStepper';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs';
 
 const bookingSchema = z.object({
   firstName: z.string().min(2, { message: "First name must be at least 2 characters." }),
@@ -51,7 +54,8 @@ const BookVehicle = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState(subscriptionPlans[1]?.id || '');
+  const { bookingState, setBookingDetails } = useBooking();
+  const [selectedPlan, setSelectedPlan] = useState(bookingState.selectedPlan?.id || subscriptionPlans[1]?.id || '');
   
   // Find the vehicle based on the model or ID
   const vehicle = vehicles.find(v => v.id === id || v.model.toLowerCase() === id?.toLowerCase());
@@ -92,31 +96,32 @@ const BookVehicle = () => {
   const onSubmit = async (values: z.infer<typeof bookingSchema>) => {
     setIsLoading(true);
     
-    // Simulate API call
+    setBookingDetails({
+      startDate: format(values.startDate, 'PPP'),
+      endDate: values.endDate ? format(values.endDate, 'PPP') : '',
+      pickupLocation: `${values.city}, ${values.state}`,
+      deliveryAddress: `${values.address}, ${values.city}, ${values.state} ${values.zipCode}`,
+    });
+    
     setTimeout(() => {
       setIsLoading(false);
-      
-      // Show success toast
-      toast({
-        title: "Booking Successful!",
-        description: `Your ${vehicle.model} has been booked! Check your email for confirmation details.`,
-        variant: "default",
-      });
-
-      // Navigate to success page
-      navigate('/booking-success', { 
-        state: { 
-          vehicle, 
-          bookingDetails: values, 
-          plan: selectedPlanDetails 
-        } 
-      });
-    }, 1500);
+      navigate(`/vehicles/${id}/checkout`);
+    }, 800);
   };
+
+  const steps = [
+    { number: 1, title: 'Select Plan', description: 'Choose subscription' },
+    { number: 2, title: 'Details', description: 'Enter information' },
+    { number: 3, title: 'Payment', description: 'Complete checkout' },
+    { number: 4, title: 'Confirmation', description: 'All set!' },
+  ];
 
   return (
     <MainLayout>
-      <div className="container mx-auto px-4 py-16 mt-14 md:mt-20">
+      <div className="container mx-auto px-4 py-8 mt-20">
+        <Breadcrumbs />
+        <ProgressStepper currentStep={2} steps={steps} />
+        
         {/* Breadcrumbs */}
         <div className="mb-8">
           <div className="text-sm text-white/60">

@@ -11,7 +11,9 @@ import DashboardOverview from "./pages/DashboardOverview";
 import DashboardLayout from "./layouts/DashboardLayout";
 import VehicleDetails from "./pages/VehicleDetails";
 import VehiclesList from "./pages/VehiclesList";
+import SelectPlan from "./pages/SelectPlan";
 import BookVehicle from "./pages/BookVehicle";
+import PaymentCheckout from "./pages/PaymentCheckout";
 import BookingSuccess from "./pages/BookingSuccess";
 
 import Pricing from "./pages/Pricing";
@@ -22,6 +24,7 @@ import BottomNavigation from "./components/navigation/BottomNavigation";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import CommandMenu from "./components/navigation/CommandMenu";
 import { useLastVisitedRoutes } from "./hooks/useLastVisitedRoutes";
+import { BookingProvider } from "./contexts/BookingContext";
 
 const queryClient = new QueryClient();
 
@@ -41,41 +44,48 @@ function BottomNavGuard() {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ErrorBoundary>
-          <RouteMemorySync />
-          <CommandMenu />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            
-            {/* Dashboard Routes with Sidebar Layout */}
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route index element={<DashboardOverview />} />
-              <Route path="fleet" element={<DashboardPro />} />
-              <Route path="reservations" element={<DashboardPro />} />
-              <Route path="users" element={<DashboardPro />} />
-              <Route path="analytics" element={<DashboardPro />} />
-              <Route path="locations" element={<DashboardPro />} />
-              <Route path="maintenance" element={<DashboardPro />} />
-            </Route>
-            
-            {/* Regular Routes */}
-            <Route path="/vehicles" element={<VehiclesList />} />
-            <Route path="/vehicles/:id" element={<VehicleDetails />} />
-            <Route path="/book/:id" element={<BookVehicle />} />
-            <Route path="/booking-success" element={<BookingSuccess />} />
-            
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/locations" element={<Locations />} />
-            <Route path="/about" element={<About />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <BottomNavGuard />
-        </ErrorBoundary>
-      </BrowserRouter>
+      <BookingProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ErrorBoundary>
+            <RouteMemorySync />
+            <CommandMenu />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              
+              {/* Dashboard Routes with Sidebar Layout */}
+              <Route path="/dashboard" element={<DashboardLayout />}>
+                <Route index element={<DashboardOverview />} />
+                <Route path="fleet" element={<DashboardPro />} />
+                <Route path="reservations" element={<DashboardPro />} />
+                <Route path="users" element={<DashboardPro />} />
+                <Route path="analytics" element={<DashboardPro />} />
+                <Route path="locations" element={<DashboardPro />} />
+                <Route path="maintenance" element={<DashboardPro />} />
+              </Route>
+              
+              {/* Vehicle Booking Flow Routes */}
+              <Route path="/vehicles" element={<VehiclesList />} />
+              <Route path="/vehicles/:id" element={<VehicleDetails />} />
+              <Route path="/vehicles/:id/plan" element={<SelectPlan />} />
+              <Route path="/vehicles/:id/book" element={<BookVehicle />} />
+              <Route path="/vehicles/:id/checkout" element={<PaymentCheckout />} />
+              <Route path="/booking-success" element={<BookingSuccess />} />
+              
+              {/* Legacy route for backward compatibility */}
+              <Route path="/book/:id" element={<BookVehicle />} />
+              
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/locations" element={<Locations />} />
+              <Route path="/about" element={<About />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <BottomNavGuard />
+          </ErrorBoundary>
+        </BrowserRouter>
+      </BookingProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
