@@ -11,18 +11,27 @@ import {
   Bell,
   BarChart3,
   Users,
-  Wrench
+  Wrench,
+  Navigation,
+  Briefcase,
+  Zap,
+  Smartphone,
+  Box
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navigation = [
   { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Fleet Management', href: '/dashboard/fleet', icon: Car },
+  { name: 'Real-Time Tracking', href: '/dashboard/tracking', icon: Navigation },
   { name: 'Reservations', href: '/dashboard/reservations', icon: Calendar },
   { name: 'User Management', href: '/dashboard/users', icon: Users },
+  { name: 'Job Platform', href: '/dashboard/jobs', icon: Briefcase },
+  { name: 'Charging Hubs', href: '/dashboard/charging-hubs', icon: Zap },
   { name: 'Analytics & Reports', href: '/dashboard/analytics', icon: BarChart3 },
-  { name: 'Locations & Stations', href: '/dashboard/locations', icon: MapPin },
   { name: 'Maintenance', href: '/dashboard/maintenance', icon: Wrench },
+  { name: 'Mobile Preview', href: '/dashboard/mobile-preview', icon: Smartphone },
+  { name: '3D Hub Demo', href: '/dashboard/hub-demo', icon: Box },
 ];
 
 const secondaryNavigation = [

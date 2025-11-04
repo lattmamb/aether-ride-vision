@@ -60,6 +60,12 @@ const App = () => (
               <Route path="/dashboard" element={<DashboardLayout />}>
                 <Route index element={<DashboardOverview />} />
                 <Route path="fleet" element={<DashboardPro />} />
+                <Route path="tracking" element={<VehicleTracking />} />
+                <Route path="jobs" element={<JobPlatform />} />
+                <Route path="mobile-preview" element={<MobilePreview />} />
+                <Route path="charging-hubs" element={<ChargingHubs />} />
+                <Route path="hub-demo" element={<Hub3DDemo />} />
+                <Route path="settings" element={<Settings />} />
                 <Route path="reservations" element={<DashboardPro />} />
                 <Route path="users" element={<DashboardPro />} />
                 <Route path="analytics" element={<DashboardPro />} />
@@ -78,9 +84,10 @@ const App = () => (
               {/* Legacy route for backward compatibility */}
               <Route path="/book/:id" element={<BookVehicle />} />
               
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/locations" element={<Locations />} />
-              <Route path="/about" element={<About />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/locations" element={<Locations />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/social" element={<Social />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

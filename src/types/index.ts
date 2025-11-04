@@ -42,6 +42,76 @@ export interface ChargingStation {
   chargingSpeed: number;
 }
 
+// Vehicle Tracking
+export interface VehicleLocation {
+  vehicleId: string;
+  vehicleName: string;
+  latitude: number;
+  longitude: number;
+  heading: number;
+  speed: number;
+  batteryLevel: number;
+  status: 'active' | 'available' | 'charging' | 'maintenance';
+  lastUpdate: Date;
+  driverId?: string;
+}
+
+// Job Platform
+export interface Job {
+  id: string;
+  title: string;
+  type: 'full-time' | 'part-time' | 'contract' | 'remote';
+  location: string;
+  salary: {
+    min: number;
+    max: number;
+    period: 'hourly' | 'yearly';
+  };
+  description: string;
+  requirements: string[];
+  postedDate: Date;
+  applicants: number;
+}
+
+export interface JobApplication {
+  id: string;
+  jobId: string;
+  applicantName: string;
+  email: string;
+  phone: string;
+  resume: string;
+  coverLetter: string;
+  status: 'pending' | 'reviewed' | 'interviewed' | 'hired' | 'rejected';
+  appliedDate: Date;
+}
+
+// Charging Hubs
+export interface ChargingHub {
+  id: string;
+  name: string;
+  address: string;
+  coordinates: { lat: number; lng: number };
+  totalStations: number;
+  availableStations: number;
+  powerOutput: number;
+  amenities: string[];
+  operatingHours: string;
+  energyDeliveredToday: number;
+  revenueToday: number;
+  utilization: number;
+}
+
+export interface ChargingSession {
+  id: string;
+  hubId: string;
+  stationNumber: number;
+  vehicleId: string;
+  startTime: Date;
+  energyDelivered: number;
+  cost: number;
+  status: 'active' | 'completed';
+}
+
 export interface UserBooking {
   id: string;
   vehicleId: string;
