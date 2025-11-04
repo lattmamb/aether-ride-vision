@@ -64,10 +64,36 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-        // Updated custom colors for our app
+        // Unity Super-App Design System
+        unity: {
+          cyan: {
+            DEFAULT: '#00E0FF',
+            light: '#35F2DB',
+            dark: '#00B8D4',
+            glow: 'rgba(0, 224, 255, 0.5)'
+          },
+          purple: {
+            DEFAULT: '#667EEA',
+            light: '#9F7AEA',
+            dark: '#764BA2',
+            glow: 'rgba(102, 126, 234, 0.5)'
+          },
+          dark: {
+            DEFAULT: '#0A0A0F',
+            light: '#1A1A24',
+            lighter: '#2A2A34'
+          }
+        },
+        glass: {
+          base: 'rgba(255, 255, 255, 0.03)',
+          border: 'rgba(255, 255, 255, 0.08)',
+          highlight: 'rgba(255, 255, 255, 0.12)',
+          DEFAULT: "rgba(255, 255, 255, 0.05)",
+        },
+        // Legacy colors for backward compatibility
         tesla: {
           blue: "#0A84FF",
-          purple: "#9b87f5", // New primary brand color
+          purple: "#9b87f5",
           brightPurple: "#8B5CF6",
           deepPurple: "#6E59A5",
           red: "#FF3B30",
@@ -77,11 +103,6 @@ export default {
             50: "rgba(18, 18, 18, 0.5)",
             80: "rgba(18, 18, 18, 0.8)",
           }
-        },
-        glass: {
-          DEFAULT: "rgba(255, 255, 255, 0.05)",
-          border: "rgba(255, 255, 255, 0.1)",
-          highlight: "rgba(255, 255, 255, 0.2)",
         },
         brand: {
           purple: {
@@ -173,7 +194,19 @@ export default {
       boxShadow: {
         'inner-glow': 'inset 0 0 20px 0 rgba(155, 135, 245, 0.15)',
         'card-hover': '0 8px 30px rgba(155, 135, 245, 0.2)',
-        'purple-glow': '0 0 20px rgba(155, 135, 245, 0.4)'
+        'purple-glow': '0 0 20px rgba(155, 135, 245, 0.4)',
+        'glow-cyan': '0 0 20px rgba(0, 224, 255, 0.5)',
+        'glow-purple': '0 0 20px rgba(102, 126, 234, 0.5)',
+        'glass': '0 8px 32px rgba(0, 0, 0, 0.37)'
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        space: ['Space Grotesk', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif']
+      },
+      backdropBlur: {
+        xs: '2px',
+        '3xl': '64px'
       }
 		}
 	},

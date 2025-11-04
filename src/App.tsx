@@ -25,6 +25,7 @@ import ErrorBoundary from "./components/common/ErrorBoundary";
 import CommandMenu from "./components/navigation/CommandMenu";
 import { useLastVisitedRoutes } from "./hooks/useLastVisitedRoutes";
 import { BookingProvider } from "./contexts/BookingContext";
+import { UnityProvider } from "./contexts/UnityContext";
 
 const queryClient = new QueryClient();
 
@@ -44,14 +45,15 @@ function BottomNavGuard() {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <BookingProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ErrorBoundary>
-            <RouteMemorySync />
-            <CommandMenu />
-            <Routes>
+      <UnityProvider>
+        <BookingProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ErrorBoundary>
+              <RouteMemorySync />
+              <CommandMenu />
+              <Routes>
               <Route path="/" element={<Index />} />
               
               {/* Dashboard Routes with Sidebar Layout */}
@@ -86,6 +88,7 @@ const App = () => (
           </ErrorBoundary>
         </BrowserRouter>
       </BookingProvider>
+      </UnityProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
