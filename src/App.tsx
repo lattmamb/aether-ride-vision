@@ -15,10 +15,17 @@ import SelectPlan from "./pages/SelectPlan";
 import BookVehicle from "./pages/BookVehicle";
 import PaymentCheckout from "./pages/PaymentCheckout";
 import BookingSuccess from "./pages/BookingSuccess";
+import VehicleTracking from "./pages/dashboard/VehicleTracking";
+import JobPlatform from "./pages/dashboard/JobPlatform";
+import MobilePreview from "./pages/dashboard/MobilePreview";
+import ChargingHubs from "./pages/dashboard/ChargingHubs";
+import Hub3DDemo from "./pages/dashboard/Hub3DDemo";
+import Settings from "./pages/dashboard/Settings";
 
 import Pricing from "./pages/Pricing";
 import Locations from "./pages/Locations";
 import About from "./pages/About";
+import Social from "./pages/Social";
 import NotFound from "./pages/NotFound";
 import BottomNavigation from "./components/navigation/BottomNavigation";
 import ErrorBoundary from "./components/common/ErrorBoundary";
