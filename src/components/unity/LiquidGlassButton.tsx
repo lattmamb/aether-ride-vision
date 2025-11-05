@@ -21,10 +21,10 @@ export const LiquidGlassButton: React.FC<LiquidGlassButtonProps> = ({
   ...props
 }) => {
   const variants = {
-    primary: 'unity-gradient-cyan text-white shadow-glow-cyan hover:shadow-glow-cyan hover:scale-105',
-    secondary: 'unity-gradient-purple text-white shadow-glow-purple hover:shadow-glow-purple hover:scale-105',
-    ghost: 'liquid-glass liquid-glass-hover text-white',
-    danger: 'bg-red-500/20 border border-red-500/50 text-red-400 hover:bg-red-500/30 hover:border-red-500 hover:scale-105',
+    primary: 'unity-gradient-cyan text-white shadow-glow-cyan hover:shadow-glow-cyan hover:scale-[1.02] active:scale-[0.98]',
+    secondary: 'unity-gradient-purple text-white shadow-glow-purple hover:shadow-glow-purple hover:scale-[1.02] active:scale-[0.98]',
+    ghost: 'liquid-glass liquid-glass-hover text-white border border-white/20',
+    danger: 'bg-red-500/20 border border-red-500/50 text-red-400 hover:bg-red-500/30 hover:border-red-500 hover:scale-[1.02] active:scale-[0.98]',
   };
 
   const sizes = {

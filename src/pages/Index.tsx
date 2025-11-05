@@ -2,6 +2,8 @@ import React from 'react';
 import { UnityNavbar } from '@/components/unity/UnityNavbar';
 import { UnityHero } from '@/components/unity/UnityHero';
 import { PlatformCard } from '@/components/unity/PlatformCard';
+import { EcosystemFlow } from '@/components/unity/EcosystemFlow';
+import { CommunityImpact } from '@/components/unity/CommunityImpact';
 import { NavigationDock } from '@/components/unity/NavigationDock';
 import Footer from '@/components/Footer';
 import { Users, Car, Camera, Compass, ShoppingBag, Briefcase, Music, Heart } from 'lucide-react';
@@ -71,6 +73,12 @@ const Index = () => {
       <UnityNavbar />
       
       <UnityHero />
+
+      {/* Ecosystem Flow - New interconnectedness visualization */}
+      <EcosystemFlow />
+
+      {/* Community Impact - Real-world metrics */}
+      <CommunityImpact />
 
       {/* Platforms Section */}
       <section className="relative py-24 bg-gradient-to-b from-unity-dark via-unity-dark-light to-unity-dark">

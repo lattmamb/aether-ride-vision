@@ -47,10 +47,10 @@ export const UnityHero: React.FC = () => {
             transition={{ delay: 0.1, duration: 0.5 }}
             className="text-5xl md:text-7xl font-space font-bold text-white mb-6 leading-tight"
           >
-            One Platform.
+            Sustainable Mobility.
             <br />
             <span className="bg-gradient-to-r from-unity-cyan via-unity-cyan-light to-unity-purple bg-clip-text text-transparent">
-              Every Experience.
+              Thriving Communities.
             </span>
           </motion.h1>
 
@@ -61,8 +61,9 @@ export const UnityHero: React.FC = () => {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="text-xl text-white/70 mb-12 max-w-3xl mx-auto font-inter leading-relaxed"
           >
-            Connect, ride, share, discover, and live — all seamlessly integrated in a revolutionary 
-            super-app powered by next-generation technology and liquid glass design.
+            Where electric vehicles meet community empowerment. Every ride reduces carbon, 
+            generates local revenue, and creates jobs. This is transportation as a force for good—
+            powered by renewable energy, owned by communities, built for the future.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -87,10 +88,10 @@ export const UnityHero: React.FC = () => {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
           >
-            <StatsCard value="10M+" label="Active Users" delay={0.5} />
-            <StatsCard value="50+" label="Integrated Services" delay={0.6} />
-            <StatsCard value="24/7" label="Connected Experience" delay={0.7} />
-            <StatsCard value="AI" label="Powered Platform" delay={0.8} />
+            <StatsCard value="127K" label="Community Members" delay={0.5} />
+            <StatsCard value="1.2M" label="Sustainable Rides" delay={0.6} />
+            <StatsCard value="850T" label="CO₂ Offset" delay={0.7} />
+            <StatsCard value="$2.3M" label="Revenue Shared" delay={0.8} />
           </motion.div>
         </div>
       </div>
