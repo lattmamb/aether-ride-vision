@@ -27,6 +27,7 @@ import Locations from "./pages/Locations";
 import About from "./pages/About";
 import Social from "./pages/Social";
 import AetherFlowDemo from "./pages/AetherFlowDemo";
+import NavigationDemo from "./pages/NavigationDemo";
 import NotFound from "./pages/NotFound";
 import BottomNavigation from "./components/navigation/BottomNavigation";
 import ErrorBoundary from "./components/common/ErrorBoundary";
@@ -97,6 +98,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/social" element={<Social />} />
           <Route path="/aether-flow" element={<AetherFlowDemo />} />
+          <Route path="/navigation-demo" element={<NavigationDemo />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
