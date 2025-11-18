@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, Bell, Menu, X } from 'lucide-react';
 import { useUnity } from '@/contexts/UnityContext';
 import AppSwitcher from '@/components/navigation/AppSwitcher';
+import { PillBase } from '@/components/ui/3d-adaptive-navigation-bar';
 
 export const UnityNavbar: React.FC = () => {
   const { notifications } = useUnity();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const navItems = [
+    { label: 'Social', id: 'social', path: '/social' },
+    { label: 'Rides', id: 'rides', path: '/vehicles' },
+    { label: 'Discover', id: 'discover', path: '/about' },
+    { label: 'Marketplace', id: 'marketplace', path: '/pricing' },
+  ];
+
+  const handleNavigate = (id: string, path?: string) => {
+    if (path) {
+      navigate(path);
+    }
+  };
 
   return (
     <motion.nav
@@ -26,20 +42,9 @@ export const UnityNavbar: React.FC = () => {
             <span className="text-xl font-space font-bold text-white hidden sm:block">Unity</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <Link to="/social" className="text-white/70 hover:text-white transition-colors font-inter">
-              Social
-            </Link>
-            <Link to="/vehicles" className="text-white/70 hover:text-white transition-colors font-inter">
-              Rides
-            </Link>
-            <Link to="/about" className="text-white/70 hover:text-white transition-colors font-inter">
-              Discover
-            </Link>
-            <Link to="/pricing" className="text-white/70 hover:text-white transition-colors font-inter">
-              Marketplace
-            </Link>
+          {/* Desktop Navigation - 3D Adaptive Navigation Bar */}
+          <div className="hidden md:block">
+            <PillBase items={navItems} onNavigate={handleNavigate} />
           </div>
 
           {/* Actions */}

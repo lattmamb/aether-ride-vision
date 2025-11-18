@@ -4,13 +4,19 @@ import { motion, useSpring, AnimatePresence } from 'framer-motion'
 interface NavItem {
   label: string
   id: string
+  path?: string
+}
+
+interface PillBaseProps {
+  items?: NavItem[]
+  onNavigate?: (id: string, path?: string) => void
 }
 
 /**
  * 3D Adaptive Navigation Pill
  * Smart navigation with scroll detection and hover expansion
  */
-export const PillBase: React.FC = () => {
+export const PillBase: React.FC<PillBaseProps> = ({ items, onNavigate }) => {
   const [activeSection, setActiveSection] = useState('home')
   const [expanded, setExpanded] = useState(false)
   const [hovering, setHovering] = useState(false)
@@ -19,12 +25,14 @@ export const PillBase: React.FC = () => {
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const prevSectionRef = useRef('home')
   
-  const navItems: NavItem[] = [
+  const defaultNavItems: NavItem[] = [
     { label: 'Home', id: 'home' },
     { label: 'Problem', id: 'problem' },
     { label: 'Solution', id: 'solution' },
     { label: 'Contact', id: 'contact' },
   ]
+  
+  const navItems = items || defaultNavItems
 
   // Spring animations for smooth motion
   const pillWidth = useSpring(140, { stiffness: 220, damping: 25, mass: 1 })
@@ -62,7 +70,7 @@ export const PillBase: React.FC = () => {
     setHovering(false)
   }
 
-  const handleSectionClick = (sectionId: string) => {
+  const handleSectionClick = (sectionId: string, path?: string) => {
     // Trigger transition state
     setIsTransitioning(true)
     prevSectionRef.current = sectionId
@@ -70,6 +78,11 @@ export const PillBase: React.FC = () => {
     
     // Collapse the pill after selection
     setHovering(false)
+    
+    // Call onNavigate if provided
+    if (onNavigate) {
+      onNavigate(sectionId, path)
+    }
     
     // Reset transition state after animation completes
     setTimeout(() => {
@@ -319,7 +332,7 @@ export const PillBase: React.FC = () => {
                     duration: 0.25,
                     ease: 'easeOut'
                   }}
-                  onClick={() => handleSectionClick(item.id)}
+                  onClick={() => handleSectionClick(item.id, item.path)}
                   className="relative cursor-pointer transition-all duration-200"
                   style={{
                     fontSize: isActive ? '15.5px' : '15px',
