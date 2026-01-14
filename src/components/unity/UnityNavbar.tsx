@@ -5,6 +5,7 @@ import { Search, Bell, Menu, X } from 'lucide-react';
 import { useUnity } from '@/contexts/UnityContext';
 import AppSwitcher from '@/components/navigation/AppSwitcher';
 import { PillBase } from '@/components/ui/3d-adaptive-navigation-bar';
+import Logo from '@/components/navigation/Logo';
 
 export const UnityNavbar: React.FC = () => {
   const { notifications } = useUnity();
@@ -27,20 +28,15 @@ export const UnityNavbar: React.FC = () => {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 liquid-glass backdrop-blur-xl border-b border-glass-border"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 glass-metallic backdrop-blur-xl border-b border-silver-600/20"
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 z-10">
-            <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute w-10 h-10 rounded-xl unity-gradient-cyan opacity-80 blur-md" />
-              <div className="relative text-white font-space font-bold text-2xl">U</div>
-            </div>
-            <span className="text-xl font-space font-bold text-white hidden sm:block">Unity</span>
-          </Link>
+          <Logo size="md" />
 
           {/* Desktop Navigation - 3D Adaptive Navigation Bar */}
           <div className="hidden md:block">
@@ -48,71 +44,114 @@ export const UnityNavbar: React.FC = () => {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {/* Search */}
-            <button className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="p-2.5 rounded-xl text-silver-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+            >
               <Search className="w-5 h-5" />
-            </button>
+            </motion.button>
 
             {/* Notifications */}
-            <button className="relative p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative p-2.5 rounded-xl text-silver-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+            >
               <Bell className="w-5 h-5" />
               {notifications > 0 && (
-                <span className="absolute top-1 right-1 w-2 h-2 bg-unity-cyan rounded-full animate-pulse" />
+                <motion.span 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full"
+                  style={{ boxShadow: '0 0 8px rgba(0, 224, 255, 0.6)' }}
+                />
               )}
-            </button>
+            </motion.button>
 
             {/* App Switcher */}
             <AppSwitcher />
 
-            {/* Get Started */}
-            <Link
-              to="/vehicles"
-              className="hidden md:block px-4 py-2 unity-gradient-cyan text-white rounded-lg font-inter font-medium hover:shadow-glow-cyan transition-all"
-            >
-              Get Started
+            {/* Get Started Button */}
+            <Link to="/vehicles">
+              <motion.button
+                whileHover={{ scale: 1.02, y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-xl font-inter font-medium text-sm transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(135deg, #00E0FF 0%, #00B8D4 100%)',
+                  boxShadow: '0 4px 20px rgba(0, 224, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                  color: 'hsl(220, 15%, 4%)',
+                }}
+              >
+                <span>Get Started</span>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </motion.button>
             </Link>
 
             {/* Mobile menu toggle */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-white"
+              className="md:hidden p-2.5 rounded-xl text-silver-400 hover:text-white hover:bg-white/5 transition-all"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            </motion.button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden py-4 border-t border-glass-border"
-          >
-            <div className="flex flex-col gap-4">
-              <Link to="/social" className="text-white/70 hover:text-white transition-colors font-inter">
-                Social
-              </Link>
-              <Link to="/vehicles" className="text-white/70 hover:text-white transition-colors font-inter">
-                Rides
-              </Link>
-              <Link to="/about" className="text-white/70 hover:text-white transition-colors font-inter">
-                Discover
-              </Link>
-              <Link to="/pricing" className="text-white/70 hover:text-white transition-colors font-inter">
-                Marketplace
-              </Link>
+        <motion.div
+          initial={false}
+          animate={{ 
+            height: mobileMenuOpen ? 'auto' : 0,
+            opacity: mobileMenuOpen ? 1 : 0 
+          }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          className="md:hidden overflow-hidden"
+        >
+          <div className="py-4 border-t border-silver-600/20 space-y-1">
+            {navItems.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: mobileMenuOpen ? 1 : 0, x: mobileMenuOpen ? 0 : -20 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link 
+                  to={item.path} 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-4 py-3 rounded-xl text-silver-300 hover:text-white hover:bg-white/5 transition-all font-inter"
+                >
+                  {item.label}
+                </Link>
+              </motion.div>
+            ))}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: mobileMenuOpen ? 1 : 0, x: mobileMenuOpen ? 0 : -20 }}
+              transition={{ delay: 0.4 }}
+              className="pt-2"
+            >
               <Link
                 to="/vehicles"
-                className="px-4 py-2 unity-gradient-cyan text-white rounded-lg font-inter font-medium text-center"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block mx-4 px-4 py-3 text-center rounded-xl font-inter font-medium"
+                style={{
+                  background: 'linear-gradient(135deg, #00E0FF 0%, #00B8D4 100%)',
+                  color: 'hsl(220, 15%, 4%)',
+                }}
               >
                 Get Started
               </Link>
-            </div>
-          </motion.div>
-        )}
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </motion.nav>
   );

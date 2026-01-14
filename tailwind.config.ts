@@ -19,7 +19,7 @@ export default {
 			}
 		},
 		extend: {
-			colors: {
+		colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -63,6 +63,20 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Silver/Metallic Palette (from logo aesthetic)
+				silver: {
+					50: 'hsl(var(--silver-50))',
+					100: 'hsl(var(--silver-100))',
+					200: 'hsl(var(--silver-200))',
+					300: 'hsl(var(--silver-300))',
+					400: 'hsl(var(--silver-400))',
+					500: 'hsl(var(--silver-500))',
+					600: 'hsl(var(--silver-600))',
+					700: 'hsl(var(--silver-700))',
+					800: 'hsl(var(--silver-800))',
+					900: 'hsl(var(--silver-900))',
+					DEFAULT: 'hsl(var(--silver-400))'
 				},
 				// Unity Super-App Design System
 				unity: {
