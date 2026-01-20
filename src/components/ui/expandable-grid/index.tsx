@@ -1,4 +1,3 @@
-
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
@@ -36,17 +35,20 @@ export default function ExpandableVehiclesGrid({ vehicles }: ExpandableVehiclesG
 
   return (
     <>
+      {/* Backdrop overlay */}
       <AnimatePresence>
         {active && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-tesla-dark-80 h-full w-full z-10"
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm h-full w-full z-[90]"
+            onClick={() => setActive(null)}
           />
         )}
       </AnimatePresence>
       
+      {/* Vehicle detail overlay */}
       <AnimatePresence>
         {active ? (
           <VehicleDetailOverlay 
@@ -58,6 +60,7 @@ export default function ExpandableVehiclesGrid({ vehicles }: ExpandableVehiclesG
         ) : null}
       </AnimatePresence>
       
+      {/* Vehicle grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {vehicles.map((vehicle) => (
           <VehicleCard 
