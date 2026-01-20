@@ -18,7 +18,8 @@ export function TeslaCardCarousel() {
   };
 
   const cards = vehicles.map((vehicle, index) => {
-    const selectedColor = selectedColors[vehicle.id];
+    const selectedColor = selectedColors[vehicle.id] || vehicle.colors[0];
+    const currentImage = vehicle.colorImages?.[selectedColor] || vehicle.image;
     
     return (
       <Card 
@@ -26,13 +27,13 @@ export function TeslaCardCarousel() {
         card={{
           category: vehicle.type.toUpperCase(),
           title: vehicle.model,
-          src: "", // Removed image URL
+          src: currentImage,
           content: <VehicleContent 
                     model={vehicle.model} 
                     features={vehicle.features} 
                     performance={vehicle.performance}
                     colors={vehicle.colors}
-                    colorImages={{}}
+                    colorImages={vehicle.colorImages}
                     onColorChange={(color) => handleColorChange(vehicle.id, color)}
                     selectedColor={selectedColor}
                     id={vehicle.id}

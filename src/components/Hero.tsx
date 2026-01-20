@@ -55,6 +55,16 @@ const Hero: React.FC = () => {
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-tesla-purple/20 rounded-full blur-[120px] parallax-bg"></div>
       </div>
       
+      {/* Vehicle background image */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black z-10"></div>
+        <img 
+          src="/vehicles/model-s-white.jpg" 
+          alt="Tesla Model S" 
+          className="w-full h-full object-cover opacity-30 parallax-bg"
+        />
+      </div>
+      
       {/* Gradients */}
       <div className="absolute inset-x-20 top-40 z-0 bg-gradient-to-r from-transparent via-tesla-blue to-transparent h-[2px] w-3/4 blur-sm" />
       <div className="absolute inset-x-20 top-40 z-0 bg-gradient-to-r from-transparent via-tesla-blue to-transparent h-px w-3/4" />
@@ -63,26 +73,59 @@ const Hero: React.FC = () => {
       
       {/* Content container */}
       <div className="container relative z-10 mx-auto px-4 py-16 md:py-32">
-        <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto">
+        <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
+          {/* Badge */}
+          <div className="mb-6 px-4 py-2 rounded-full border border-tesla-blue/30 bg-tesla-blue/10 backdrop-blur-sm">
+            <span className="text-tesla-blue text-sm font-medium">🚗 Premium Electric Vehicle Subscriptions</span>
+          </div>
+          
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 relative z-20">
             Rent Your Dream
             <br />
-            Electric Vehicle
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-tesla-blue to-tesla-purple">Electric Vehicle</span>
           </h1>
           
-          <p className="text-xl text-white/80 mb-8">
+          <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl">
             Experience the future of transportation with our premium electric 
-            vehicle rental service. Zero emissions, maximum performance.
+            vehicle rental service. Zero emissions, maximum performance, starting at just <span className="text-tesla-blue font-semibold">$189/month</span>.
           </p>
           
+          {/* Stats row */}
+          <div className="flex flex-wrap justify-center gap-8 mb-10">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white">5+</div>
+              <div className="text-sm text-white/60">Vehicle Models</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white">500mi</div>
+              <div className="text-sm text-white/60">Max Range</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white">1.99s</div>
+              <div className="text-sm text-white/60">0-60 mph</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white">50+</div>
+              <div className="text-sm text-white/60">Charging Stations</div>
+            </div>
+          </div>
+          
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button asChild size="lg" className="bg-tesla-blue hover:bg-tesla-blue/90 text-white font-medium px-8">
+            <Button asChild size="lg" className="bg-tesla-blue hover:bg-tesla-blue/90 text-white font-medium px-8 h-14 text-lg">
               <Link to="/vehicles">Browse Electric Vehicles</Link>
             </Button>
             
-            <Button asChild variant="outline" size="lg" className="border-white/20 bg-glass hover:bg-white/10 text-white">
-              <Link to="/how-it-works">Learn More</Link>
+            <Button asChild variant="outline" size="lg" className="border-white/20 bg-glass hover:bg-white/10 text-white h-14 text-lg">
+              <Link to="/pricing">View Pricing Plans</Link>
             </Button>
+          </div>
+          
+          {/* Trust badges */}
+          <div className="mt-10 flex flex-wrap justify-center gap-6 text-white/50 text-sm">
+            <span className="flex items-center gap-2">✓ No long-term contracts</span>
+            <span className="flex items-center gap-2">✓ Insurance included</span>
+            <span className="flex items-center gap-2">✓ Free maintenance</span>
+            <span className="flex items-center gap-2">✓ 24/7 Roadside assistance</span>
           </div>
         </div>
       </div>

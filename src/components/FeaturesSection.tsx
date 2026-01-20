@@ -50,23 +50,40 @@ const FeaturesSection: React.FC = () => {
 
         <div className="mt-16 glass-card overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="p-8 flex flex-col justify-center">
-              <h3 className="text-2xl font-bold mb-4">Ready for the future of transportation?</h3>
+            <div className="p-8 md:p-12 flex flex-col justify-center">
+              <span className="text-tesla-blue text-sm font-medium uppercase tracking-wider mb-2">Limited Time Offer</span>
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready for the future of transportation?</h3>
               <p className="text-white/70 mb-6">
                 Join thousands of satisfied customers who have embraced our premium electric vehicle rental service. Your journey to the future begins here.
               </p>
-              <button className="bg-tesla-blue hover:bg-tesla-blue/90 text-white py-3 px-6 rounded-lg font-medium transition-colors w-fit">
-                Start Your Trial Now
-              </button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="/vehicles" className="bg-tesla-blue hover:bg-tesla-blue/90 text-white py-3 px-6 rounded-lg font-medium transition-colors text-center">
+                  Start Your Trial Now
+                </a>
+                <a href="/pricing" className="border border-white/20 hover:bg-white/10 text-white py-3 px-6 rounded-lg font-medium transition-colors text-center">
+                  View Pricing
+                </a>
+              </div>
             </div>
-            <div className="relative min-h-[300px]">
+            <div className="relative min-h-[350px] lg:min-h-[400px]">
               <div className="absolute inset-0">
-                <div className="absolute inset-0 bg-gradient-to-r from-tesla-dark-80 to-transparent z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-tesla-dark-80 via-tesla-dark-80/50 to-transparent z-10"></div>
                 <img 
-                  src="/lovable-uploads/87310600-2a51-4edd-a0b3-4ae26fc44398.png"
-                  alt="Tesla Model X" 
-                  className="h-full w-full object-cover"
+                  src="/vehicles/model-s-white.jpg"
+                  alt="Tesla Model S - Premium Electric Sedan" 
+                  className="h-full w-full object-cover object-center"
                 />
+              </div>
+              {/* Floating stats */}
+              <div className="absolute bottom-6 left-6 z-20 flex gap-4">
+                <div className="bg-black/60 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/10">
+                  <div className="text-tesla-blue text-lg font-bold">$189</div>
+                  <div className="text-white/60 text-xs">Starting at/mo</div>
+                </div>
+                <div className="bg-black/60 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/10">
+                  <div className="text-tesla-blue text-lg font-bold">405mi</div>
+                  <div className="text-white/60 text-xs">Max Range</div>
+                </div>
               </div>
             </div>
           </div>
