@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Battery, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ScheduleMaintenanceModal } from '@/components/dashboard/modals';
 
 export default function VehicleHealth() {
+  const navigate = useNavigate();
+  const [showMaintenanceModal, setShowMaintenanceModal] = useState(false);
+  
   const healthAlerts = [
     {
       id: 'TES-001',
@@ -36,7 +41,13 @@ export default function VehicleHealth() {
     <div className="dashboard-card p-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold">Vehicle Health Monitoring</h3>
-        <Button variant="ghost" size="sm">View All</Button>
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={() => navigate('/dashboard/maintenance')}
+        >
+          View All
+        </Button>
       </div>
 
       <div className="space-y-4">
@@ -66,11 +77,11 @@ export default function VehicleHealth() {
               <span>{alert.location}</span>
             </div>
 
-            <div className="mt-3 w-full bg-slate-700 rounded-full h-2">
+            <div className="mt-3 w-full bg-muted rounded-full h-2">
               <div 
                 className={`h-2 rounded-full transition-all duration-300 ${
                   alert.batteryLevel > 80 ? 'bg-green-500' :
-                  alert.batteryLevel > 50 ? 'bg-yellow-500' : 'bg-red-500'
+                  alert.batteryLevel > 50 ? 'bg-yellow-500' : 'bg-destructive'
                 }`}
                 style={{ width: `${alert.batteryLevel}%` }}
               />
@@ -79,10 +90,19 @@ export default function VehicleHealth() {
         ))}
       </div>
 
-      <Button variant="outline" className="w-full mt-4">
+      <Button 
+        variant="outline" 
+        className="w-full mt-4"
+        onClick={() => setShowMaintenanceModal(true)}
+      >
         <AlertTriangle className="h-4 w-4 mr-2" />
         Schedule Maintenance
       </Button>
+
+      <ScheduleMaintenanceModal 
+        open={showMaintenanceModal} 
+        onOpenChange={setShowMaintenanceModal} 
+      />
     </div>
   );
 }

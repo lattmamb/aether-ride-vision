@@ -1,11 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { useSEO } from '@/hooks/useSEO';
+import { toast } from 'sonner';
 import { 
   Maximize2, 
+  Minimize2,
   RotateCcw, 
   Sun, 
   Moon,
@@ -23,6 +25,7 @@ export default function Hub3DDemo() {
   const [animations, setAnimations] = useState(true);
   const [dayMode, setDayMode] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const hubStats = {
     activeSessions: 12,
@@ -45,6 +48,31 @@ export default function Hub3DDemo() {
     '⚡ UnityLink Token Integration'
   ];
 
+  const handleFullscreen = useCallback(async () => {
+    if (!containerRef.current) return;
+    
+    try {
+      if (!isFullscreen) {
+        await containerRef.current.requestFullscreen();
+        setIsFullscreen(true);
+        toast.success('Entered fullscreen mode');
+      } else {
+        await document.exitFullscreen();
+        setIsFullscreen(false);
+        toast.success('Exited fullscreen mode');
+      }
+    } catch (error) {
+      toast.error('Fullscreen not supported');
+    }
+  }, [isFullscreen]);
+
+  const handleResetView = () => {
+    setAutoOrbit(true);
+    setAnimations(true);
+    setDayMode(true);
+    toast.success('View reset to default');
+  };
+
   return (
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-start">
@@ -52,7 +80,7 @@ export default function Hub3DDemo() {
           <h1 className="text-3xl font-bold text-foreground">Interactive 3D Hub Visualization</h1>
           <p className="text-muted-foreground mt-1">Revolutionary circular charging ecosystem</p>
         </div>
-        <Badge className="bg-unity-cyan text-white px-4 py-2">
+        <Badge className="bg-primary text-primary-foreground px-4 py-2">
           <Activity className="h-4 w-4 mr-2" />
           Live Demo
         </Badge>
@@ -60,15 +88,19 @@ export default function Hub3DDemo() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* 3D Viewport */}
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-3" ref={containerRef}>
           <Card className="p-6 h-[700px] relative overflow-hidden">
             {/* 3D Canvas Placeholder */}
-            <div className="w-full h-full bg-gradient-to-br from-unity-dark-100 via-unity-dark-200 to-black rounded-lg flex items-center justify-center relative">
+            <div className={`w-full h-full rounded-lg flex items-center justify-center relative transition-colors duration-500 ${
+              dayMode 
+                ? 'bg-gradient-to-br from-slate-800 via-slate-900 to-black' 
+                : 'bg-gradient-to-br from-indigo-950 via-purple-950 to-black'
+            }`}>
               {/* Simulated 3D Scene */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative">
                   {/* Circular Hub Structure */}
-                  <div className={`w-96 h-96 rounded-full border-4 ${dayMode ? 'border-unity-cyan' : 'border-unity-purple'} relative transition-all duration-1000 ${autoOrbit ? 'animate-spin-slow' : ''}`}>
+                  <div className={`w-96 h-96 rounded-full border-4 ${dayMode ? 'border-primary' : 'border-purple-500'} relative transition-all duration-1000 ${autoOrbit ? 'animate-spin-slow' : ''}`}>
                     {/* Charging Stations */}
                     {[...Array(16)].map((_, i) => {
                       const angle = (i * 360) / 16;
@@ -80,7 +112,7 @@ export default function Hub3DDemo() {
                         <div
                           key={i}
                           className={`absolute w-4 h-4 rounded-full transition-all duration-500 ${
-                            isActive ? 'bg-unity-cyan shadow-glow-cyan' : 'bg-gray-600'
+                            isActive ? 'bg-primary shadow-lg shadow-primary/50' : 'bg-muted-foreground/30'
                           } ${animations ? 'animate-pulse' : ''}`}
                           style={{
                             left: '50%',
@@ -93,7 +125,7 @@ export default function Hub3DDemo() {
                     
                     {/* Center Hub */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className={`w-24 h-24 rounded-full ${dayMode ? 'bg-gradient-to-br from-unity-cyan to-unity-purple' : 'bg-gradient-to-br from-unity-purple to-black'} flex items-center justify-center shadow-2xl`}>
+                      <div className={`w-24 h-24 rounded-full ${dayMode ? 'bg-gradient-to-br from-primary to-purple-500' : 'bg-gradient-to-br from-purple-500 to-black'} flex items-center justify-center shadow-2xl`}>
                         <Zap className="h-12 w-12 text-white" />
                       </div>
                     </div>
@@ -105,7 +137,7 @@ export default function Hub3DDemo() {
                       {[...Array(8)].map((_, i) => (
                         <div
                           key={i}
-                          className="absolute w-2 h-2 rounded-full bg-unity-cyan opacity-50 animate-ping"
+                          className="absolute w-2 h-2 rounded-full bg-primary opacity-50 animate-ping"
                           style={{
                             left: `${50 + Math.random() * 20 - 10}%`,
                             top: `${50 + Math.random() * 20 - 10}%`,
@@ -123,18 +155,23 @@ export default function Hub3DDemo() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full"
-                  onClick={() => setIsFullscreen(!isFullscreen)}
+                  className="w-full bg-background/80 backdrop-blur"
+                  onClick={handleFullscreen}
                 >
-                  <Maximize2 className="h-4 w-4" />
+                  {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
                 </Button>
-                <Button variant="outline" size="sm" className="w-full">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-full bg-background/80 backdrop-blur"
+                  onClick={handleResetView}
+                >
                   <RotateCcw className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full"
+                  className="w-full bg-background/80 backdrop-blur"
                   onClick={() => setDayMode(!dayMode)}
                 >
                   {dayMode ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
@@ -147,7 +184,7 @@ export default function Hub3DDemo() {
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <p className="text-sm text-muted-foreground">Active Sessions</p>
-                      <p className="text-xl font-bold text-unity-cyan">
+                      <p className="text-xl font-bold text-primary">
                         {hubStats.activeSessions}/{hubStats.totalStations}
                       </p>
                     </div>
@@ -157,7 +194,7 @@ export default function Hub3DDemo() {
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Energy Today</p>
-                      <p className="text-xl font-bold text-unity-purple">{hubStats.energyToday} kWh</p>
+                      <p className="text-xl font-bold text-purple-500">{hubStats.energyToday} kWh</p>
                     </div>
                   </div>
                 </Card>
@@ -180,7 +217,7 @@ export default function Hub3DDemo() {
                 <span className="text-sm">Animations</span>
                 <Switch checked={animations} onCheckedChange={setAnimations} />
               </div>
-              <Button variant="outline" className="w-full" size="sm">
+              <Button variant="outline" className="w-full" size="sm" onClick={handleResetView}>
                 <RotateCcw className="h-4 w-4 mr-2" />
                 Reset View
               </Button>
@@ -208,11 +245,11 @@ export default function Hub3DDemo() {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Community Revenue</span>
-                <span className="font-semibold text-unity-cyan">${hubStats.communityRevenue}</span>
+                <span className="font-semibold text-primary">${hubStats.communityRevenue}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">ULU Token Value</span>
-                <span className="font-semibold text-unity-purple">${hubStats.uluTokenValue}</span>
+                <span className="font-semibold text-purple-500">${hubStats.uluTokenValue}</span>
               </div>
             </div>
           </Card>
@@ -235,8 +272,8 @@ export default function Hub3DDemo() {
       <Card className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-unity-cyan/20 flex items-center justify-center">
-              <Zap className="h-6 w-6 text-unity-cyan" />
+            <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
+              <Zap className="h-6 w-6 text-primary" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Total Stations</p>
@@ -253,8 +290,8 @@ export default function Hub3DDemo() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-unity-purple/20 flex items-center justify-center">
-              <TrendingUp className="h-6 w-6 text-unity-purple" />
+            <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center">
+              <TrendingUp className="h-6 w-6 text-purple-500" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Peak Efficiency</p>

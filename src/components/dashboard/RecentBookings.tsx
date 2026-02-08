@@ -3,8 +3,11 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { User, Clock, MapPin, Car } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function RecentBookings() {
+  const navigate = useNavigate();
+  
   const recentBookings = [
     {
       id: 'BK-1423',
@@ -39,7 +42,13 @@ export default function RecentBookings() {
     <div className="dashboard-card p-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold">Recent Bookings</h3>
-        <Button variant="ghost" size="sm">View All</Button>
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={() => navigate('/dashboard/reservations')}
+        >
+          View All
+        </Button>
       </div>
 
       <div className="space-y-4">
@@ -78,7 +87,11 @@ export default function RecentBookings() {
         ))}
       </div>
 
-      <Button variant="outline" className="w-full mt-4">
+      <Button 
+        variant="outline" 
+        className="w-full mt-4"
+        onClick={() => navigate('/dashboard/reservations')}
+      >
         <User className="h-4 w-4 mr-2" />
         Manage All Bookings
       </Button>

@@ -21,6 +21,9 @@ import MobilePreview from "./pages/dashboard/MobilePreview";
 import ChargingHubs from "./pages/dashboard/ChargingHubs";
 import Hub3DDemo from "./pages/dashboard/Hub3DDemo";
 import Settings from "./pages/dashboard/Settings";
+import Profile from "./pages/dashboard/Profile";
+import Notifications from "./pages/dashboard/Notifications";
+import Help from "./pages/dashboard/Help";
 
 import Pricing from "./pages/Pricing";
 import Locations from "./pages/Locations";
@@ -75,6 +78,9 @@ const App = () => (
                 <Route path="charging-hubs" element={<ChargingHubs />} />
                 <Route path="hub-demo" element={<Hub3DDemo />} />
                 <Route path="settings" element={<Settings />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="notifications" element={<Notifications />} />
+                <Route path="help" element={<Help />} />
                 <Route path="reservations" element={<DashboardPro />} />
                 <Route path="users" element={<DashboardPro />} />
                 <Route path="analytics" element={<DashboardPro />} />
