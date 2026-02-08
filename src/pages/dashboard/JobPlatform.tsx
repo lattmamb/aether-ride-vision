@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { useSEO } from '@/hooks/useSEO';
+import { toast } from 'sonner';
 import { 
   Briefcase, 
   MapPin, 
@@ -11,9 +12,12 @@ import {
   Clock, 
   Search,
   Filter,
-  Plus
+  Plus,
+  Heart,
+  HeartOff
 } from 'lucide-react';
 import { Job } from '@/types';
+import { PostJobModal } from '@/components/dashboard/modals';
 
 const mockJobs: Job[] = [
   {
@@ -84,9 +88,9 @@ const mockJobs: Job[] = [
   }
 ];
 
-const typeColors = {
-  'full-time': 'bg-unity-cyan text-white',
-  'part-time': 'bg-unity-purple text-white',
+const typeColors: Record<string, string> = {
+  'full-time': 'bg-primary text-primary-foreground',
+  'part-time': 'bg-purple-500 text-white',
   'contract': 'bg-green-500 text-white',
   'remote': 'bg-blue-500 text-white'
 };
@@ -96,6 +100,8 @@ export default function JobPlatform() {
   const [selectedType, setSelectedType] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [savedJobs, setSavedJobs] = useState<string[]>([]);
+  const [showPostJobModal, setShowPostJobModal] = useState(false);
 
   const filteredJobs = mockJobs.filter(job => {
     const matchesType = selectedType === 'all' || job.type === selectedType;
@@ -111,6 +117,22 @@ export default function JobPlatform() {
     return `$${job.salary.min} - $${job.salary.max}/hour`;
   };
 
+  const handleSaveJob = (jobId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (savedJobs.includes(jobId)) {
+      setSavedJobs(prev => prev.filter(id => id !== jobId));
+      toast.success('Job removed from saved list');
+    } else {
+      setSavedJobs(prev => [...prev, jobId]);
+      toast.success('Job saved successfully');
+    }
+  };
+
+  const handleApply = (jobTitle: string) => {
+    toast.success(`Application submitted for "${jobTitle}"! We'll be in touch soon.`);
+    setSelectedJob(null);
+  };
+
   return (
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-start">
@@ -118,7 +140,7 @@ export default function JobPlatform() {
           <h1 className="text-3xl font-bold text-foreground">Job Platform</h1>
           <p className="text-muted-foreground mt-1">Discover and manage employment opportunities</p>
         </div>
-        <Button className="liquid-glass-hover">
+        <Button onClick={() => setShowPostJobModal(true)}>
           <Plus className="h-4 w-4 mr-2" />
           Post New Job
         </Button>
@@ -128,8 +150,8 @@ export default function JobPlatform() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-unity-cyan/20 flex items-center justify-center">
-              <Briefcase className="h-5 w-5 text-unity-cyan" />
+            <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+              <Briefcase className="h-5 w-5 text-primary" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Active Jobs</p>
@@ -150,8 +172,8 @@ export default function JobPlatform() {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-unity-purple/20 flex items-center justify-center">
-              <Clock className="h-5 w-5 text-unity-purple" />
+            <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+              <Clock className="h-5 w-5 text-purple-500" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Worker Satisfaction</p>
@@ -172,7 +194,7 @@ export default function JobPlatform() {
             className="pl-10"
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {['all', 'full-time', 'part-time', 'contract', 'remote'].map((type) => (
             <Badge
               key={type}
@@ -191,7 +213,7 @@ export default function JobPlatform() {
         {filteredJobs.map((job) => (
           <Card
             key={job.id}
-            className="p-6 cursor-pointer transition-all hover:border-unity-cyan hover:shadow-glow-cyan"
+            className="p-6 cursor-pointer transition-all hover:border-primary hover:shadow-lg"
             onClick={() => setSelectedJob(job)}
           >
             <div className="flex justify-between items-start mb-4">
@@ -207,6 +229,17 @@ export default function JobPlatform() {
                   </Badge>
                 </div>
               </div>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={(e) => handleSaveJob(job.id, e)}
+              >
+                {savedJobs.includes(job.id) ? (
+                  <Heart className="h-5 w-5 text-destructive fill-destructive" />
+                ) : (
+                  <Heart className="h-5 w-5" />
+                )}
+              </Button>
             </div>
 
             <p className="text-muted-foreground mb-4 line-clamp-2">
@@ -214,7 +247,7 @@ export default function JobPlatform() {
             </p>
 
             <div className="flex items-center justify-between">
-              <div className="font-semibold text-unity-cyan">
+              <div className="font-semibold text-primary">
                 {formatSalary(job)}
               </div>
               <div className="text-sm text-muted-foreground">
@@ -238,14 +271,14 @@ export default function JobPlatform() {
               </div>
             </div>
 
-            <Button className="w-full mt-4 liquid-glass-hover">
+            <Button className="w-full mt-4" onClick={(e) => { e.stopPropagation(); handleApply(job.title); }}>
               Apply Now
             </Button>
           </Card>
         ))}
       </div>
 
-      {/* Job Detail Modal (simplified inline) */}
+      {/* Job Detail Modal */}
       {selectedJob && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <Card className="max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
@@ -270,7 +303,7 @@ export default function JobPlatform() {
             <div className="space-y-6">
               <div>
                 <h3 className="font-semibold mb-2">Salary</h3>
-                <p className="text-unity-cyan font-semibold text-lg">{formatSalary(selectedJob)}</p>
+                <p className="text-primary font-semibold text-lg">{formatSalary(selectedJob)}</p>
               </div>
 
               <div>
@@ -283,7 +316,7 @@ export default function JobPlatform() {
                 <ul className="space-y-2">
                   {selectedJob.requirements.map((req, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-muted-foreground">
-                      <span className="text-unity-cyan mt-1">✓</span>
+                      <span className="text-primary mt-1">✓</span>
                       {req}
                     </li>
                   ))}
@@ -291,13 +324,34 @@ export default function JobPlatform() {
               </div>
 
               <div className="flex gap-3">
-                <Button className="flex-1 liquid-glass-hover">Apply Now</Button>
-                <Button variant="outline" className="flex-1">Save Job</Button>
+                <Button className="flex-1" onClick={() => handleApply(selectedJob.title)}>
+                  Apply Now
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="flex-1"
+                  onClick={() => handleSaveJob(selectedJob.id, {} as React.MouseEvent)}
+                >
+                  {savedJobs.includes(selectedJob.id) ? (
+                    <>
+                      <HeartOff className="h-4 w-4 mr-2" />
+                      Unsave Job
+                    </>
+                  ) : (
+                    <>
+                      <Heart className="h-4 w-4 mr-2" />
+                      Save Job
+                    </>
+                  )}
+                </Button>
               </div>
             </div>
           </Card>
         </div>
       )}
+
+      {/* Post Job Modal */}
+      <PostJobModal open={showPostJobModal} onOpenChange={setShowPostJobModal} />
     </div>
   );
 }

@@ -1,14 +1,15 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import FleetOverviewCards from '@/components/dashboard/FleetOverviewCards';
-// Charts will be lazy-loaded
 import RecentBookings from '@/components/dashboard/RecentBookings';
 import VehicleHealth from '@/components/dashboard/VehicleHealth';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSEO } from '@/hooks/useSEO';
+import { useNavigate } from 'react-router-dom';
+import { AddVehicleModal } from '@/components/dashboard/modals';
 import { 
   Car, 
   Users, 
@@ -30,6 +31,9 @@ const VehicleStatusChart = lazy(() => import('@/components/dashboard/VehicleStat
 
 export default function DashboardOverview() {
   useSEO({ title: 'Fleet Management Dashboard | Unity Fleet', description: 'Comprehensive overview of your Tesla fleet operations.' });
+  const navigate = useNavigate();
+  const [showAddVehicle, setShowAddVehicle] = useState(false);
+
   return (
     <div className="p-6 space-y-6">
       {/* Page Header */}
@@ -40,7 +44,7 @@ export default function DashboardOverview() {
         </div>
         <div className="flex items-center gap-2">
           <Badge className="status-success">All Systems Operational</Badge>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={() => navigate('/dashboard/analytics')}>
             <ArrowUpRight className="h-4 w-4 mr-2" />
             View Reports
           </Button>
@@ -71,19 +75,35 @@ export default function DashboardOverview() {
           <div className="dashboard-card p-6">
             <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
             <div className="space-y-3">
-              <Button variant="ghost" className="w-full justify-start">
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start hover:bg-primary/10"
+                onClick={() => setShowAddVehicle(true)}
+              >
                 <Car className="mr-2 h-4 w-4" />
                 Add New Vehicle
               </Button>
-              <Button variant="ghost" className="w-full justify-start">
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start hover:bg-primary/10"
+                onClick={() => navigate('/dashboard/users')}
+              >
                 <Users className="mr-2 h-4 w-4" />
                 Manage Users
               </Button>
-              <Button variant="ghost" className="w-full justify-start">
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start hover:bg-primary/10"
+                onClick={() => navigate('/dashboard/reservations')}
+              >
                 <Calendar className="mr-2 h-4 w-4" />
                 View Reservations
               </Button>
-              <Button variant="ghost" className="w-full justify-start">
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start hover:bg-primary/10"
+                onClick={() => navigate('/dashboard/tracking')}
+              >
                 <MapPin className="mr-2 h-4 w-4" />
                 Monitor Locations
               </Button>
@@ -112,8 +132,8 @@ export default function DashboardOverview() {
               <p className="text-sm text-muted-foreground">Charging</p>
               <p className="text-2xl font-bold">8</p>
             </div>
-            <div className="w-10 h-10 bg-brand-accent-green/20 rounded-lg flex items-center justify-center">
-              <Battery className="h-5 w-5 text-brand-accent-green" />
+            <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+              <Battery className="h-5 w-5 text-green-500" />
             </div>
           </div>
         </div>
@@ -124,8 +144,8 @@ export default function DashboardOverview() {
               <p className="text-sm text-muted-foreground">Maintenance</p>
               <p className="text-2xl font-bold">3</p>
             </div>
-            <div className="w-10 h-10 bg-brand-accent-orange/20 rounded-lg flex items-center justify-center">
-              <AlertTriangle className="h-5 w-5 text-brand-accent-orange" />
+            <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center">
+              <AlertTriangle className="h-5 w-5 text-orange-500" />
             </div>
           </div>
         </div>
@@ -136,12 +156,15 @@ export default function DashboardOverview() {
               <p className="text-sm text-muted-foreground">Available</p>
               <p className="text-2xl font-bold">42</p>
             </div>
-            <div className="w-10 h-10 bg-brand-accent-blue/20 rounded-lg flex items-center justify-center">
-              <CheckCircle className="h-5 w-5 text-brand-accent-blue" />
+            <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+              <CheckCircle className="h-5 w-5 text-blue-500" />
             </div>
           </div>
         </div>
       </div>
+
+      {/* Add Vehicle Modal */}
+      <AddVehicleModal open={showAddVehicle} onOpenChange={setShowAddVehicle} />
     </div>
   );
 }

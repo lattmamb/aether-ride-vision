@@ -16,6 +16,7 @@ import {
   Wind
 } from 'lucide-react';
 import { ChargingHub, ChargingSession } from '@/types';
+import { AddHubModal } from '@/components/dashboard/modals';
 
 const mockHubs: ChargingHub[] = [
   {
@@ -88,6 +89,7 @@ const mockSessions: ChargingSession[] = [
 export default function ChargingHubs() {
   useSEO({ title: 'Charging Hubs | Unity Fleet', description: 'Manage charging infrastructure and monitor station performance' });
   const [selectedHub, setSelectedHub] = useState<ChargingHub>(mockHubs[0]);
+  const [showAddHubModal, setShowAddHubModal] = useState(false);
 
   const totalEnergy = mockHubs.reduce((sum, hub) => sum + hub.energyDeliveredToday, 0);
   const totalRevenue = mockHubs.reduce((sum, hub) => sum + hub.revenueToday, 0);
@@ -100,7 +102,7 @@ export default function ChargingHubs() {
           <h1 className="text-3xl font-bold text-foreground">Charging Hub Management</h1>
           <p className="text-muted-foreground mt-1">Monitor and manage charging infrastructure</p>
         </div>
-        <Button className="liquid-glass-hover">
+        <Button onClick={() => setShowAddHubModal(true)}>
           <Zap className="h-4 w-4 mr-2" />
           Add New Hub
         </Button>
@@ -110,8 +112,8 @@ export default function ChargingHubs() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-unity-cyan/20 flex items-center justify-center">
-              <Zap className="h-5 w-5 text-unity-cyan" />
+            <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+              <Zap className="h-5 w-5 text-primary" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Active Sessions</p>
@@ -148,8 +150,8 @@ export default function ChargingHubs() {
 
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-unity-purple/20 flex items-center justify-center">
-              <TrendingUp className="h-5 w-5 text-unity-purple" />
+            <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+              <TrendingUp className="h-5 w-5 text-purple-500" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Avg Utilization</p>
@@ -166,8 +168,8 @@ export default function ChargingHubs() {
           {mockHubs.map((hub) => (
             <Card
               key={hub.id}
-              className={`p-4 cursor-pointer transition-all hover:border-unity-cyan ${
-                selectedHub.id === hub.id ? 'border-unity-cyan bg-unity-cyan/5' : ''
+              className={`p-4 cursor-pointer transition-all hover:border-primary ${
+                selectedHub.id === hub.id ? 'border-primary bg-primary/5' : ''
               }`}
               onClick={() => setSelectedHub(hub)}
             >
@@ -219,7 +221,7 @@ export default function ChargingHubs() {
                   {selectedHub.address}
                 </p>
               </div>
-              <Badge className="bg-green-500">Operational</Badge>
+              <Badge className="bg-green-500 text-white">Operational</Badge>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
@@ -257,7 +259,7 @@ export default function ChargingHubs() {
 
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
                 <div className="flex items-center gap-3">
-                  <Clock className="h-8 w-8 text-unity-cyan" />
+                  <Clock className="h-8 w-8 text-primary" />
                   <div>
                     <p className="text-xs text-muted-foreground">Operating Hours</p>
                     <p className="font-semibold">{selectedHub.operatingHours}</p>
@@ -289,7 +291,7 @@ export default function ChargingHubs() {
                           <p className="font-semibold">Station #{session.stationNumber}</p>
                           <p className="text-sm text-muted-foreground">Vehicle: {session.vehicleId}</p>
                         </div>
-                        <Badge className="bg-unity-cyan">Active</Badge>
+                        <Badge className="bg-primary text-primary-foreground">Active</Badge>
                       </div>
                       <div className="grid grid-cols-3 gap-4 mt-3">
                         <div>
@@ -315,6 +317,9 @@ export default function ChargingHubs() {
           </Card>
         </div>
       </div>
+
+      {/* Add Hub Modal */}
+      <AddHubModal open={showAddHubModal} onOpenChange={setShowAddHubModal} />
     </div>
   );
 }

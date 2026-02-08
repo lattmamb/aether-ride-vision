@@ -46,18 +46,33 @@ export default function DashboardHeader({ sidebarCollapsed, setSidebarCollapsed 
       </div>
 
       <div className="flex items-center gap-2 md:gap-3">
-        <Button variant="ghost" size="sm" className="relative hover:bg-interactive-hover" aria-label="Notifications">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="relative hover:bg-interactive-hover" 
+          aria-label="Notifications"
+          onClick={() => navigate('/dashboard/notifications')}
+        >
           <Bell className="h-5 w-5" />
-          <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-primary text-white">
+          <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-primary text-primary-foreground">
             3
           </Badge>
         </Button>
         
-        <Button variant="ghost" size="sm" className="hover:bg-interactive-hover" aria-label="Settings">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="hover:bg-interactive-hover" 
+          aria-label="Settings"
+          onClick={() => navigate('/dashboard/settings')}
+        >
           <Settings className="h-5 w-5" />
         </Button>
 
-        <div className="flex items-center gap-2 ml-2">
+        <div 
+          className="flex items-center gap-2 ml-2 cursor-pointer hover:opacity-80 transition-opacity"
+          onClick={() => navigate('/dashboard/profile')}
+        >
           <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
             <User className="h-4 w-4 text-primary" />
           </div>

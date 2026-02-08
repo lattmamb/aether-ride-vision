@@ -7,7 +7,9 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { useSEO } from '@/hooks/useSEO';
+import { toast } from 'sonner';
 import { 
   User, 
   Bell, 
@@ -15,14 +17,44 @@ import {
   Key, 
   Palette,
   Globe,
-  Zap
+  Zap,
+  Loader2
 } from 'lucide-react';
 
 export default function Settings() {
   useSEO({ title: 'Settings | Unity Fleet', description: 'Configure your dashboard preferences and system settings' });
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [pushNotifications, setPushNotifications] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
+  const [show2FAModal, setShow2FAModal] = useState(false);
+  const [twoFAEnabled, setTwoFAEnabled] = useState(false);
+
+  const handleSaveProfile = async () => {
+    setIsSaving(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setIsSaving(false);
+    toast.success('Profile settings saved successfully');
+  };
+
+  const handleUpdatePassword = async () => {
+    setIsUpdatingPassword(true);
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setIsUpdatingPassword(false);
+    toast.success('Password updated successfully');
+  };
+
+  const handleConfigure2FA = () => {
+    setShow2FAModal(true);
+  };
+
+  const handleEnable2FA = async () => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setTwoFAEnabled(true);
+    setShow2FAModal(false);
+    toast.success('Two-factor authentication enabled successfully');
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -87,7 +119,16 @@ export default function Settings() {
                 </Select>
               </div>
 
-              <Button className="w-full md:w-auto">Save Changes</Button>
+              <Button className="w-full md:w-auto" onClick={handleSaveProfile} disabled={isSaving}>
+                {isSaving ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  'Save Changes'
+                )}
+              </Button>
             </div>
           </Card>
         </TabsContent>
@@ -104,7 +145,10 @@ export default function Settings() {
                   <p className="font-medium">Dark Mode</p>
                   <p className="text-sm text-muted-foreground">Switch between light and dark themes</p>
                 </div>
-                <Switch checked={darkMode} onCheckedChange={setDarkMode} />
+                <Switch checked={darkMode} onCheckedChange={(checked) => {
+                  setDarkMode(checked);
+                  toast.success(`${checked ? 'Dark' : 'Light'} mode enabled`);
+                }} />
               </div>
 
               <div>
@@ -187,7 +231,10 @@ export default function Settings() {
                   <p className="font-medium">Email Notifications</p>
                   <p className="text-sm text-muted-foreground">Receive updates via email</p>
                 </div>
-                <Switch checked={emailNotifications} onCheckedChange={setEmailNotifications} />
+                <Switch checked={emailNotifications} onCheckedChange={(checked) => {
+                  setEmailNotifications(checked);
+                  toast.success(`Email notifications ${checked ? 'enabled' : 'disabled'}`);
+                }} />
               </div>
 
               <div className="flex items-center justify-between">
@@ -195,7 +242,10 @@ export default function Settings() {
                   <p className="font-medium">Push Notifications</p>
                   <p className="text-sm text-muted-foreground">Browser push notifications</p>
                 </div>
-                <Switch checked={pushNotifications} onCheckedChange={setPushNotifications} />
+                <Switch checked={pushNotifications} onCheckedChange={(checked) => {
+                  setPushNotifications(checked);
+                  toast.success(`Push notifications ${checked ? 'enabled' : 'disabled'}`);
+                }} />
               </div>
 
               <div className="pt-4 border-t space-y-3">
@@ -242,7 +292,16 @@ export default function Settings() {
                 <Label htmlFor="confirmPassword">Confirm New Password</Label>
                 <Input id="confirmPassword" type="password" />
               </div>
-              <Button>Update Password</Button>
+              <Button onClick={handleUpdatePassword} disabled={isUpdatingPassword}>
+                {isUpdatingPassword ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Updating...
+                  </>
+                ) : (
+                  'Update Password'
+                )}
+              </Button>
             </div>
           </Card>
 
@@ -257,9 +316,16 @@ export default function Settings() {
                   <p className="font-medium">Enable 2FA</p>
                   <p className="text-sm text-muted-foreground">Add an extra layer of security</p>
                 </div>
-                <Switch />
+                <Switch checked={twoFAEnabled} onCheckedChange={(checked) => {
+                  if (checked) {
+                    handleConfigure2FA();
+                  } else {
+                    setTwoFAEnabled(false);
+                    toast.success('Two-factor authentication disabled');
+                  }
+                }} />
               </div>
-              <Button variant="outline">Configure 2FA</Button>
+              <Button variant="outline" onClick={handleConfigure2FA}>Configure 2FA</Button>
             </div>
           </Card>
 
@@ -277,6 +343,33 @@ export default function Settings() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* 2FA Configuration Modal */}
+      <Dialog open={show2FAModal} onOpenChange={setShow2FAModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Configure Two-Factor Authentication</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="p-6 bg-muted rounded-lg text-center">
+              <div className="w-32 h-32 mx-auto bg-white rounded-lg flex items-center justify-center mb-4">
+                <div className="text-xs text-muted-foreground">QR Code</div>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Scan this QR code with your authenticator app
+              </p>
+            </div>
+            <div>
+              <Label htmlFor="verifyCode">Verification Code</Label>
+              <Input id="verifyCode" placeholder="Enter 6-digit code" maxLength={6} />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShow2FAModal(false)}>Cancel</Button>
+            <Button onClick={handleEnable2FA}>Enable 2FA</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
