@@ -1,289 +1,136 @@
 
-# Dashboard Polish and Full Functionality Plan
+
+# Enhance Landing Page with Video Backgrounds and New Video Components
 
 ## Overview
-This plan transforms the dashboard from a prototype with placeholder buttons into a fully functional, polished fleet management system. Every button will have a clear purpose and user action.
+Use the 7 uploaded MP4 videos to transform bland/plain sections of the landing page into visually rich, immersive experiences. Videos will be used as backgrounds, in cinematic showcase components, and in feature highlight sections.
 
 ---
 
-## Phase 1: Fix Missing Routes (Prevent 404 Errors)
+## Video Assignment Strategy
 
-### Problem Identified
-The sidebar navigation includes links to routes that don't exist:
-- `/dashboard/profile` - 404 error
-- `/dashboard/notifications` - 404 error  
-- `/dashboard/help` - 404 error
+The 7 uploaded MP4 files will be copied to `public/videos/` and used as follows:
 
-### Solution
-Create dedicated page components for these routes or redirect to the Settings page.
-
-**Files to create:**
-- `src/pages/dashboard/Profile.tsx` - User profile management
-- `src/pages/dashboard/Notifications.tsx` - Notification center
-- `src/pages/dashboard/Help.tsx` - Help and support documentation
-
-**Files to modify:**
-- `src/App.tsx` - Add the new routes under the dashboard layout
+| Video File | Usage | Section |
+|---|---|---|
+| `a77e1f2e...mp4` | Hero section full-screen background video | Hero |
+| `4b883753...mp4` | "Zero Emissions" sparkles section cinematic background | SparklesPreviewTesla |
+| `6538fee0...mp4` | Features CTA "Start Your Trial" card background | FeaturesSection |
+| `a70d450c...mp4` | New cinematic showcase section (video + text reveal) | New: VideoShowcase |
+| `98f747f1...mp4` | VehicleHeader section ambient background | VehicleHeader |
+| `d05a4679...mp4` | New video testimonial/highlight reel section | New: VideoHighlightReel |
+| `e3c6743e...mp4` | Map section ambient background overlay | Map |
 
 ---
 
-## Phase 2: Make All Dashboard Buttons Functional
+## Changes by File
 
-### DashboardOverview.tsx Buttons
+### 1. Copy Videos to Public Directory
+- Copy all 7 MP4 files to `public/videos/` with clean names:
+  - `hero-bg.mp4`
+  - `emissions-bg.mp4`
+  - `features-cta.mp4`
+  - `showcase-1.mp4`
+  - `vehicle-header-bg.mp4`
+  - `highlight-reel.mp4`
+  - `map-bg.mp4`
 
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| "View Reports" | No action | Navigate to `/dashboard/analytics` |
-| "Add New Vehicle" | No action | Open modal with vehicle form |
-| "Manage Users" | No action | Navigate to `/dashboard/users` |
-| "View Reservations" | No action | Navigate to `/dashboard/reservations` |
-| "Monitor Locations" | No action | Navigate to `/dashboard/tracking` |
+### 2. `src/components/Hero.tsx` -- Replace static image with video background
+- Replace the `<img src="/vehicles/model-s-white.jpg">` with a `<video>` element
+- Video: autoplay, muted, loop, playsInline
+- Keep the gradient overlay for text readability
+- Remove the static image fallback or keep as poster
 
-### VehicleHealth.tsx Buttons
+### 3. `src/components/ui/sparkles-demo.tsx` -- Add video to SparklesPreviewTesla
+- The "Zero Emissions / Maximum Performance" section is currently just sparkles on pure black
+- Add a looping video background behind the sparkles layer
+- Lower the video opacity so sparkles remain prominent
 
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| "View All" | No action | Navigate to `/dashboard/maintenance` |
-| "Schedule Maintenance" | No action | Open maintenance scheduling modal |
+### 4. `src/components/ui/vehicle-header.tsx` -- Add ambient video background
+- Currently plain text on transparent background -- very bland
+- Add a subtle looping video background with heavy gradient overlay
+- Keep text centered and readable
 
-### RecentBookings.tsx Buttons
+### 5. `src/components/FeaturesSection.tsx` -- Video in CTA card
+- Replace the static `model-s-white.jpg` image in the "Start Your Trial" card with a looping video
+- Video fills the right column with gradient overlay
 
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| "View All" | No action | Navigate to `/dashboard/reservations` |
-| "Manage All Bookings" | No action | Navigate to `/dashboard/reservations` |
+### 6. `src/components/Map.tsx` -- Video ambient layer behind map
+- Add a subtle video layer behind the entire map section
+- Low opacity with dark overlay so the map iframe and station cards remain readable
 
-### DashboardHeader.tsx Buttons
+### 7. New Component: `src/components/VideoShowcase.tsx` -- Cinematic scroll-triggered section
+- Full-width section with a looping video background
+- Overlay with scroll-triggered text reveal using Framer Motion
+- Content: brand story or "The Future of Mobility" messaging
+- Glass-morphism stats bar at the bottom
+- Placed between TeslaCardCarousel and SparklesPreviewTesla in Index.tsx
 
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| Search input | Static | Filter results in current page context |
-| Notifications bell | No action | Navigate to `/dashboard/notifications` |
-| Settings gear | No action | Navigate to `/dashboard/settings` |
-| User avatar | No action | Navigate to `/dashboard/profile` |
+### 8. New Component: `src/components/VideoHighlightReel.tsx` -- Multi-video feature highlights
+- Split-screen or card grid layout
+- Each card has a small looping video thumbnail with a title overlay
+- Highlights: "Performance", "Sustainability", "Technology", "Community"
+- Placed between FeaturesSection and Map in Index.tsx
 
-### DashboardPro.tsx (Damage Assessment) Buttons
-
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| "3D View" / "Schematic view" | Toggle view | Toggle between visualization modes |
-| Eye icons | No action | Open damage photo gallery |
-| "Customize" | No action | Open parts customization panel |
-| "Driver information" etc. | No action | Expand accordion sections with data |
-| "View all" photos | No action | Open full photo gallery modal |
-| "Go to checkout" | No action | Navigate to checkout/payment flow |
-
-### VehicleTracking.tsx Buttons
-
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| "Export Data" | No action | Download vehicle data as CSV |
-| "Center Map" | No action | Center map on vehicle cluster |
-| "Layers" | No action | Open layers toggle dropdown |
-| "Close" (vehicle details) | Works | Already functional |
-
-### JobPlatform.tsx Buttons
-
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| "Post New Job" | No action | Open job creation modal |
-| "Apply Now" | No action | Open application form modal |
-| "Save Job" | No action | Save job to user's saved list with toast |
-| Modal close | Works | Already functional |
-
-### ChargingHubs.tsx Buttons
-
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| "Add New Hub" | No action | Open hub creation modal |
-
-### Hub3DDemo.tsx Buttons
-
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| Fullscreen | Partial | Toggle fullscreen mode properly |
-| Reset View | No action | Reset camera/rotation to default |
-| Day/Night | Works | Already functional |
-
-### Settings.tsx Buttons
-
-| Button | Current State | Proposed Action |
-|--------|--------------|-----------------|
-| "Save Changes" | No action | Save profile with toast confirmation |
-| "Update Password" | No action | Validate and update with toast |
-| "Configure 2FA" | No action | Open 2FA setup modal/flow |
+### 9. `src/pages/Index.tsx` -- Updated section order
+```
+Hero (video bg)
+SearchFilter
+VehicleHeader (video bg)
+TeslaCardCarousel
+VideoShowcase (NEW)
+SparklesPreviewTesla (video bg)
+TeslaVehiclesParallax
+FeaturesSection (video in CTA)
+VideoHighlightReel (NEW)
+Map (video bg)
+```
 
 ---
 
-## Phase 3: Create New Page Components
+## Technical Details
 
-### Profile.tsx
-- Display user avatar with upload capability
-- Editable profile fields (name, email, phone, role)
-- Account statistics (joined date, last login)
-- Quick links to security settings
-- "Save Changes" button with success toast
+### Video Element Pattern (reused across all components)
+```tsx
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  className="absolute inset-0 w-full h-full object-cover opacity-30"
+  poster="/vehicles/model-s-white.jpg"
+>
+  <source src="/videos/hero-bg.mp4" type="video/mp4" />
+</video>
+```
 
-### Notifications.tsx
-- List of notifications with read/unread states
-- Filter by type (alerts, bookings, system)
-- Mark as read / Mark all as read
-- Notification preferences link
-- Empty state when no notifications
+### Key Principles
+- All videos are `autoPlay`, `muted`, `loop`, `playsInline` (required for mobile autoplay)
+- Opacity kept between 15-40% depending on section to maintain text readability
+- Gradient overlays on top of videos for contrast
+- Videos load lazily where possible using `preload="none"` on non-hero sections
+- Poster images used as fallbacks
 
-### Help.tsx
-- FAQ accordion sections
-- Quick links to common topics
-- Contact support form
-- System status overview
-- Documentation links
-
----
-
-## Phase 4: Create Reusable Modal Components
-
-### AddVehicleModal.tsx
-- Form fields: Model, Type, VIN, Color, Status
-- Validation with error messages
-- Submit creates mock vehicle entry
-- Success toast on completion
-
-### ScheduleMaintenanceModal.tsx
-- Vehicle selector dropdown
-- Date/time picker
-- Service type selection
-- Notes textarea
-- Submit with confirmation
-
-### PostJobModal.tsx
-- Job title, type, location fields
-- Salary range inputs
-- Description textarea
-- Requirements list (add/remove)
-- Submit with success toast
-
-### PhotoGalleryModal.tsx
-- Grid of uploaded photos
-- Lightbox view on click
-- Upload new photos button
-- Delete photo capability
-
----
-
-## Phase 5: Polish Visual Consistency
-
-### Standardize Dashboard Card Styles
-- Ensure all cards use `dashboard-card` class
-- Consistent padding (p-6)
-- Uniform border radius and shadows
-- Hover states on interactive cards
-
-### Improve Button Hierarchy
-- Primary actions: Filled primary button
-- Secondary actions: Outline button
-- Tertiary actions: Ghost button
-- Consistent icon sizing (h-4 w-4)
-
-### Add Loading States
-- Skeleton loaders for data fetching
-- Button loading spinners during actions
-- Page transition animations
-
-### Add Success Feedback
-- Toast notifications for all user actions
-- Success/error states with clear messaging
-- Optimistic UI updates where appropriate
-
----
-
-## Phase 6: Clean Up Placeholder Content
-
-### Replace Static Mock Data Patterns
-- Add "Demo Mode" badge where mock data is shown
-- Randomize some values for realism
-- Add timestamps that update
-- Show realistic vehicle/user counts
-
-### Improve Map Placeholder
-- Add interactive markers that respond to clicks
-- Better visual representation of locations
-- Connection to OpenStreetMap if possible
-
----
-
-## Files to Create
-
+### Files to Create
 | File | Purpose |
-|------|---------|
-| `src/pages/dashboard/Profile.tsx` | User profile page |
-| `src/pages/dashboard/Notifications.tsx` | Notification center |
-| `src/pages/dashboard/Help.tsx` | Help and documentation |
-| `src/components/dashboard/modals/AddVehicleModal.tsx` | Vehicle creation modal |
-| `src/components/dashboard/modals/ScheduleMaintenanceModal.tsx` | Maintenance scheduling |
-| `src/components/dashboard/modals/PostJobModal.tsx` | Job posting form |
-| `src/components/dashboard/modals/PhotoGalleryModal.tsx` | Photo gallery viewer |
+|---|---|
+| `public/videos/hero-bg.mp4` | Copied from upload |
+| `public/videos/emissions-bg.mp4` | Copied from upload |
+| `public/videos/features-cta.mp4` | Copied from upload |
+| `public/videos/showcase-1.mp4` | Copied from upload |
+| `public/videos/vehicle-header-bg.mp4` | Copied from upload |
+| `public/videos/highlight-reel.mp4` | Copied from upload |
+| `public/videos/map-bg.mp4` | Copied from upload |
+| `src/components/VideoShowcase.tsx` | Cinematic scroll section |
+| `src/components/VideoHighlightReel.tsx` | Multi-card video highlights |
 
-## Files to Modify
+### Files to Modify
+| File | Change |
+|---|---|
+| `src/components/Hero.tsx` | Replace static image with video background |
+| `src/components/ui/sparkles-demo.tsx` | Add video layer behind sparkles |
+| `src/components/ui/vehicle-header.tsx` | Add ambient video background |
+| `src/components/FeaturesSection.tsx` | Replace CTA image with video |
+| `src/components/Map.tsx` | Add ambient video behind map section |
+| `src/pages/Index.tsx` | Add VideoShowcase and VideoHighlightReel to page flow |
 
-| File | Changes |
-|------|---------|
-| `src/App.tsx` | Add profile, notifications, help routes |
-| `src/pages/DashboardOverview.tsx` | Wire up all quick action buttons |
-| `src/components/dashboard/DashboardHeader.tsx` | Wire up header buttons |
-| `src/components/dashboard/VehicleHealth.tsx` | Add button handlers |
-| `src/components/dashboard/RecentBookings.tsx` | Add navigation handlers |
-| `src/pages/DashboardPro.tsx` | Add toggle states and handlers |
-| `src/pages/dashboard/VehicleTracking.tsx` | Add export/layers functionality |
-| `src/pages/dashboard/JobPlatform.tsx` | Add modal triggers |
-| `src/pages/dashboard/ChargingHubs.tsx` | Add modal trigger |
-| `src/pages/dashboard/Settings.tsx` | Add save handlers with toasts |
-| `src/pages/dashboard/Hub3DDemo.tsx` | Fix reset view and fullscreen |
-
----
-
-## Technical Implementation Notes
-
-### Navigation Pattern
-```tsx
-const navigate = useNavigate();
-// Button onClick
-onClick={() => navigate('/dashboard/reservations')}
-```
-
-### Toast Pattern
-```tsx
-import { toast } from 'sonner';
-// On action
-toast.success('Changes saved successfully');
-toast.error('Failed to save changes');
-```
-
-### Modal State Pattern
-```tsx
-const [isModalOpen, setIsModalOpen] = useState(false);
-// Trigger
-<Button onClick={() => setIsModalOpen(true)}>Open</Button>
-// Modal
-<Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-```
-
-### Export Data Pattern
-```tsx
-const exportToCSV = (data) => {
-  const csv = convertToCSV(data);
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
-  // Trigger download
-};
-```
-
----
-
-## Result
-
-After implementation:
-- Zero 404 errors in dashboard navigation
-- Every button has a clear, user-intended purpose
-- Consistent visual styling across all dashboard pages
-- Smooth transitions and feedback for all user actions
-- Clean, professional fleet management experience
