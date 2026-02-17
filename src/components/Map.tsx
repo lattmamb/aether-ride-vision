@@ -34,8 +34,20 @@ const Map: React.FC<MapProps> = ({
   };
 
   return (
-    <section className="py-16">
-      <div className="container mx-auto px-4">
+    <section className="py-16 relative overflow-hidden">
+      {/* Video ambient background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="none"
+        className="absolute inset-0 w-full h-full object-cover opacity-15 z-0"
+      >
+        <source src="/videos/map-bg.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background z-0" />
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Charging Network</h2>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">

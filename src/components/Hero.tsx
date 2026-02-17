@@ -55,14 +55,19 @@ const Hero: React.FC = () => {
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-tesla-purple/20 rounded-full blur-[120px] parallax-bg"></div>
       </div>
       
-      {/* Vehicle background image */}
+      {/* Vehicle background video */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black z-10"></div>
-        <img 
-          src="/vehicles/model-s-white.jpg" 
-          alt="Tesla Model S" 
-          className="w-full h-full object-cover opacity-30 parallax-bg"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/vehicles/model-s-white.jpg"
+          className="w-full h-full object-cover opacity-40 parallax-bg"
+        >
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+        </video>
       </div>
       
       {/* Gradients */}

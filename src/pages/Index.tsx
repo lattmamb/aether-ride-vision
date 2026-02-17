@@ -9,6 +9,8 @@ import { SparklesPreviewTesla } from '@/components/ui/sparkles-demo';
 import TeslaVehiclesParallax from '@/components/TeslaVehiclesParallax';
 import FeaturesSection from '@/components/FeaturesSection';
 import Map from '@/components/Map';
+import VideoShowcase from '@/components/VideoShowcase';
+import VideoHighlightReel from '@/components/VideoHighlightReel';
 
 const Index = () => {
   return (
@@ -17,9 +19,11 @@ const Index = () => {
       <SearchFilter onSearch={(filters) => console.log(filters)} />
       <VehicleHeader />
       <TeslaCardCarousel />
+      <VideoShowcase />
       <SparklesPreviewTesla />
       <TeslaVehiclesParallax />
       <FeaturesSection />
+      <VideoHighlightReel />
       <Map />
     </MainLayout>
   );
