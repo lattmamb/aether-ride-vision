@@ -23,10 +23,9 @@ const Map: React.FC<MapProps> = ({
 }) => {
   const [selectedStation, setSelectedStation] = useState<ChargingStation | null>(null);
 
-  // Generate Google Maps embed URL
+  // Generate OpenStreetMap embed URL (no API key needed)
   const getEmbedUrl = () => {
-    const markers = stations.map(s => `${s.location.lat},${s.location.lng}`).join('|');
-    return `https://www.google.com/maps/embed/v1/view?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&center=${center.lat},${center.lng}&zoom=${zoom}&maptype=roadmap`;
+    return `https://www.openstreetmap.org/export/embed.html?bbox=${center.lng - 0.05}%2C${center.lat - 0.03}%2C${center.lng + 0.05}%2C${center.lat + 0.03}&layer=mapnik&marker=${center.lat}%2C${center.lng}`;
   };
 
   const openInGoogleMaps = (station: ChargingStation) => {
