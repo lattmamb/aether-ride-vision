@@ -57,7 +57,18 @@ export function SparklesPreviewDark() {
 export function SparklesPreviewTesla() {
   return (
     <div className="h-[40rem] relative w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
-      <div className="w-full absolute inset-0 h-screen">
+      {/* Video background behind sparkles */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="none"
+        className="absolute inset-0 w-full h-full object-cover opacity-20 z-0"
+      >
+        <source src="/videos/emissions-bg.mp4" type="video/mp4" />
+      </video>
+      <div className="w-full absolute inset-0 h-screen z-10">
         <SparklesCore
           id="tsparticlestesla"
           background="transparent"

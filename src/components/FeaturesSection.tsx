@@ -68,11 +68,17 @@ const FeaturesSection: React.FC = () => {
             <div className="relative min-h-[350px] lg:min-h-[400px]">
               <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-gradient-to-r from-tesla-dark-80 via-tesla-dark-80/50 to-transparent z-10"></div>
-                <img 
-                  src="/vehicles/model-s-white.jpg"
-                  alt="Tesla Model S - Premium Electric Sedan" 
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  poster="/vehicles/model-s-white.jpg"
                   className="h-full w-full object-cover object-center"
-                />
+                >
+                  <source src="/videos/features-cta.mp4" type="video/mp4" />
+                </video>
               </div>
               {/* Floating stats */}
               <div className="absolute bottom-6 left-6 z-20 flex gap-4">
