@@ -4,6 +4,7 @@ import MainLayout from '@/layouts/MainLayout';
 import Hero from '@/components/Hero';
 import SearchFilter from '@/components/SearchFilter';
 import ServicesShowcase from '@/components/ServicesShowcase';
+import StickyScrollReveal from '@/components/StickyScrollReveal';
 import { VehicleHeader } from '@/components/ui/vehicle-header';
 import TeslaCardCarousel from '@/components/tesla-card-carousel';
 import { SparklesPreviewTesla } from '@/components/ui/sparkles-demo';
@@ -21,6 +22,7 @@ const Index = () => {
       <Hero />
       <SearchFilter onSearch={(filters) => console.log(filters)} />
       <ServicesShowcase />
+      <StickyScrollReveal />
       <VehicleHeader />
       <TeslaCardCarousel />
       <VideoShowcase />
