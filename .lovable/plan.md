@@ -1,136 +1,138 @@
 
 
-# Enhance Landing Page with Video Backgrounds and New Video Components
+# Implement B12 Site Design Elements into Unity Fleet App
 
 ## Overview
-Use the 7 uploaded MP4 videos to transform bland/plain sections of the landing page into visually rich, immersive experiences. Videos will be used as backgrounds, in cinematic showcase components, and in feature highlight sections.
+Adapt the key design patterns, imagery, service cards, contact section, and business information from the Unity Fleet B12 staging site into the existing Lovable app, while preserving the premium metallic liquid glass aesthetic already established.
 
 ---
 
-## Video Assignment Strategy
+## Key Design Elements from B12 Site to Implement
 
-The 7 uploaded MP4 files will be copied to `public/videos/` and used as follows:
-
-| Video File | Usage | Section |
-|---|---|---|
-| `a77e1f2e...mp4` | Hero section full-screen background video | Hero |
-| `4b883753...mp4` | "Zero Emissions" sparkles section cinematic background | SparklesPreviewTesla |
-| `6538fee0...mp4` | Features CTA "Start Your Trial" card background | FeaturesSection |
-| `a70d450c...mp4` | New cinematic showcase section (video + text reveal) | New: VideoShowcase |
-| `98f747f1...mp4` | VehicleHeader section ambient background | VehicleHeader |
-| `d05a4679...mp4` | New video testimonial/highlight reel section | New: VideoHighlightReel |
-| `e3c6743e...mp4` | Map section ambient background overlay | Map |
+1. **Service Cards Section** -- "Ridesharing", "Vehicle Rentals", "Employee Benefits Package" with image backgrounds and descriptive text
+2. **"Discover Unity Fleet" tagline section** -- "Your gateway to autonomous travel / Your Ride OF The Future"
+3. **Contact Form Section** -- "Get in touch" with Name, Email, Phone, Message fields + business info sidebar (hours, location, phone, email)
+4. **Full-width image hero with overlay text** -- Cinematic vehicle close-ups (wheel/brake, autonomous driving imagery)
+5. **CTA Banner** -- "Explore our autonomous fleet services" with dual buttons
+6. **Business Hours + Location sidebar** -- Decatur, IL info with hours table
 
 ---
 
-## Changes by File
+## Phase 1: Create New Components
 
-### 1. Copy Videos to Public Directory
-- Copy all 7 MP4 files to `public/videos/` with clean names:
-  - `hero-bg.mp4`
-  - `emissions-bg.mp4`
-  - `features-cta.mp4`
-  - `showcase-1.mp4`
-  - `vehicle-header-bg.mp4`
-  - `highlight-reel.mp4`
-  - `map-bg.mp4`
+### 1.1 `src/components/ServicesShowcase.tsx` -- Service Cards Section
+Inspired by the B12 site's 3-card service layout:
+- **Ridesharing** -- Full-width image background card with overlay text, links to `/vehicles`
+- **Vehicle Rentals** -- Same pattern, links to `/vehicles`
+- **Employee Benefits Package** -- Same pattern, links to `/about`
+- Each card: large background image (using existing vehicle images from `public/vehicles/`), glassmorphism overlay with title + description, hover scale effect
+- Section header: "Discover Unity Fleet" / "Your Gateway to Autonomous Travel" / italic "Your Ride of The Future"
+- Uses Framer Motion for staggered entrance animations
 
-### 2. `src/components/Hero.tsx` -- Replace static image with video background
-- Replace the `<img src="/vehicles/model-s-white.jpg">` with a `<video>` element
-- Video: autoplay, muted, loop, playsInline
-- Keep the gradient overlay for text readability
-- Remove the static image fallback or keep as poster
+### 1.2 `src/components/ContactSection.tsx` -- Contact Form + Business Info
+Split-layout section matching the B12 contact area:
+- **Left side**: Contact form with Name, Email, Phone, Message fields using existing glass styling
+  - Form validation with `react-hook-form` + `zod`
+  - Submit button with loading state
+  - Success toast on submission (mock, no backend)
+- **Right side**: Business info card with:
+  - Phone: +12178271305
+  - Email: lambmatt2002@gmail.com
+  - Location: Decatur, IL 62525 United States (linked to Google Maps)
+  - Hours table (Mon-Fri 7am-7pm, Sat-Sun 8am-6pm)
+- Full-width video background (reuse `/videos/map-bg.mp4`) with dark overlay
+- Glass-card styling for both form and info panels
 
-### 3. `src/components/ui/sparkles-demo.tsx` -- Add video to SparklesPreviewTesla
-- The "Zero Emissions / Maximum Performance" section is currently just sparkles on pure black
-- Add a looping video background behind the sparkles layer
-- Lower the video opacity so sparkles remain prominent
+### 1.3 `src/components/AutonomousCTA.tsx` -- CTA Banner
+Full-width cinematic CTA section:
+- Background: video loop from `/videos/showcase-1.mp4` or `/videos/highlight-reel.mp4`
+- Bold headline: "Explore Our Autonomous Fleet Services"
+- Subtext: "Embrace flexibility -- unlock your potential today!"
+- Two buttons: "Get in Touch" (scrolls to contact) and "View Services" (links to `/vehicles`)
+- Glass-morphism overlay for readability
 
-### 4. `src/components/ui/vehicle-header.tsx` -- Add ambient video background
-- Currently plain text on transparent background -- very bland
-- Add a subtle looping video background with heavy gradient overlay
-- Keep text centered and readable
+---
 
-### 5. `src/components/FeaturesSection.tsx` -- Video in CTA card
-- Replace the static `model-s-white.jpg` image in the "Start Your Trial" card with a looping video
-- Video fills the right column with gradient overlay
+## Phase 2: Enhance Existing Sections
 
-### 6. `src/components/Map.tsx` -- Video ambient layer behind map
-- Add a subtle video layer behind the entire map section
-- Low opacity with dark overlay so the map iframe and station cards remain readable
+### 2.1 Update Hero messaging
+- Change badge text to "Discover Unity Fleet"
+- Update subtitle to include "Your Gateway to Autonomous Travel"
+- Add italic tagline "Your Ride of The Future" beneath the main headline
 
-### 7. New Component: `src/components/VideoShowcase.tsx` -- Cinematic scroll-triggered section
-- Full-width section with a looping video background
-- Overlay with scroll-triggered text reveal using Framer Motion
-- Content: brand story or "The Future of Mobility" messaging
-- Glass-morphism stats bar at the bottom
-- Placed between TeslaCardCarousel and SparklesPreviewTesla in Index.tsx
+### 2.2 Update Footer contact info
+- Update phone to `+12178271305`
+- Update email to `lambmatt2002@gmail.com`
+- Update address to `Decatur, IL 62525 United States`
+- Add business hours to footer
 
-### 8. New Component: `src/components/VideoHighlightReel.tsx` -- Multi-video feature highlights
-- Split-screen or card grid layout
-- Each card has a small looping video thumbnail with a title overlay
-- Highlights: "Performance", "Sustainability", "Technology", "Community"
-- Placed between FeaturesSection and Map in Index.tsx
+---
 
-### 9. `src/pages/Index.tsx` -- Updated section order
-```
-Hero (video bg)
+## Phase 3: Update Index.tsx Page Flow
+
+Updated section order:
+```text
+Hero (with updated B12 messaging)
 SearchFilter
+ServicesShowcase (NEW - 3 service cards)
 VehicleHeader (video bg)
 TeslaCardCarousel
-VideoShowcase (NEW)
+VideoShowcase
 SparklesPreviewTesla (video bg)
 TeslaVehiclesParallax
 FeaturesSection (video in CTA)
-VideoHighlightReel (NEW)
+VideoHighlightReel
+AutonomousCTA (NEW - cinematic CTA banner)
 Map (video bg)
+ContactSection (NEW - form + business info)
 ```
+
+---
+
+## Files Summary
+
+### Files to Create
+| File | Purpose |
+|---|---|
+| `src/components/ServicesShowcase.tsx` | 3-card service offering section with image backgrounds |
+| `src/components/ContactSection.tsx` | Contact form + business info with hours |
+| `src/components/AutonomousCTA.tsx` | Full-width cinematic CTA banner |
+
+### Files to Modify
+| File | Change |
+|---|---|
+| `src/pages/Index.tsx` | Add 3 new sections to page flow |
+| `src/components/Hero.tsx` | Update badge/tagline to match B12 branding |
+| `src/components/Footer.tsx` | Update contact info (phone, email, address) |
 
 ---
 
 ## Technical Details
 
-### Video Element Pattern (reused across all components)
+### ServicesShowcase Card Pattern
 ```tsx
-<video
-  autoPlay
-  muted
-  loop
-  playsInline
-  className="absolute inset-0 w-full h-full object-cover opacity-30"
-  poster="/vehicles/model-s-white.jpg"
->
-  <source src="/videos/hero-bg.mp4" type="video/mp4" />
-</video>
+<motion.div className="relative h-80 rounded-2xl overflow-hidden group cursor-pointer">
+  <img src="/vehicles/model-s-white.jpg" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+  <div className="absolute bottom-0 p-6 z-10">
+    <h3 className="text-2xl font-bold text-white">Ridesharing</h3>
+    <p className="text-white/70 mt-2">Experience seamless travel...</p>
+  </div>
+</motion.div>
 ```
 
-### Key Principles
-- All videos are `autoPlay`, `muted`, `loop`, `playsInline` (required for mobile autoplay)
-- Opacity kept between 15-40% depending on section to maintain text readability
-- Gradient overlays on top of videos for contrast
-- Videos load lazily where possible using `preload="none"` on non-hero sections
-- Poster images used as fallbacks
+### Contact Form Pattern
+- Uses `react-hook-form` with `zod` validation (already installed)
+- Glass-card styling with border-bottom input fields (matching B12 style)
+- `toast.success()` on submission
+- No backend required -- mock submission
 
-### Files to Create
-| File | Purpose |
-|---|---|
-| `public/videos/hero-bg.mp4` | Copied from upload |
-| `public/videos/emissions-bg.mp4` | Copied from upload |
-| `public/videos/features-cta.mp4` | Copied from upload |
-| `public/videos/showcase-1.mp4` | Copied from upload |
-| `public/videos/vehicle-header-bg.mp4` | Copied from upload |
-| `public/videos/highlight-reel.mp4` | Copied from upload |
-| `public/videos/map-bg.mp4` | Copied from upload |
-| `src/components/VideoShowcase.tsx` | Cinematic scroll section |
-| `src/components/VideoHighlightReel.tsx` | Multi-card video highlights |
-
-### Files to Modify
-| File | Change |
-|---|---|
-| `src/components/Hero.tsx` | Replace static image with video background |
-| `src/components/ui/sparkles-demo.tsx` | Add video layer behind sparkles |
-| `src/components/ui/vehicle-header.tsx` | Add ambient video background |
-| `src/components/FeaturesSection.tsx` | Replace CTA image with video |
-| `src/components/Map.tsx` | Add ambient video behind map section |
-| `src/pages/Index.tsx` | Add VideoShowcase and VideoHighlightReel to page flow |
+### Business Hours Data
+```tsx
+const hours = [
+  { day: 'Monday', open: '7:00am', close: '7:00pm' },
+  { day: 'Tuesday', open: '7:00am', close: '7:00pm' },
+  // ... through Sunday
+];
+```
 
