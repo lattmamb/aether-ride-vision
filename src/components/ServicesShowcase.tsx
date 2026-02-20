@@ -6,22 +6,22 @@ import { ArrowRight, Car, Building2, Users } from 'lucide-react';
 const services = [
   {
     title: 'Ridesharing',
-    description: 'Experience seamless autonomous travel with our cutting-edge ridesharing platform. Safe, efficient, and eco-friendly transportation at your fingertips.',
-    image: '/vehicles/model-s-white.jpg',
+    description: 'Experience seamless travel with our fully autonomous ridesharing service. Safe, efficient, and eco-friendly transportation at your fingertips.',
+    image: '/images/ridesharing-bg.jpg',
     link: '/vehicles',
     icon: Car,
   },
   {
     title: 'Vehicle Rentals',
-    description: 'Access our premium fleet of electric vehicles for short or long-term rentals. Flexible plans designed around your lifestyle.',
-    image: '/vehicles/model-x-black.jpg',
+    description: 'Rent the latest Tesla models easily through flexible plans. Short-term or long-term, designed around your lifestyle.',
+    image: '/images/rentals-bg.jpg',
     link: '/vehicles',
     icon: Building2,
   },
   {
     title: 'Employee Benefits Package',
-    description: 'Elevate your company\'s benefits with sustainable transportation solutions. Attract top talent with premium EV perks.',
-    image: '/vehicles/cybertruck-silver.jpg',
+    description: 'Enhance employee satisfaction with on-demand rides and sustainable transportation solutions. Attract top talent with premium EV perks.',
+    image: '/images/benefits-bg.jpg',
     link: '/about',
     icon: Users,
   },
