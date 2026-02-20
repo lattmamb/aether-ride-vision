@@ -136,27 +136,33 @@ const Footer: React.FC = () => {
                   <MapPin className="h-4 w-4" />
                 </div>
                 <span className="text-silver-400 font-inter">
-                  123 Unity Drive, Chicago, IL 60601
+                  Decatur, IL 62525, United States
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-primary/10 text-primary">
                   <Phone className="h-4 w-4" />
                 </div>
-                <span className="text-silver-400 font-inter">+1 (312) 555-0123</span>
+                <a href="tel:+12178271305" className="text-silver-400 hover:text-primary transition-colors font-inter">+1 (217) 827-1305</a>
               </li>
               <li className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-primary/10 text-primary">
                   <Mail className="h-4 w-4" />
                 </div>
                 <a 
-                  href="mailto:hello@unityfleet.com" 
+                  href="mailto:lambmatt2002@gmail.com" 
                   className="text-silver-400 hover:text-primary transition-colors font-inter"
                 >
-                  hello@unityfleet.com
+                  lambmatt2002@gmail.com
                 </a>
               </li>
             </ul>
+            {/* Business Hours */}
+            <div className="mt-6 pt-4 border-t border-silver-700/30">
+              <p className="text-silver-400/60 text-xs font-inter mb-2">Business Hours</p>
+              <p className="text-silver-400 text-sm font-inter">Mon–Fri: 7am – 7pm</p>
+              <p className="text-silver-400 text-sm font-inter">Sat–Sun: 8am – 6pm</p>
+            </div>
           </div>
         </div>
 

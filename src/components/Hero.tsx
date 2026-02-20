@@ -81,18 +81,22 @@ const Hero: React.FC = () => {
         <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
           {/* Badge */}
           <div className="mb-6 px-4 py-2 rounded-full border border-tesla-blue/30 bg-tesla-blue/10 backdrop-blur-sm">
-            <span className="text-tesla-blue text-sm font-medium">🚗 Premium Electric Vehicle Subscriptions</span>
+            <span className="text-tesla-blue text-sm font-medium">🚗 Discover Unity Fleet</span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 relative z-20">
-            Rent Your Dream
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 relative z-20">
+            Your Gateway to
             <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-tesla-blue to-tesla-purple">Electric Vehicle</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-tesla-blue to-tesla-purple">Autonomous Travel</span>
           </h1>
           
+          <p className="text-xl md:text-2xl italic text-white/60 mb-6 font-light">
+            Your Ride of The Future
+          </p>
+          
           <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl">
-            Experience the future of transportation with our premium electric 
-            vehicle rental service. Zero emissions, maximum performance, starting at just <span className="text-tesla-blue font-semibold">$189/month</span>.
+            Experience the future of transportation with our premium autonomous 
+            fleet services. Zero emissions, maximum performance, starting at just <span className="text-tesla-blue font-semibold">$189/month</span>.
           </p>
           
           {/* Stats row */}
