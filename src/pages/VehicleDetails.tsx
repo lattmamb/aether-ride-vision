@@ -35,16 +35,6 @@ const VehicleDetails = () => {
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-16 mt-14 md:mt-20">
-        {/* Breadcrumbs */}
-        <div className="mb-8">
-          <div className="text-sm text-white/60">
-            <Link to="/" className="hover:text-white">Home</Link>
-            <span className="mx-2">/</span>
-            <Link to="/vehicles" className="hover:text-white">Vehicles</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white">{vehicle.model}</span>
-          </div>
-        </div>
         
         {/* Hero Section */}
         <VehicleDetailsHero 

@@ -40,7 +40,7 @@ const VideoShowcase: React.FC = () => {
             <span className="text-tesla-blue text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">
               The Future of Mobility
             </span>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white max-w-3xl leading-[1.1] mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white max-w-3xl leading-[1.1] mb-4 text-balance">
               Redefining the
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-tesla-blue to-tesla-purple">

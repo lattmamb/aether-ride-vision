@@ -43,7 +43,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             exit={{ opacity: 0, scale: 0.5 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="fixed bottom-8 right-8 z-50 glass-metallic p-3 rounded-full shadow-lg silver-glow"
+            className="fixed bottom-20 md:bottom-8 right-4 md:right-8 z-50 glass-metallic p-3 rounded-full shadow-lg silver-glow"
             onClick={scrollToTop}
             aria-label="Scroll to top"
           >
@@ -52,7 +52,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         )}
       </AnimatePresence>
       
-      <main className="flex-grow">
+      <main className="flex-grow pb-16 md:pb-0">
         <div id="page-content">{children}</div>
       </main>
       <Footer />
