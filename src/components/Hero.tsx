@@ -104,7 +104,7 @@ const Hero: React.FC = () => {
       </button>
 
       {/* Dot indicators */}
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <div className="absolute bottom-28 md:bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {heroSlides.map((_, index) => (
           <button
             key={index}
@@ -136,7 +136,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 text-white relative z-20 leading-[0.95]"
+            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 text-white relative z-20 leading-[0.95] text-balance"
           >
             Your Gateway to
             <br />
@@ -149,7 +149,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.6 }}
-            className="text-2xl md:text-3xl italic text-white/50 mb-8 font-light"
+            className="text-lg sm:text-2xl md:text-3xl italic text-white/50 mb-8 font-light"
           >
             Your Ride of The Future
           </motion.p>
@@ -158,12 +158,12 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
           >
             <Button
               asChild
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-10 h-14 text-lg rounded-xl"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-10 h-14 text-lg rounded-xl"
             >
               <Link to="/vehicles">View Services</Link>
             </Button>
@@ -172,7 +172,7 @@ const Hero: React.FC = () => {
               asChild
               variant="outline"
               size="lg"
-              className="border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 text-white h-14 text-lg rounded-xl"
+              className="w-full sm:w-auto border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 text-white h-14 text-lg rounded-xl"
             >
               <a href="#contact">Get in Touch</a>
             </Button>
@@ -181,7 +181,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+      <div className="absolute bottom-20 md:bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
         <ArrowDown className="h-8 w-8 text-white/60" />
       </div>
     </div>

@@ -29,7 +29,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className="glass-card py-6 px-6 md:px-8 w-full max-w-6xl mx-auto -mt-20 relative z-20">
+    <div className="glass-card py-6 px-4 md:px-8 w-full max-w-6xl mx-4 md:mx-auto -mt-10 md:-mt-20 relative z-20 rounded-2xl">
       <h2 className="text-xl font-semibold mb-4">Search Cars</h2>
       
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-4">

@@ -35,8 +35,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: index * 0.05 }}
-                className={`py-2 ${isActiveRoute(link.path) 
-                  ? 'border-l-2 border-[#9b87f5] pl-2'
+              className={`py-3 ${isActiveRoute(link.path) 
+                  ? 'border-l-2 border-primary pl-2'
                   : 'pl-4'}`}
               >
                 <Link
@@ -70,14 +70,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
               <Button 
                 variant="outline" 
                 size="sm" 
-                className={`w-full border-[#9b87f5]/30 ${isActiveRoute('/dashboard') ? 'bg-[#9b87f5]/20 text-white' : 'text-white'}`}
+                className={`w-full border-primary/30 ${isActiveRoute('/dashboard') ? 'bg-primary/20 text-white' : 'text-white'}`}
               >
                 <User className="w-4 h-4 mr-2" />
                 Dashboard
               </Button>
             </Link>
             <Button 
-              className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               onClick={handleBookNow}
             >
               Book Now
@@ -90,12 +90,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <Link to="/locations" className="bg-white/5 hover:bg-white/10 p-3 rounded-lg text-center">
-              <MapPinIcon className="w-5 h-5 mx-auto mb-1 text-[#9b87f5]" />
+            <Link to="/locations" className="bg-white/5 hover:bg-white/10 p-3 rounded-xl text-center">
+              <MapPinIcon className="w-5 h-5 mx-auto mb-1 text-primary" />
               <span className="text-xs text-white/80">Locations</span>
             </Link>
-            <Link to="/pricing" className="bg-white/5 hover:bg-white/10 p-3 rounded-lg text-center">
-              <CreditCardIcon className="w-5 h-5 mx-auto mb-1 text-[#9b87f5]" />
+            <Link to="/pricing" className="bg-white/5 hover:bg-white/10 p-3 rounded-xl text-center">
+              <CreditCardIcon className="w-5 h-5 mx-auto mb-1 text-primary" />
               <span className="text-xs text-white/80">Pricing</span>
             </Link>
           </motion.div>

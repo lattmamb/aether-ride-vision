@@ -57,10 +57,10 @@ const FeaturesSection: React.FC = () => {
                 Join thousands of satisfied customers who have embraced our premium electric vehicle rental service. Your journey to the future begins here.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="/vehicles" className="bg-tesla-blue hover:bg-tesla-blue/90 text-white py-3 px-6 rounded-lg font-medium transition-colors text-center">
+                <a href="/vehicles" className="bg-primary hover:bg-primary/90 text-primary-foreground py-3 px-6 rounded-xl font-medium transition-colors text-center min-h-[44px] inline-flex items-center justify-center">
                   Start Your Trial Now
                 </a>
-                <a href="/pricing" className="border border-white/20 hover:bg-white/10 text-white py-3 px-6 rounded-lg font-medium transition-colors text-center">
+                <a href="/pricing" className="border border-white/20 hover:bg-white/10 text-white py-3 px-6 rounded-xl font-medium transition-colors text-center min-h-[44px] inline-flex items-center justify-center">
                   View Pricing
                 </a>
               </div>

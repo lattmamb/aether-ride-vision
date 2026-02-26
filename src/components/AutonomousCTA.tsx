@@ -46,11 +46,11 @@ const AutonomousCTA: React.FC = () => {
             Embrace flexibility — unlock your potential today! Experience the next generation of sustainable transportation.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0">
             <Button
               asChild
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 h-14 text-lg"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 h-14 text-lg"
             >
               <a href="#contact">
                 <MessageCircle className="w-5 h-5 mr-2" />
@@ -61,7 +61,7 @@ const AutonomousCTA: React.FC = () => {
               asChild
               variant="outline"
               size="lg"
-              className="border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 text-white h-14 text-lg"
+              className="w-full sm:w-auto border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 text-white h-14 text-lg"
             >
               <Link to="/vehicles">
                 View Services

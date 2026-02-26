@@ -177,20 +177,16 @@ const Footer: React.FC = () => {
                 Get the latest updates on new vehicles, features, and community events.
               </p>
             </div>
-            <div className="flex gap-3 w-full md:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 md:w-72 px-4 py-3 rounded-xl bg-white/5 border border-silver-600/30 text-white placeholder:text-silver-500 font-inter focus:outline-none focus:border-primary/50 transition-colors"
+                className="w-full sm:flex-1 md:w-72 px-4 py-3 rounded-xl bg-white/5 border border-silver-600/30 text-white placeholder:text-silver-500 font-inter focus:outline-none focus:border-primary/50 transition-colors"
               />
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-6 py-3 rounded-xl font-inter font-medium"
-                style={{
-                  background: 'linear-gradient(135deg, #00E0FF 0%, #00B8D4 100%)',
-                  color: 'hsl(220, 15%, 4%)',
-                }}
+                className="w-full sm:w-auto px-6 py-3 rounded-xl font-inter font-medium bg-primary text-primary-foreground"
               >
                 Subscribe
               </motion.button>

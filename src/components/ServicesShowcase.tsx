@@ -67,7 +67,7 @@ const ServicesShowcase: React.FC = () => {
               transition={{ duration: 0.6, delay: index * 0.15 }}
             >
               <Link to={service.link} className="block group">
-                <div className="relative h-[420px] rounded-2xl overflow-hidden cursor-pointer">
+                <div className="relative h-64 md:h-[420px] rounded-2xl overflow-hidden cursor-pointer">
                   {/* Background Image */}
                   <img
                     src={service.image}

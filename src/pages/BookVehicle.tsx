@@ -119,39 +119,7 @@ const BookVehicle = () => {
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-8 mt-20">
-        <Breadcrumbs />
         <ProgressStepper currentStep={2} steps={steps} />
-        
-        {/* Breadcrumbs */}
-        <div className="mb-8">
-          <div className="text-sm text-white/60">
-            <Button 
-              variant="link" 
-              className="p-0 text-white/60 hover:text-white"
-              onClick={() => navigate('/')}
-            >
-              Home
-            </Button>
-            <span className="mx-2">/</span>
-            <Button 
-              variant="link" 
-              className="p-0 text-white/60 hover:text-white"
-              onClick={() => navigate('/vehicles')}
-            >
-              Vehicles
-            </Button>
-            <span className="mx-2">/</span>
-            <Button 
-              variant="link" 
-              className="p-0 text-white/60 hover:text-white"
-              onClick={() => navigate(`/vehicles/${vehicle.id}`)}
-            >
-              {vehicle.model}
-            </Button>
-            <span className="mx-2">/</span>
-            <span className="text-white">Book</span>
-          </div>
-        </div>
         
         <h1 className="text-4xl font-bold mb-6 gradient-text">Book Your {vehicle.model}</h1>
         

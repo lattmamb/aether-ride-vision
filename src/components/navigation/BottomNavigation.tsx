@@ -24,7 +24,7 @@ const BottomNavigation: React.FC = () => {
 
   return (
     <motion.div 
-      className="fixed bottom-0 left-0 right-0 md:hidden bg-background/80 backdrop-blur-lg z-40 border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.3)]"
+      className="fixed bottom-0 left-0 right-0 md:hidden bg-background/80 backdrop-blur-lg z-40 border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.3)] pb-[env(safe-area-inset-bottom)]"
       initial={{ y: 100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
@@ -36,11 +36,11 @@ const BottomNavigation: React.FC = () => {
             to={item.path}
             className="flex flex-col items-center justify-center py-2 relative"
           >
-            <div className={`flex flex-col items-center justify-center ${isActive(item.path) ? 'text-[#9b87f5]' : 'text-white/70'}`}>
+            <div className={`flex flex-col items-center justify-center ${isActive(item.path) ? 'text-primary' : 'text-muted-foreground'}`}>
               {isActive(item.path) && (
                 <motion.div 
                   layoutId="bottom-nav-indicator"
-                  className="absolute inset-x-6 top-0 h-1 bg-[#9b87f5] rounded-b-md"
+                  className="absolute inset-x-6 top-0 h-1 bg-primary rounded-b-md"
                 />
               )}
               <item.icon className="w-5 h-5" />
