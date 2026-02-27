@@ -5,24 +5,27 @@ import { ArrowRight, Car, Building2, Users } from 'lucide-react';
 
 const services = [
   {
-    title: 'Ridesharing',
-    description: 'Experience seamless travel with our fully autonomous ridesharing service. Safe, efficient, and eco-friendly transportation at your fingertips.',
+    title: 'Autonomous Ridesharing',
+    description: 'Hail a self-driving ride in seconds. Our autonomous fleet operates 24/7 with real-time tracking, cashless payments, and zero emissions.',
     image: '/images/ridesharing-bg.jpg',
     link: '/vehicles',
+    cta: 'Explore Fleet',
     icon: Car,
   },
   {
-    title: 'Vehicle Rentals',
-    description: 'Rent the latest Tesla models easily through flexible plans. Short-term or long-term, designed around your lifestyle.',
+    title: 'Vehicle Subscriptions',
+    description: 'Subscribe to the latest electric models with flexible weekly and monthly plans. Insurance, charging, and maintenance included.',
     image: '/images/rentals-bg.jpg',
-    link: '/vehicles',
+    link: '/pricing',
+    cta: 'View Plans',
     icon: Building2,
   },
   {
-    title: 'Employee Benefits Package',
-    description: 'Enhance employee satisfaction with on-demand rides and sustainable transportation solutions. Attract top talent with premium EV perks.',
+    title: 'Corporate Mobility',
+    description: 'Equip your workforce with sustainable transportation perks. Dedicated fleet management, usage analytics, and tax-advantaged benefits.',
     image: '/images/benefits-bg.jpg',
     link: '/about',
+    cta: 'Learn More',
     icon: Users,
   },
 ];
@@ -97,7 +100,7 @@ const ServicesShowcase: React.FC = () => {
                       {service.description}
                     </p>
                     <div className="flex items-center gap-2 text-primary text-sm font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                      <span>Learn More</span>
+                      <span>{service.cta}</span>
                       <ArrowRight className="w-4 h-4" />
                     </div>
                   </div>
