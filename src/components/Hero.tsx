@@ -6,14 +6,11 @@ import { ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const heroSlides = [
-  { src: "/images/hero-slide-1.jpg", alt: "Autonomous vehicle close-up" },
-  { src: "/images/hero-slide-2.png", alt: "Unity Fleet vehicle" },
-  { src: "/images/hero-slide-3.png", alt: "Fleet technology" },
-  { src: "/images/hero-slide-4.jpg", alt: "Electric vehicle charging" },
-  { src: "/images/hero-slide-5.jpg", alt: "Autonomous driving" },
-  { src: "/images/hero-slide-6.jpg", alt: "Vehicle interior" },
-  { src: "/images/hero-slide-7.jpg", alt: "Fleet on the road" },
-  { src: "/images/hero-slide-8.jpg", alt: "Premium EV experience" },
+  { src: "/images/hero-slide-1.jpg", alt: "Autonomous EV cruising a coastal highway at sunset" },
+  { src: "/images/hero-slide-2.jpg", alt: "Electric sedan charging at a futuristic station" },
+  { src: "/images/hero-slide-3.jpg", alt: "Premium autonomous vehicle interior with city skyline" },
+  { src: "/images/hero-slide-4.jpg", alt: "Unity Fleet autonomous vehicles in a modern plaza" },
+  { src: "/images/hero-slide-5.jpg", alt: "Black electric sports sedan at speed in the rain" },
 ];
 
 const Hero: React.FC = () => {
