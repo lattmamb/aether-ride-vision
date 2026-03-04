@@ -34,14 +34,14 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
           </div>
         )}
 
-        <div className="relative h-40 flex items-center justify-center mb-4 group-hover:purple-glow">
-          <motion.div
-            className="h-full flex items-center justify-center text-white/50"
+        <div className="relative h-40 flex items-center justify-center mb-4 overflow-hidden rounded-xl">
+          <motion.img
+            src={vehicle.image}
+            alt={vehicle.model}
+            className="w-full h-full object-cover"
             animate={isHovered ? { scale: 1.1, y: -5 } : { scale: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-          >
-            [Vehicle Image]
-          </motion.div>
+          />
         </div>
 
         <div>
