@@ -64,6 +64,7 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <ErrorBoundary>
+              <ScrollToTop />
               <RouteMemorySync />
               <CommandMenu />
               <Routes>
