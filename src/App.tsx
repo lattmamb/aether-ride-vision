@@ -38,6 +38,7 @@ import CommandMenu from "./components/navigation/CommandMenu";
 import { useLastVisitedRoutes } from "./hooks/useLastVisitedRoutes";
 import { BookingProvider } from "./contexts/BookingContext";
 import { UnityProvider } from "./contexts/UnityContext";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
