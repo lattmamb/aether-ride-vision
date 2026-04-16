@@ -48,8 +48,8 @@ export function TeslaCardCarousel() {
   return (
     <div className="w-full h-full py-20 relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-[#9b87f5]/10 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#6E59A5]/10 rounded-full blur-[120px]"></div>
+        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/10 rounded-full blur-[120px]"></div>
       </div>
       
       <motion.div 
