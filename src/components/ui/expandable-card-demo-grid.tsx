@@ -103,7 +103,7 @@ export default function ExpandableCardDemo() {
                     exit={{ opacity: 0 }}
                     href={active.ctaLink}
                     target="_blank"
-                    className="px-4 py-3 text-sm rounded-full font-bold bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+                    className="px-4 py-3 text-sm rounded-full font-bold bg-primary hover:bg-primary/90 text-primary-foreground"
                   >
                     {active.ctaText}
                   </motion.a>

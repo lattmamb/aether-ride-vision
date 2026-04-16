@@ -37,7 +37,7 @@ const NavLink: React.FC<NavLinkProps> = ({ to, label, isActive, delay }) => {
         {isActive && (
           <motion.div 
             layoutId="nav-indicator"
-            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#9b87f5]" 
+            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" 
           />
         )}
       </Link>

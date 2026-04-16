@@ -26,7 +26,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden backdrop-blur-lg bg-black/90 absolute top-full left-0 right-0 py-4 px-4 flex flex-col gap-4 border-t border-[#9b87f5]/10 overflow-hidden"
+          className="md:hidden backdrop-blur-lg bg-black/90 absolute top-full left-0 right-0 py-4 px-4 flex flex-col gap-4 border-t border-primary/10 overflow-hidden"
         >
           <div className="flex flex-col gap-2">
             {navLinks.map((link, index) => (

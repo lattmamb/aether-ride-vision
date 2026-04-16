@@ -17,7 +17,7 @@ export const VehiclePaginationDots: React.FC<VehiclePaginationDotsProps> = ({
         {[...Array(totalSlides)].map((_, index) => (
           <motion.div
             key={index}
-            className={`w-2 h-2 rounded-full ${activeIndex === index ? 'bg-[#9b87f5]' : 'bg-white/30'}`}
+            className={`w-2 h-2 rounded-full ${activeIndex === index ? 'bg-primary' : 'bg-white/30'}`}
             animate={{
               scale: activeIndex === index ? 1.2 : 1,
               backgroundColor: activeIndex === index ? 'rgb(155, 135, 245)' : 'rgba(255, 255, 255, 0.3)'

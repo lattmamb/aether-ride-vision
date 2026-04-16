@@ -18,13 +18,13 @@ const ActionButtons: React.FC = () => {
     >
       <Button 
         variant="outline" 
-        className="border-[#9b87f5]/30 hover:bg-[#9b87f5]/20 text-white"
+        className="border-primary/30 hover:bg-primary/20 text-white"
         onClick={() => navigate('/dashboard')}
       >
         Go to Dashboard
       </Button>
       <Button 
-        className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+        className="bg-primary hover:bg-primary/90 text-primary-foreground"
         onClick={() => navigate('/')}
       >
         Back to Home <ArrowRight className="ml-2 h-4 w-4" />

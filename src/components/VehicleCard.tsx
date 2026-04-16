@@ -58,17 +58,17 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
 
           <div className="grid grid-cols-3 gap-2 mb-4">
             <div className="glass-effect flex flex-col items-center p-2 rounded hover:bg-white/5 transition-colors">
-              <Battery className="h-4 w-4 text-[#9b87f5] mb-1" />
+              <Battery className="h-4 w-4 text-primary mb-1" />
               <span className="text-xs text-white/70">Range</span>
               <span className="text-sm font-medium">{vehicle.performance.range} mi</span>
             </div>
             <div className="glass-effect flex flex-col items-center p-2 rounded hover:bg-white/5 transition-colors">
-              <Gauge className="h-4 w-4 text-[#9b87f5] mb-1" />
+              <Gauge className="h-4 w-4 text-primary mb-1" />
               <span className="text-xs text-white/70">Top Speed</span>
               <span className="text-sm font-medium">{vehicle.performance.topSpeed} mph</span>
             </div>
             <div className="glass-effect flex flex-col items-center p-2 rounded hover:bg-white/5 transition-colors">
-              <Zap className="h-4 w-4 text-[#9b87f5] mb-1" />
+              <Zap className="h-4 w-4 text-primary mb-1" />
               <span className="text-xs text-white/70">0-60 mph</span>
               <span className="text-sm font-medium">{vehicle.performance.acceleration}s</span>
             </div>
@@ -87,7 +87,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
             
             <Button 
               asChild 
-              className="flex-1 bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <Link to={`/book/${vehicle.id}`} className="flex items-center">
                 Rent Now <ArrowRight className="ml-1 h-4 w-4" />

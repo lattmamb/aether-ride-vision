@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
     >
       {/* Progress indicator for scroll position */}
       <motion.div 
-        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#9b87f5]/80 via-[#9b87f5] to-[#7E69AB]/80"
+        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary/80 via-primary to-accent/80"
         style={{
           width: `${scrollProgress}%`,
         }}

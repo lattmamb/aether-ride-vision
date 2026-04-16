@@ -18,16 +18,16 @@ export const VehiclePerformanceStats: React.FC<VehiclePerformanceProps> = ({ per
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-[#9b87f5]/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(155,135,245,0.2)]">
-        <p className="text-[#9b87f5] text-sm">Range</p>
+      <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_15px_hsl(195_100%_50%/0.2)]">
+        <p className="text-primary text-sm">Range</p>
         <p className="text-white text-xl font-bold">{performance.range} mi</p>
       </div>
-      <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-[#9b87f5]/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(155,135,245,0.2)]">
-        <p className="text-[#9b87f5] text-sm">Top Speed</p>
+      <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_15px_hsl(195_100%_50%/0.2)]">
+        <p className="text-primary text-sm">Top Speed</p>
         <p className="text-white text-xl font-bold">{performance.topSpeed} mph</p>
       </div>
-      <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-[#9b87f5]/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(155,135,245,0.2)]">
-        <p className="text-[#9b87f5] text-sm">0-60 mph</p>
+      <div className="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_15px_hsl(195_100%_50%/0.2)]">
+        <p className="text-primary text-sm">0-60 mph</p>
         <p className="text-white text-xl font-bold">{performance.acceleration}s</p>
       </div>
     </motion.div>

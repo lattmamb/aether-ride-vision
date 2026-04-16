@@ -35,7 +35,7 @@ export const VehicleContent: React.FC<VehicleContentProps> = ({
           transition={{ duration: 0.5 }}
         >
           <span className="font-bold text-white text-xl md:text-3xl block mb-4">
-            {model} <span className="text-[#9b87f5]">Electric Excellence</span>
+            {model} <span className="text-primary">Electric Excellence</span>
           </span>
         </motion.div>
         
