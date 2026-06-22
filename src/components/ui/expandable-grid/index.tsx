@@ -28,7 +28,11 @@ export default function ExpandableVehiclesGrid({ vehicles }: ExpandableVehiclesG
     }
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      // Always restore scroll on unmount (e.g. when navigating away while overlay is open)
+      document.body.style.overflow = "auto";
+    };
   }, [active]);
 
   useOutsideClick(ref, () => setActive(null));
