@@ -112,7 +112,7 @@ const Hero: React.FC = () => {
           transition={{ delay: 0.55, duration: 0.7 }}
           className="font-['DM_Sans'] font-light text-lg md:text-xl text-white/55 max-w-xl leading-relaxed mb-12"
         >
-          Unified electric mobility for the Prairie State. Charging, rides, and autonomous‑ready infrastructure — one interface.
+          Unified electric mobility for the Prairie State. Charging, rides, and autonomous‑ready infrastructure in one interface.
         </motion.p>
 
         {/* CTA — layered offset primary + bordered secondary */}
