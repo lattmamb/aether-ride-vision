@@ -15,14 +15,29 @@ This is not a two-phase process (inspect then build). You are a **foreman walkin
 
 ## Scope Defaults
 
-The target is whatever page `$ARGUMENTS` resolves to. Clone exactly what's visible at that URL. Unless the user specifies otherwise, use these defaults:
+The target is the ENTIRE site rooted at `$ARGUMENTS` — every page, every route, every element on every page. Not just the landing page. Not just what's "above the fold." Every single page reachable from the site, and every single element rendered on each of those pages. Unless the user explicitly narrows scope, treat this as non-negotiable.
 
-- **Fidelity level:** Pixel-perfect — exact match in colors, spacing, typography, animations
-- **In scope:** Visual layout and styling, component structure and interactions, responsive design, mock data for demo purposes
-- **Out of scope:** Real backend / database, authentication, real-time features, SEO optimization, accessibility audit
+- **Fidelity level:** Pixel-perfect — exact match in colors, spacing, typography, animations, across every page
+- **Page coverage:** Every route discoverable via sitemap.xml, robots.txt, internal links, nav menus, footers, and hover/click menus. Recurse until no new URLs are found on the same origin (and configured subdomains). Do NOT stop at the homepage.
+- **Element coverage:** Every element on every page — headers, footers, nav, hero, sections, cards, modals, dropdowns, tooltips, forms, empty/error/loading/hover/focus states, mobile-only elements, cookie banners, chat widgets, sticky bars, overlays. If it renders, it gets cloned.
+- **In scope:** Visual layout and styling, component structure and interactions, responsive design, mock data, all pages, all states of all elements
+- **Out of scope:** Real backend / database, authentication (stub with mock), real-time features, SEO optimization, accessibility audit
 - **Customization:** None — pure emulation
 
-If the user provides additional instructions (specific fidelity level, customizations, extra context), honor those over the defaults.
+If the user provides additional instructions (narrower scope, specific fidelity level, customizations, extra context), honor those over the defaults.
+
+## Site Crawl (Phase 0)
+
+Before any per-page work, build the complete route inventory. This runs ONCE per site and is the master checklist for the entire clone.
+
+1. **Discover URLs** from: `sitemap.xml` (recurse sitemap indexes), `robots.txt`, homepage internal links, primary nav (including hover mega-menus), footer, and any "all posts" / "all products" listings. Follow pagination.
+2. **Recurse** on same-origin links found on each discovered page until the frontier is empty. Cap depth only if the user sets a limit.
+3. **Deduplicate** by normalized URL (strip trailing slash, sort query params, drop tracking params like `utm_*`).
+4. **Classify** each URL: static page, template instance (e.g., blog post, product), auth-gated, redirect, 404. For template instances, keep at least 2 representative examples per template so the builder can infer the template shape.
+5. **Write** the inventory to `docs/research/ROUTE_INVENTORY.md` as a checklist. Every route gets a checkbox. Nothing is complete until every box is checked or explicitly deferred with the user's approval.
+6. **Assign** each route a target file path in the destination project (e.g., `/pricing` → `src/pages/Pricing.tsx` for Vite/React, or `src/app/pricing/page.tsx` for Next.js). Match the source URL structure exactly.
+
+The Phase 1 reconnaissance and Phase 3 spec/dispatch loop then run PER ROUTE from this inventory, not just once for the homepage.
 
 ## Pre-Flight
 
