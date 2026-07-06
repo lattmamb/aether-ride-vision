@@ -55,7 +55,7 @@ const ProgressStepper: React.FC<ProgressStepperProps> = ({ currentStep, steps })
               </motion.div>
 
               {/* Step Label */}
-              <div className="absolute top-12 text-center w-32">
+              <div className="absolute top-12 text-center w-20 sm:w-32 max-w-[22vw] sm:max-w-none">
                 <p
                   className={`text-sm font-medium ${
                     isCurrent ? 'text-foreground' : 'text-muted-foreground'

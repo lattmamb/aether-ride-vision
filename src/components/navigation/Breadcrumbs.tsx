@@ -84,7 +84,7 @@ const Breadcrumbs: React.FC = () => {
       <Breadcrumb className="bg-card/60 border border-border backdrop-blur-sm inline-flex px-3 py-2 rounded-lg text-muted-foreground">
         <BreadcrumbList>
           {breadcrumbItems.map((item, index) => (
-            <React.Fragment key={item.path}>
+            <span key={item.path} style={{ display: 'contents' }}>
               <BreadcrumbItem>
                 {item.isLast ? (
                   <BreadcrumbPage className="text-foreground">{item.label}</BreadcrumbPage>
@@ -112,7 +112,7 @@ const Breadcrumbs: React.FC = () => {
                   <ChevronRight className="h-3 w-3" />
                 </BreadcrumbSeparator>
               )}
-            </React.Fragment>
+            </span>
           ))}
         </BreadcrumbList>
       </Breadcrumb>
