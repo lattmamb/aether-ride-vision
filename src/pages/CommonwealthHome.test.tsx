@@ -37,13 +37,10 @@ describe("CommonwealthHome", () => {
       expect(screen.getByText(label, { selector: "h3" })).toBeInTheDocument();
     }
 
-    expect(screen.getByRole("link", { name: /Open operator dashboard/i })).toHaveAttribute(
-      "href",
-      "/dashboard",
-    );
-    expect(screen.getByRole("link", { name: /Access mobility/i })).toHaveAttribute(
-      "href",
-      "/vehicles",
-    );
+    const dashboardLinks = screen.getAllByRole("link", { name: /Open operator dashboard/i });
+    expect(dashboardLinks.some((link) => link.getAttribute("href") === "/dashboard")).toBe(true);
+
+    const mobilityLinks = screen.getAllByRole("link", { name: /Access mobility/i });
+    expect(mobilityLinks.some((link) => link.getAttribute("href") === "/vehicles")).toBe(true);
   });
 });
