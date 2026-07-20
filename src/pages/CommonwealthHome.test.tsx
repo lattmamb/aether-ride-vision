@@ -5,12 +5,13 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 
 const pagePath = fileURLToPath(new URL("./CommonwealthHome.tsx", import.meta.url));
+const pageModule = "./CommonwealthHome";
 
 describe("CommonwealthHome", () => {
   it("presents UnityLink Commonwealth as the product and exposes its operating spine", async () => {
     expect(existsSync(pagePath), "CommonwealthHome.tsx must exist").toBe(true);
 
-    const { CommonwealthHomeContent } = await import("./CommonwealthHome");
+    const { CommonwealthHomeContent } = await import(/* @vite-ignore */ pageModule);
 
     render(
       <MemoryRouter>
