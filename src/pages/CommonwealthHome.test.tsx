@@ -1,10 +1,10 @@
 import { existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import path from "node:path";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 
-const pagePath = fileURLToPath(new URL("./CommonwealthHome.tsx", import.meta.url));
+const pagePath = path.join(process.cwd(), "src/pages/CommonwealthHome.tsx");
 const pageModule = "./CommonwealthHome";
 
 describe("CommonwealthHome", () => {
