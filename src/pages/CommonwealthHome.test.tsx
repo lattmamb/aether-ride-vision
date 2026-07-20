@@ -1,10 +1,11 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 
 const pagePath = path.join(process.cwd(), "src/pages/CommonwealthHome.tsx");
+const appPath = path.join(process.cwd(), "src/App.tsx");
 const pageModule = "./CommonwealthHome";
 
 describe("CommonwealthHome", () => {
@@ -42,5 +43,12 @@ describe("CommonwealthHome", () => {
 
     const mobilityLinks = screen.getAllByRole("link", { name: /Access mobility/i });
     expect(mobilityLinks.some((link) => link.getAttribute("href") === "/vehicles")).toBe(true);
+  });
+
+  it("routes the Commonwealth home at root and preserves the former landing page", () => {
+    const appSource = readFileSync(appPath, "utf8");
+
+    expect(appSource).toContain('<Route path="/" element={<CommonwealthHome />} />');
+    expect(appSource).toContain('<Route path="/fleet-experience" element={<Index />} />');
   });
 });
