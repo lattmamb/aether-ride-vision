@@ -1,11 +1,8 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
-
-// Import refactored components
+import { cn } from "@/lib/utils";
 import Logo from "@/components/navigation/Logo";
 import NavLink from "@/components/navigation/NavLink";
 import NavbarButtons from "@/components/navigation/NavbarButtons";
@@ -20,31 +17,27 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { isScrolled, scrollProgress } = useScroll();
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
     setSearchOpen(false);
   }, [location.pathname]);
 
-  const isActiveRoute = (path: string) => {
-    return location.pathname === path;
-  };
+  const isActiveRoute = (path: string) => location.pathname === path;
 
-  // Handle "Book Now" button click - navigate to vehicles page
-  const handleBookNow = () => {
-    navigate("/vehicles");
+  const handleEnterCommonwealth = () => {
+    navigate("/dashboard");
   };
 
   const toggleSearch = () => {
-    setSearchOpen(!searchOpen);
+    setSearchOpen((open) => !open);
   };
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/vehicles', label: 'Vehicles' },
-    { path: '/pricing', label: 'Pricing' },
-    { path: '/locations', label: 'Locations' },
-    { path: '/about', label: 'About' }
+    { path: "/", label: "Commonwealth" },
+    { path: "/vehicles", label: "Mobility" },
+    { path: "/dashboard/charging-hubs", label: "Hubs" },
+    { path: "/dashboard/jobs", label: "Workforce" },
+    { path: "/about", label: "About" },
   ];
 
   return (
@@ -56,27 +49,22 @@ const Navbar: React.FC = () => {
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
           ? "bg-tesla-dark-80/60 backdrop-blur-lg py-2 shadow-md"
-          : "bg-transparent py-4"
+          : "bg-transparent py-4",
       )}
     >
-      {/* Progress indicator for scroll position */}
-      <motion.div 
+      <motion.div
         className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary/80 via-primary to-accent/80"
-        style={{
-          width: `${scrollProgress}%`,
-        }}
+        style={{ width: `${scrollProgress}%` }}
       />
 
       <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo */}
         <Logo />
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link, index) => (
-            <NavLink 
+            <NavLink
               key={link.path}
-              to={link.path} 
+              to={link.path}
               label={link.label}
               isActive={isActiveRoute(link.path)}
               delay={index}
@@ -84,33 +72,30 @@ const Navbar: React.FC = () => {
           ))}
         </div>
 
-        {/* Right side buttons */}
-        <NavbarButtons 
-          handleBookNow={handleBookNow} 
-          toggleSearch={toggleSearch} 
+        <NavbarButtons
+          handleEnterCommonwealth={handleEnterCommonwealth}
+          toggleSearch={toggleSearch}
           isActiveRoute={isActiveRoute}
           searchOpen={searchOpen}
         />
 
-        {/* Mobile menu button */}
         <motion.button
           whileTap={{ scale: 0.95 }}
           className="md:hidden text-white p-2 z-10"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={() => setIsMenuOpen((open) => !open)}
+          aria-label={isMenuOpen ? "Close navigation" : "Open navigation"}
         >
           {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </motion.button>
       </div>
 
-      {/* Search overlay */}
       <SearchOverlay isOpen={searchOpen} />
 
-      {/* Mobile menu */}
-      <MobileMenu 
-        isOpen={isMenuOpen} 
-        navLinks={navLinks} 
+      <MobileMenu
+        isOpen={isMenuOpen}
+        navLinks={navLinks}
         isActiveRoute={isActiveRoute}
-        handleBookNow={handleBookNow}
+        handleEnterCommonwealth={handleEnterCommonwealth}
       />
     </motion.nav>
   );
