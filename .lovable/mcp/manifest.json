@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "sdk_version": "2.2.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "aether-ride-vision",
+      "version": "0.1.0",
+      "title": "aether-ride-vision"
+    },
+    "tools": [
+      {
+        "name": "list_vehicles",
+        "title": "List vehicles",
+        "description": "List the electric vehicles available for subscription, with monthly price, range and body type.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "sedan",
+                "suv",
+                "truck",
+                "sports"
+              ],
+              "description": "Only return vehicles of this body type."
+            },
+            "maxMonthlyPrice": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "Only return vehicles at or below this monthly price in USD."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_vehicle",
+        "title": "Get vehicle details",
+        "description": "Get full details for one vehicle: pricing, performance, features, available colors and image paths.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Vehicle id, for example model-3, model-y or cybertruck."
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_subscription_plans",
+        "title": "List subscription plans",
+        "description": "List the public subscription plans, including price, commitment length, mileage allowance and included features.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": null,
+        "outputSchema": null
+      },
+      {
+        "name": "list_charging_stations",
+        "title": "List charging stations",
+        "description": "List the public charging stations with address, coordinates, charger availability and charging speed.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": null,
+        "outputSchema": null
+      }
+    ]
+  }
+}
