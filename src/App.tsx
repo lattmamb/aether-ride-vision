@@ -31,6 +31,11 @@ import About from "./pages/About";
 import Social from "./pages/Social";
 import AetherFlowDemo from "./pages/AetherFlowDemo";
 import NavigationDemo from "./pages/NavigationDemo";
+import ShowcaseIndex from "./pages/showcase/ShowcaseIndex";
+import Configurator from "./pages/showcase/Configurator";
+import InstrumentCluster from "./pages/showcase/InstrumentCluster";
+import CockpitDisplay from "./pages/showcase/CockpitDisplay";
+import MobilityLanding from "./pages/showcase/MobilityLanding";
 import NotFound from "./pages/NotFound";
 import BottomNavigation from "./components/navigation/BottomNavigation";
 import ErrorBoundary from "./components/common/ErrorBoundary";
@@ -107,6 +112,11 @@ const App = () => (
           <Route path="/social" element={<Social />} />
           <Route path="/aether-flow" element={<AetherFlowDemo />} />
           <Route path="/navigation-demo" element={<NavigationDemo />} />
+          <Route path="/showcase" element={<ShowcaseIndex />} />
+          <Route path="/showcase/configurator" element={<Configurator />} />
+          <Route path="/showcase/cluster" element={<InstrumentCluster />} />
+          <Route path="/showcase/cockpit" element={<CockpitDisplay />} />
+          <Route path="/showcase/mobility" element={<MobilityLanding />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
