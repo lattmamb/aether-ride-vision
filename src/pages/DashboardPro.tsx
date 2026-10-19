@@ -28,7 +28,7 @@ import {
 } from 'lucide-react';
 
 export default function DashboardPro() {
-  useSEO({ title: 'Damage Assessment | Unity Fleet', description: 'Vehicle inspection and cost analysis.' });
+  useSEO({ title: 'Damage Assessment (Demo) | Unity Fleet', description: 'Vehicle inspection and cost analysis.' });
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<'3d' | 'schematic'>('3d');
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
@@ -56,7 +56,7 @@ export default function DashboardPro() {
       {/* Page Header */}
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Damage Assessment</h1>
+          <h1 className="text-3xl font-bold text-foreground">Damage Assessment <span className="text-sm align-middle font-medium text-accent">Demo</span></h1>
           <p className="text-muted-foreground mt-1">Vehicle inspection and cost analysis</p>
         </div>
         <div className="flex items-center gap-2">
@@ -413,7 +413,7 @@ export default function DashboardPro() {
             </div>
             <Button className="w-full" onClick={() => {
               setShowCustomize(false);
-              toast.success('Repair option saved');
+              toast.info('Demo mode: selection not saved');
             }}>
               Save Selection
             </Button>

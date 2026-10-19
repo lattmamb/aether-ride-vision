@@ -52,7 +52,7 @@ const Map: React.FC<MapProps> = ({
           <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Charging Network</h2>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
             Access our extensive network of Superchargers across the Bay Area. 
-            Real-time availability and fast charging speeds up to 250kW.
+            Sample locations; availability is not live.
           </p>
         </div>
         

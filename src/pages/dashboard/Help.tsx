@@ -95,7 +95,7 @@ export default function Help() {
         </div>
         <Badge className="status-success">
           <CheckCircle className="h-3 w-3 mr-1" />
-          All Systems Operational
+          System status not monitored (demo)
         </Badge>
       </div>
 

@@ -29,9 +29,8 @@ export default function Settings() {
 
   const handleSaveProfile = async () => {
     setIsSaving(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
     setIsSaving(false);
-    toast.success('Profile settings saved successfully');
+    toast.info('Demo mode: settings are not saved to any system.');
   };
 
   return (

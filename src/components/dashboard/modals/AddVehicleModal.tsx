@@ -32,11 +32,10 @@ export default function AddVehicleModal({ open, onOpenChange }: AddVehicleModalP
     }
 
     setIsLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    
     setIsLoading(false);
     
-    toast.success(`${formData.model} added to fleet successfully!`);
+    toast.info('Demo mode: vehicle NOT added; fleet records are not connected.');
     onOpenChange(false);
     setFormData({
       model: '',

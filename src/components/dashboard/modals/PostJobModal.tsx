@@ -48,10 +48,10 @@ export default function PostJobModal({ open, onOpenChange }: PostJobModalProps) 
     }
 
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    
     setIsLoading(false);
     
-    toast.success(`Job posting "${formData.title}" created successfully!`);
+    toast.info('Demo mode: job NOT posted; job board is not connected.');
     onOpenChange(false);
     setFormData({
       title: '',

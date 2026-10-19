@@ -42,11 +42,9 @@ const ContactSection: React.FC = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
-    // Mock submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Messaging not connected: keep entered text, do not claim delivery.
     setIsSubmitting(false);
-    toast.success('Message sent successfully! We\'ll get back to you soon.');
-    form.reset();
+    toast.info('Online messaging is not connected yet. Your message was NOT sent. Please call or email us; your text is kept in the form.');
   };
 
   return (

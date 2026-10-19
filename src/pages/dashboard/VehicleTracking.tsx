@@ -83,7 +83,7 @@ const statusConfig = {
 };
 
 export default function VehicleTracking() {
-  useSEO({ title: 'Vehicle Tracking | Unity Fleet', description: 'Real-time vehicle tracking and fleet monitoring' });
+  useSEO({ title: 'Vehicle Tracking | Unity Fleet', description: 'Sample vehicle tracking demo' });
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [vehicles, setVehicles] = useState(mockVehicleLocations);
@@ -141,7 +141,7 @@ export default function VehicleTracking() {
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Real-Time Vehicle Tracking</h1>
+          <h1 className="text-3xl font-bold text-foreground">Vehicle Tracking (Demo)</h1>
           <p className="text-muted-foreground mt-1">Monitor fleet location and status in real-time</p>
         </div>
         <div className="flex gap-2">
