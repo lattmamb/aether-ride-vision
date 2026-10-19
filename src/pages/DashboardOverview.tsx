@@ -43,7 +43,7 @@ export default function DashboardOverview() {
           <p className="text-muted-foreground mt-1">Comprehensive overview of your Tesla fleet operations</p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge className="status-success">All Systems Operational</Badge>
+          <Badge variant="outline">Demo data, not connected</Badge>
           <Button variant="outline" size="sm" onClick={() => navigate('/dashboard/analytics')}>
             <ArrowUpRight className="h-4 w-4 mr-2" />
             View Reports

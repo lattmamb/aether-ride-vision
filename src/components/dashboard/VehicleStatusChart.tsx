@@ -18,7 +18,7 @@ export default function VehicleStatusChart() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h3 className="text-xl font-semibold">Fleet Status Overview</h3>
-          <p className="text-sm text-muted-foreground">Real-time vehicle distribution</p>
+          <p className="text-sm text-muted-foreground">Sample vehicle distribution</p>
         </div>
         <Badge className="status-info">{total} Total Vehicles</Badge>
       </div>

@@ -50,10 +50,10 @@ export default function AddHubModal({ open, onOpenChange }: AddHubModalProps) {
     }
 
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    
     setIsLoading(false);
     
-    toast.success(`Charging hub "${formData.name}" added successfully!`);
+    toast.info('Demo mode: hub NOT added; hub records are not connected.');
     onOpenChange(false);
     setFormData({
       name: '',

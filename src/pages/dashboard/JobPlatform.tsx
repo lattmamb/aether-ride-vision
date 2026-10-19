@@ -121,15 +121,15 @@ export default function JobPlatform() {
     e.stopPropagation();
     if (savedJobs.includes(jobId)) {
       setSavedJobs(prev => prev.filter(id => id !== jobId));
-      toast.success('Job removed from saved list');
+      toast.info('Removed (demo only, not saved)');
     } else {
       setSavedJobs(prev => [...prev, jobId]);
-      toast.success('Job saved successfully');
+      toast.info('Bookmarked for this session only (demo, not saved)');
     }
   };
 
   const handleApply = (jobTitle: string) => {
-    toast.success(`Application submitted for "${jobTitle}"! We'll be in touch soon.`);
+    toast.info(`Applications are not connected yet. Nothing was submitted for "${jobTitle}".`);
     setSelectedJob(null);
   };
 

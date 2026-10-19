@@ -29,9 +29,9 @@ const Pricing = () => {
       <div className="container mx-auto px-4 py-16 mt-14 md:mt-20">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 gradient-text">Simple, Transparent Pricing</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 gradient-text">Plans & Pricing (Pending confirmation)</h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Choose the perfect subscription plan for your lifestyle with no hidden fees or long-term commitments.
+            Choose the perfect subscription plan for your lifestyle Prices shown are illustrative and pending confirmation. They are not an offer you can purchase yet.
           </p>
           
           {/* Billing Cycle Toggle */}
@@ -146,7 +146,7 @@ const Pricing = () => {
                   <th className="text-left p-4 glass-effect rounded-tl-xl">Model</th>
                   <th className="text-center p-4 glass-effect">Type</th>
                   <th className="text-center p-4 glass-effect">Monthly Price</th>
-                  <th className="text-center p-4 glass-effect">Annual Price (Save 15%)</th>
+                  <th className="text-center p-4 glass-effect">Annual Price (illustrative)</th>
                   <th className="text-center p-4 glass-effect">Availability</th>
                   <th className="text-center p-4 glass-effect rounded-tr-xl">Action</th>
                 </tr>

@@ -221,7 +221,7 @@ export default function ChargingHubs() {
                   {selectedHub.address}
                 </p>
               </div>
-              <Badge className="bg-green-500 text-white">Operational</Badge>
+              <Badge variant="outline">Sample site, status unverified</Badge>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">

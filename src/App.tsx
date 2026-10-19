@@ -37,6 +37,7 @@ import InstrumentCluster from "./pages/showcase/InstrumentCluster";
 import CockpitDisplay from "./pages/showcase/CockpitDisplay";
 import MobilityLanding from "./pages/showcase/MobilityLanding";
 import NotFound from "./pages/NotFound";
+import LegacyBookRedirect from "./pages/LegacyBookRedirect";
 import BottomNavigation from "./components/navigation/BottomNavigation";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import CommandMenu from "./components/navigation/CommandMenu";
@@ -104,7 +105,7 @@ const App = () => (
               <Route path="/booking-success" element={<BookingSuccess />} />
               
               {/* Legacy route for backward compatibility */}
-              <Route path="/book/:id" element={<BookVehicle />} />
+              <Route path="/book/:id" element={<LegacyBookRedirect />} />
               
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/locations" element={<Locations />} />

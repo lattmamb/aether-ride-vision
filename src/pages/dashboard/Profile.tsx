@@ -36,10 +36,8 @@ export default function Profile() {
 
   const handleSave = async () => {
     setIsLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
     setIsLoading(false);
-    toast.success('Profile updated successfully');
+    toast.info('Demo mode: profile changes are not saved.');
   };
 
   const handleAvatarUpload = () => {

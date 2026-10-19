@@ -1,10 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate, Link } from 'react-router-dom';
+import { estimateMonthly, formatUSD, PENDING_EXPLANATION, PENDING_LABEL } from '@/data/pricingCatalog';
+import { BOOKING_STEPS } from '@/components/booking/steps';
+import DemoNotice from '@/components/common/DemoNotice';
+import { NOT_CONNECTED_MESSAGE } from '@/lib/integrationStatus';
 import MainLayout from '@/layouts/MainLayout';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { vehicles, subscriptionPlans } from '@/data/vehicles';
+import { vehicles } from '@/data/vehicles';
 import { Calendar } from '@/components/ui/calendar';
 import {
   Form,
@@ -55,7 +59,6 @@ const BookVehicle = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const { bookingState, setBookingDetails } = useBooking();
-  const [selectedPlan, setSelectedPlan] = useState(bookingState.selectedPlan?.id || subscriptionPlans[1]?.id || '');
   
   // Find the vehicle based on the model or ID
   const vehicle = vehicles.find(v => v.id === id || v.model.toLowerCase() === id?.toLowerCase());
@@ -91,30 +94,25 @@ const BookVehicle = () => {
     );
   }
 
-  const selectedPlanDetails = subscriptionPlans.find(plan => plan.id === selectedPlan);
+  const selectedPlanDetails = bookingState.selectedPlan;
+  if (!selectedPlanDetails || bookingState.vehicle?.id !== vehicle.id) {
+    return <Navigate to={`/vehicles/${vehicle.id}/plan`} replace />;
+  }
+  const estimate = estimateMonthly(vehicle, selectedPlanDetails);
 
-  const onSubmit = async (values: z.infer<typeof bookingSchema>) => {
+  const onSubmit = (values: z.infer<typeof bookingSchema>) => {
+    if (isLoading) return; // duplicate-submit guard
     setIsLoading(true);
-    
     setBookingDetails({
       startDate: format(values.startDate, 'PPP'),
       endDate: values.endDate ? format(values.endDate, 'PPP') : '',
       pickupLocation: `${values.city}, ${values.state}`,
       deliveryAddress: `${values.address}, ${values.city}, ${values.state} ${values.zipCode}`,
     });
-    
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate(`/vehicles/${id}/checkout`);
-    }, 800);
+    navigate(`/vehicles/${vehicle.id}/checkout`);
   };
 
-  const steps = [
-    { number: 1, title: 'Select Plan', description: 'Choose subscription' },
-    { number: 2, title: 'Details', description: 'Enter information' },
-    { number: 3, title: 'Payment', description: 'Complete checkout' },
-    { number: 4, title: 'Confirmation', description: 'All set!' },
-  ];
+  const steps = BOOKING_STEPS;
 
   return (
     <MainLayout>
@@ -315,10 +313,10 @@ const BookVehicle = () => {
                     {isLoading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Processing...
+                        Saving...
                       </>
                     ) : (
-                      "Complete Booking"
+                      "Save details & review"
                     )}
                   </Button>
                 </form>
@@ -345,69 +343,37 @@ const BookVehicle = () => {
                 </div>
               </div>
               
-              <div className="space-y-4 mb-6">
-                {subscriptionPlans.map(plan => (
-                  <div 
-                    key={plan.id} 
-                    className={`glass-effect p-4 rounded-md border cursor-pointer transition-all ${
-                      selectedPlan === plan.id 
-                        ? 'border-tesla-blue bg-glass-highlight' 
-                        : 'border-glass-border hover:border-white/20'
-                    }`}
-                    onClick={() => setSelectedPlan(plan.id)}
-                  >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-medium">{plan.name}</h4>
-                        <p className="text-sm text-white/70">{plan.duration}</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="font-bold text-lg mr-1">${plan.price}</span>
-                        <span className="text-xs text-white/70">{plan.priceUnit}</span>
-                        {selectedPlan === plan.id && (
-                          <Check className="ml-2 text-tesla-blue h-5 w-5" />
-                        )}
-                      </div>
-                    </div>
+              <div className="glass-effect p-4 rounded-md border border-glass-border mb-4">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h4 className="font-medium">{selectedPlanDetails.name}</h4>
+                    <p className="text-sm text-muted-foreground">{selectedPlanDetails.duration}</p>
+                  </div>
+                  <Link to={`/vehicles/${vehicle.id}/plan`} className="text-sm underline text-primary">Change plan</Link>
+                </div>
+              </div>
+
+              <p className="text-xs font-medium text-accent mb-2">{PENDING_LABEL}</p>
+              <div className="space-y-3 mb-6">
+                {estimate.lines.map((l) => (
+                  <div key={l.label} className="flex justify-between">
+                    <span className="text-muted-foreground">{l.label}</span>
+                    <span className="font-medium">{formatUSD(l.amount)}/mo</span>
                   </div>
                 ))}
-              </div>
-              
-              <Separator className="border-white/10 my-6" />
-              
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between">
-                  <span className="text-white/70">Subscription</span>
-                  <span className="font-medium">
-                    ${selectedPlanDetails?.price || 0}{selectedPlanDetails?.priceUnit}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white/70">Delivery Fee</span>
-                  <span className="font-medium">$0.00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white/70">Taxes & Fees</span>
-                  <span className="font-medium">${((selectedPlanDetails?.price || 0) * 0.085).toFixed(2)}</span>
-                </div>
                 <Separator className="border-white/10 my-2" />
                 <div className="flex justify-between font-bold">
-                  <span>Total</span>
-                  <span>
-                    ${((selectedPlanDetails?.price || 0) + (selectedPlanDetails?.price || 0) * 0.085).toFixed(2)}{selectedPlanDetails?.priceUnit}
-                  </span>
+                  <span>Estimated monthly</span>
+                  <span>{formatUSD(estimate.total)}/mo</span>
                 </div>
+                <p className="text-xs text-muted-foreground">
+                  Not included: {estimate.excludes.join(', ').toLowerCase()}. {PENDING_EXPLANATION}
+                </p>
               </div>
-              
-              <div className="glass-effect rounded-md p-4 text-white/70 text-sm">
-                <div className="flex items-start">
-                  <CreditCard className="h-5 w-5 mr-2 text-tesla-blue mt-0.5" />
-                  <span>
-                    You won't be charged until your subscription is confirmed. Cancellation is available 
-                    up to 24 hours before your delivery date.
-                  </span>
-                </div>
-              </div>
+
+              <DemoNotice title="Availability not verified">
+                {NOT_CONNECTED_MESSAGE.liveInventory} Dates you pick are requests only.
+              </DemoNotice>
             </div>
           </div>
         </div>

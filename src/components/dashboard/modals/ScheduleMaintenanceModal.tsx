@@ -52,11 +52,11 @@ export default function ScheduleMaintenanceModal({ open, onOpenChange }: Schedul
     }
 
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    
     setIsLoading(false);
     
     const vehicleName = vehicles.find(v => v.id === formData.vehicle)?.name;
-    toast.success(`Maintenance scheduled for ${vehicleName} on ${format(date, 'PPP')}`);
+    toast.info('Demo mode: maintenance NOT scheduled; no scheduling system is connected.');
     onOpenChange(false);
     setFormData({ vehicle: '', serviceType: '', priority: 'normal', notes: '' });
     setDate(undefined);

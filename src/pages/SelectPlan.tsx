@@ -9,6 +9,8 @@ import { useBooking } from '@/contexts/BookingContext';
 import ProgressStepper from '@/components/booking/ProgressStepper';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs';
 import { useSEO } from '@/hooks/useSEO';
+import { BOOKING_STEPS } from '@/components/booking/steps';
+import { PENDING_EXPLANATION, PENDING_LABEL, formatUSD } from '@/data/pricingCatalog';
 
 const SelectPlan = () => {
   const { id } = useParams();
@@ -44,12 +46,7 @@ const SelectPlan = () => {
     }
   };
 
-  const steps = [
-    { number: 1, title: 'Select Plan', description: 'Choose subscription' },
-    { number: 2, title: 'Details', description: 'Enter information' },
-    { number: 3, title: 'Payment', description: 'Complete checkout' },
-    { number: 4, title: 'Confirmation', description: 'All set!' },
-  ];
+  const steps = BOOKING_STEPS;
 
   return (
     <MainLayout>
@@ -73,6 +70,9 @@ const SelectPlan = () => {
             <p className="text-muted-foreground">
               Select the subscription that fits your lifestyle
             </p>
+            <p className="mt-4 text-sm text-muted-foreground max-w-2xl mx-auto">
+              <span className="font-semibold text-accent">{PENDING_LABEL}.</span> Plan rate is added to the {vehicle.model} vehicle rate ({formatUSD(vehicle.price)}/mo). {PENDING_EXPLANATION}
+            </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -88,6 +88,10 @@ const SelectPlan = () => {
                     : ''
                 } ${plan.recommended ? 'relative overflow-hidden' : ''}`}
                 onClick={() => setSelectedPlanId(plan.id)}
+                role="radio"
+                aria-checked={selectedPlanId === plan.id}
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedPlanId(plan.id); } }}
               >
                 {plan.recommended && (
                   <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-bl-lg">

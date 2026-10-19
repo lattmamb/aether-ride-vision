@@ -20,7 +20,7 @@ const Index = () => {
   return (
     <MainLayout>
       <Hero />
-      <SearchFilter onSearch={(filters) => console.log(filters)} />
+      <SearchFilter onSearch={(f) => navigate(`/vehicles?${new URLSearchParams({ ...(f.query && { q: f.query }), ...(f.vehicleType !== 'all' && { type: f.vehicleType }) }).toString()}`)} />
       <ServicesShowcase />
       <StickyScrollReveal />
       <VehicleHeader />
