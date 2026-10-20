@@ -112,22 +112,22 @@ export default function Notifications() {
     setNotifications(prev => prev.map(n => 
       n.id === id ? { ...n, read: true } : n
     ));
-    toast.success('Notification marked as read');
+    toast.info('Marked as read in this demo view only — not saved');
   };
 
   const markAllAsRead = () => {
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
-    toast.success('All notifications marked as read');
+    toast.info('Marked as read in this demo view only — not saved');
   };
 
   const deleteNotification = (id: string) => {
     setNotifications(prev => prev.filter(n => n.id !== id));
-    toast.success('Notification deleted');
+    toast.info('Removed from this demo view only — not saved');
   };
 
   const clearAll = () => {
     setNotifications([]);
-    toast.success('All notifications cleared');
+    toast.info('Cleared in this demo view only — not saved');
   };
 
   return (
@@ -138,6 +138,7 @@ export default function Notifications() {
           <p className="text-muted-foreground mt-1">
             {unreadCount > 0 ? `You have ${unreadCount} unread notifications` : 'All caught up!'}
           </p>
+          <p className="text-xs text-muted-foreground mt-1">Sample notifications — no live notification service is connected.</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={markAllAsRead} disabled={unreadCount === 0}>

@@ -130,11 +130,11 @@ export default function VehicleTracking() {
     a.download = `fleet-tracking-${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-    toast.success('Vehicle data exported successfully');
+    toast.info('Sample data exported (demo values, not live fleet data)');
   };
 
   const handleCenterMap = () => {
-    toast.success('Map centered on vehicle cluster');
+    toast.info('Demo map: there is no live map to center. Markers are static samples.');
   };
 
   return (
@@ -142,7 +142,7 @@ export default function VehicleTracking() {
       <div className="flex justify-between items-start">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Vehicle Tracking (Demo)</h1>
-          <p className="text-muted-foreground mt-1">Monitor fleet location and status in real-time</p>
+          <p className="text-muted-foreground mt-1">Sample markers and statuses — live fleet telemetry is not connected</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={handleExportData}>

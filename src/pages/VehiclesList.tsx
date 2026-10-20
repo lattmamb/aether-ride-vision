@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
 import { vehicles } from '@/data/vehicles';
 import { Vehicle } from '@/types';
@@ -11,9 +12,15 @@ import { Checkbox } from '@/components/ui/checkbox';
 import ExpandableVehiclesGrid from '@/components/ui/expandable-vehicles-grid';
 
 const VehiclesList: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const searchQuery = (searchParams.get('q') || '').trim().toLowerCase();
+  const typeParam = searchParams.get('type');
+  const validTypes = ['sedan', 'suv', 'truck', 'sports'];
+  const initialTypes = typeParam && validTypes.includes(typeParam) ? [typeParam] : validTypes;
+
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehicles);
   const [filters, setFilters] = useState({
-    types: ['sedan', 'suv', 'truck', 'sports'],
+    types: initialTypes,
     priceRange: [0, 500],
     availability: true,
     sortBy: 'price-low' // 'price-low', 'price-high', 'range', 'acceleration'
@@ -27,10 +34,19 @@ const VehiclesList: React.FC = () => {
 
   useEffect(() => {
     let result = [...vehicles];
-    
+
+    // Apply text search from the homepage search bar (?q=...)
+    if (searchQuery) {
+      result = result.filter(vehicle =>
+        vehicle.model.toLowerCase().includes(searchQuery) ||
+        vehicle.type.toLowerCase().includes(searchQuery) ||
+        vehicle.tagline.toLowerCase().includes(searchQuery)
+      );
+    }
+
     // Apply type filter
     if (filters.types.length > 0 && filters.types.length < 4) {
-      result = result.filter(vehicle => 
+      result = result.filter(vehicle =>
         filters.types.includes(vehicle.type)
       );
     }
@@ -65,7 +81,7 @@ const VehiclesList: React.FC = () => {
     }
     
     setFilteredVehicles(result);
-  }, [filters]);
+  }, [filters, searchQuery]);
 
   const handleTypeChange = (type: 'sedan' | 'suv' | 'truck' | 'sports', checked: boolean | 'indeterminate') => {
     if (checked === 'indeterminate') return;
@@ -109,6 +125,14 @@ const VehiclesList: React.FC = () => {
           <p className="text-lg text-white/70 max-w-3xl mx-auto">
             Browse our selection of premium electric vehicles available for subscription
           </p>
+          <p className="mt-3 text-sm text-white/50 max-w-3xl mx-auto">
+            Sample catalog — prices are pending confirmation and live availability is not connected.
+          </p>
+          {searchQuery && (
+            <p className="mt-2 text-sm text-tesla-blue">
+              Showing results for &ldquo;{searchQuery}&rdquo;
+            </p>
+          )}
         </div>
         
         {/* Mobile Filter Button */}

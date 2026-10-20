@@ -37,7 +37,7 @@ export default function MobilePreview() {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-sm font-medium">Standard Take-Home Plan</p>
-                  <Badge className="mt-1" variant="secondary">ACTIVE</Badge>
+                  <Badge className="mt-1" variant="outline">SAMPLE</Badge>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -183,8 +183,8 @@ export default function MobilePreview() {
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Mobile App Preview</h1>
-          <p className="text-muted-foreground mt-1">Experience the Unity Fleet mobile interface</p>
+          <h1 className="text-3xl font-bold text-foreground">Mobile App Preview (Concept)</h1>
+          <p className="text-muted-foreground mt-1">Design concept only — no mobile app is published and all content below is sample data</p>
         </div>
         <div className="flex gap-2">
           <Button
@@ -263,7 +263,7 @@ export default function MobilePreview() {
 
       <div className="text-center">
         <p className="text-sm text-muted-foreground">
-          Available on iOS & Android
+          Concept preview — no iOS or Android app is available yet.
         </p>
       </div>
     </div>

@@ -77,12 +77,12 @@ export default function Hub3DDemo() {
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Interactive 3D Hub Visualization</h1>
-          <p className="text-muted-foreground mt-1">Revolutionary circular charging ecosystem</p>
+          <h1 className="text-3xl font-bold text-foreground">Interactive 3D Hub Visualization (Concept)</h1>
+          <p className="text-muted-foreground mt-1">Proposed circular charging hub concept — all figures are sample data, not a live site</p>
         </div>
-        <Badge className="bg-primary text-primary-foreground px-4 py-2">
+        <Badge variant="outline" className="px-4 py-2">
           <Activity className="h-4 w-4 mr-2" />
-          Live Demo
+          Concept demo
         </Badge>
       </div>
 
@@ -232,7 +232,7 @@ export default function Hub3DDemo() {
           <Card className="p-4">
             <h3 className="font-semibold mb-4 flex items-center gap-2">
               <Activity className="h-4 w-4" />
-              Real-Time Analytics
+              Sample Analytics (not live)
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
@@ -304,7 +304,7 @@ export default function Hub3DDemo() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">UnityLink Integration</p>
-              <p className="text-xl font-bold">Active</p>
+              <p className="text-xl font-bold">Proposed</p>
             </div>
           </div>
         </div>

@@ -80,6 +80,9 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ onSearch }) => {
           Search
         </Button>
       </form>
+      <p className="mt-3 text-xs text-white/50">
+        Search filters our sample vehicle catalog only. Locations and dates are illustrative; live availability is not connected.
+      </p>
     </div>
   );
 };
