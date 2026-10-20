@@ -29,7 +29,7 @@ export interface MonthlyEstimate {
   excludes: string[];
 }
 
-export const isApproved = () => CATALOG_STATUS === 'approved';
+export const isApproved = (): boolean => (CATALOG_STATUS as ApprovalStatus) === 'approved';
 
 export const getVehicle = (id?: string): Vehicle | undefined =>
   vehicles.find((v) => v.id === id || v.model.toLowerCase() === id?.toLowerCase());
