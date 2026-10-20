@@ -81,7 +81,7 @@ const VehiclesList: React.FC = () => {
     }
     
     setFilteredVehicles(result);
-  }, [filters]);
+  }, [filters, searchQuery]);
 
   const handleTypeChange = (type: 'sedan' | 'suv' | 'truck' | 'sports', checked: boolean | 'indeterminate') => {
     if (checked === 'indeterminate') return;
@@ -125,6 +125,14 @@ const VehiclesList: React.FC = () => {
           <p className="text-lg text-white/70 max-w-3xl mx-auto">
             Browse our selection of premium electric vehicles available for subscription
           </p>
+          <p className="mt-3 text-sm text-white/50 max-w-3xl mx-auto">
+            Sample catalog — prices are pending confirmation and live availability is not connected.
+          </p>
+          {searchQuery && (
+            <p className="mt-2 text-sm text-tesla-blue">
+              Showing results for &ldquo;{searchQuery}&rdquo;
+            </p>
+          )}
         </div>
         
         {/* Mobile Filter Button */}
