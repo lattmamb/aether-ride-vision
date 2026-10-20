@@ -18,6 +18,7 @@ import AutonomousCTA from '@/components/AutonomousCTA';
 import ContactSection from '@/components/ContactSection';
 
 const Index = () => {
+  const navigate = useNavigate();
   return (
     <MainLayout>
       <Hero />
