@@ -138,6 +138,7 @@ export default function Notifications() {
           <p className="text-muted-foreground mt-1">
             {unreadCount > 0 ? `You have ${unreadCount} unread notifications` : 'All caught up!'}
           </p>
+          <p className="text-xs text-muted-foreground mt-1">Sample notifications — no live notification service is connected.</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={markAllAsRead} disabled={unreadCount === 0}>

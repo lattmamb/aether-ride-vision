@@ -124,7 +124,7 @@ export default function Settings() {
                 </div>
                 <Switch checked={darkMode} onCheckedChange={(checked) => {
                   setDarkMode(checked);
-                  toast.success(`${checked ? 'Dark' : 'Light'} mode enabled`);
+                  toast.info('Demo preference — applies to this session only and is not saved');
                 }} />
               </div>
 
@@ -210,7 +210,7 @@ export default function Settings() {
                 </div>
                 <Switch checked={emailNotifications} onCheckedChange={(checked) => {
                   setEmailNotifications(checked);
-                  toast.success(`Email notifications ${checked ? 'enabled' : 'disabled'}`);
+                  toast.info('Demo preference — not saved; no notification service is connected');
                 }} />
               </div>
 
@@ -221,7 +221,7 @@ export default function Settings() {
                 </div>
                 <Switch checked={pushNotifications} onCheckedChange={(checked) => {
                   setPushNotifications(checked);
-                  toast.success(`Push notifications ${checked ? 'enabled' : 'disabled'}`);
+                  toast.info('Demo preference — not saved; no notification service is connected');
                 }} />
               </div>
 
