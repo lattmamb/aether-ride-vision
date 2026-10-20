@@ -37,7 +37,7 @@ export default function MobilePreview() {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-sm font-medium">Standard Take-Home Plan</p>
-                  <Badge className="mt-1" variant="secondary">ACTIVE</Badge>
+                  <Badge className="mt-1" variant="outline">SAMPLE</Badge>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
